@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_18.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_21.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -924,10 +924,15 @@ function renderMyRecords() {
   const deptF = document.getElementById('fr-dept').value;
   const weekF = document.getElementById('fr-week').value;
   // Supervisor can ONLY see their own records
-  const myRecs = records.filter(r=>String(r.sup)===String(currentUser.code)&&(!deptF||r.dept===deptF)&&(!weekF||r.week===weekF));
+  const myRecs = records.filter(r=>String(r.sup).trim()===String(currentUser.code).trim()&&(!deptF||r.dept===deptF)&&(!weekF||r.week===weekF));
   const el = document.getElementById('myrecords-list');
+  // Debug: show what we're filtering
+  if(myRecs.length===0 && records.length>0) {
+    const supCodes = [...new Set(records.map(r=>String(r.sup).trim()))];
+    console.log('My code:', currentUser.code, '| Found sup codes:', supCodes);
+  }
   // Populate week filter
-  const weeks = [...new Set(records.filter(r=>r.sup===currentUser.code).map(r=>r.week))].sort().reverse();
+  const weeks = [...new Set(records.filter(r=>String(r.sup).trim()===String(currentUser.code).trim()).map(r=>r.week))].sort().reverse();
   const wSel = document.getElementById('fr-week');
   const curW = wSel.value;
   wSel.innerHTML='<option value="">All Weeks</option>'+weeks.map(w=>`<option value="${w}"${w===curW?' selected':''}>${weekToLabel(w)}</option>`).join('');
