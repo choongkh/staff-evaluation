@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_11.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_12.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CH Cash &amp; Carry - Staff Evaluation</title>
-<link href="./INDEX_files/css2" rel="stylesheet">
+<link href="./index_files/css2" rel="stylesheet">
 <style>
 :root {
   --primary: #0f2744;
@@ -179,7 +179,7 @@ textarea{resize:vertical;min-height:65px}
 <body>
 
 <!-- ===== LOGIN ===== -->
-<div class="login-screen" id="login-screen">
+<div class="login-screen" id="login-screen" style="display: flex;">
   <div class="login-box">
     <div class="login-logo">
       <div class="logo-icon">⭐</div>
@@ -257,7 +257,7 @@ textarea{resize:vertical;min-height:65px}
   <div class="header">
     <div class="header-left">
       <h2 id="app-title">CH CASH &amp; CARRY</h2>
-      <span id="app-user"></span>
+      <span id="app-user">HANA</span>
     </div>
     <div class="header-right">
       <button class="logout-btn" onclick="cycleLang()" id="lang-btn">中文</button>
@@ -265,7 +265,16 @@ textarea{resize:vertical;min-height:65px}
     </div>
   </div>
 
-  <div class="nav-tabs" id="nav-tabs"></div>
+  <div class="nav-tabs" id="nav-tabs">
+    <div class="nav-tab active" onclick="showPage(&#39;myscore&#39;)" id="tab-myscore">
+      <span class="ti">⭐</span>我的分数 / My Score
+    </div>
+    <div class="nav-tab" onclick="showPage(&#39;feedback&#39;)" id="tab-feedback">
+      <span class="ti">💬</span>意见 / Feedback
+    </div>
+    <div class="nav-tab" onclick="showPage(&#39;appeal&#39;)" id="tab-appeal">
+      <span class="ti">⚠️</span>申诉 / Appeal
+    </div></div>
 
   <!-- SUPERVISOR PAGES -->
   <!-- Evaluate -->
@@ -294,7 +303,7 @@ textarea{resize:vertical;min-height:65px}
       </div>
       <div class="form-group">
         <label class="form-label" id="lbl-empweek">评估周 / Minggu / Week</label>
-        <select id="emp_week"></select>
+        <select id="emp_week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
       </div>
     </div>
 
@@ -392,8 +401,45 @@ textarea{resize:vertical;min-height:65px}
 
   <!-- EMPLOYEE PAGES -->
   <!-- My Score -->
-  <div class="page" id="page-myscore">
-    <div id="myscore-content"></div>
+  <div class="page active" id="page-myscore">
+    <div id="myscore-content">
+    <div class="my-score-card">
+      <div style="font-size:12px;opacity:0.75;margin-bottom:4px">Latest · 第2周 Jun (08/06-14/06)</div>
+      <div style="font-size:22px;font-weight:800;margin-bottom:2px">HANA</div>
+      <div style="font-size:13px;opacity:0.8">Cashier</div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:12px">
+        <div><div style="font-size:36px;font-weight:800">20</div><div style="font-size:11px;opacity:0.7">/30 points</div></div>
+        <div style="background:rgba(255,255,255,0.2);border-radius:12px;padding:10px 16px;text-align:center">
+          <div style="font-size:24px;font-weight:800">Grade C</div>
+        </div>
+      </div>
+      <script>setTimeout(()=>{const bn=document.getElementById('bonus-note');if(bn)bn.textContent='本月 1/4 周 · 月均 20.0/30 · 基本RM100 × 25% = RM25';},10);</script>
+    <button class="confirm-btn" onclick="confirmScore(1780901590624)">✅ Confirm Score 确认分数</button>
+    </div>
+    <div class="bonus-banner">
+      <div><div class="bonus-label">This Month Bonus Estimate · 奖金估算</div><div style="font-size:11px;opacity:0.8;margin-top:2px">Based on latest week score</div></div>
+      <div><div class="bonus-amount">RM 25</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Score Breakdown</div>
+      
+        <div class="mscore-row"><div>Attendance &amp; Punctuality 出勤与守时</div><div style="font-weight:700;color:var(--primary)">4/5 🟢</div></div>
+        <div class="mscore-row"><div>Work Attitude 工作态度</div><div style="font-weight:700;color:var(--primary)">2/5 🟡</div></div>
+        <div class="mscore-row"><div>Cleanliness 卫生与整洁</div><div style="font-weight:700;color:var(--primary)">5/5 🌟</div></div>
+        <div class="mscore-row"><div>Customer Service 服务态度</div><div style="font-weight:700;color:var(--primary)">2/5 🟡</div></div>
+        <div class="mscore-row"><div>Teamwork 团队合作</div><div style="font-weight:700;color:var(--primary)">2/5 🟡</div></div>
+        <div class="mscore-row"><div>Efficiency 效率与执行力</div><div style="font-weight:700;color:var(--primary)">5/5 🌟</div></div>
+    </div>
+    <div class="card"><div class="card-title">💪 Strengths</div><p style="font-size:13px">slow</p></div>
+    <div class="card"><div class="card-title">🎯 Next Month Target</div><p style="font-size:13px">slow</p></div>
+    <div class="card">
+      <div class="card-title">📅 History</div>
+      
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+          <div><div style="font-size:13px;font-weight:600">第2周 Jun (08/06-14/06)</div><div style="font-size:11px;color:var(--muted)">Cashier</div></div>
+          <div class="badge bC">Grade C · 20/30</div>
+        </div>
+    </div></div>
   </div>
 
   <!-- Feedback -->
@@ -403,7 +449,7 @@ textarea{resize:vertical;min-height:65px}
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px" id="lbl-fbnote">Your feedback is confidential. Only HR can see this.</p>
       <div class="form-group">
         <label class="form-label">评估周 / Week</label>
-        <select id="fb-week"></select>
+        <select id="fb-week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
       </div>
       <div class="form-group">
         <label class="form-label">你的意见 / Your Feedback / Maklum Balas Anda</label>
@@ -420,7 +466,7 @@ textarea{resize:vertical;min-height:65px}
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px" id="lbl-apnote">不服分数可以在这里申诉，HR会处理。</p>
       <div class="form-group">
         <label class="form-label">评估周 / Week</label>
-        <select id="ap-week"></select>
+        <select id="ap-week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
       </div>
       <div class="form-group">
         <label class="form-label">申诉原因 / Reason for Appeal</label>
@@ -428,10 +474,12 @@ textarea{resize:vertical;min-height:65px}
       </div>
       <button class="btn-primary" onclick="submitAppeal()">📤 Submit Appeal 提交申诉</button>
     </div>
-    <div class="card">
-      <div class="card-title">我的申诉记录 / My Appeals</div>
-      <div id="my-appeals-list"></div>
-    </div>
+    <div id="my-appeals-list" style="margin-top:12px">
+    <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:14px;text-align:center">
+      <div style="font-size:20px;margin-bottom:6px">✅</div>
+      <div style="font-size:13px;font-weight:700;color:#065f46">申诉已提交！HR会尽快处理。</div>
+      <div style="font-size:12px;color:#047857;margin-top:3px">Appeal submitted. HR will process it soon.</div>
+    </div></div>
   </div>
 
   <!-- HR PAGES -->
@@ -439,18 +487,18 @@ textarea{resize:vertical;min-height:65px}
   <div class="page" id="page-hrdash">
     <button onclick="refreshAllData()" style="width:100%;padding:10px;background:#3b82f6;color:white;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:12px">🔄 Refresh / 刷新数据</button>
     <div class="stat-grid">
-      <div class="stat-box"><div class="stat-num" id="hr-stat-total">0</div><div class="stat-label">Total Records</div></div>
-      <div class="stat-box"><div class="stat-num" id="hr-stat-avg">-</div><div class="stat-label">Overall Avg</div></div>
-      <div class="stat-box"><div class="stat-num" id="hr-stat-week">0</div><div class="stat-label">This Week</div></div>
+      <div class="stat-box"><div class="stat-num" id="hr-stat-total">1</div><div class="stat-label">Total Records</div></div>
+      <div class="stat-box"><div class="stat-num" id="hr-stat-avg">20.0</div><div class="stat-label">Overall Avg</div></div>
+      <div class="stat-box"><div class="stat-num" id="hr-stat-week">1</div><div class="stat-label">This Week</div></div>
       <div class="stat-box"><div class="stat-num" id="hr-stat-gradeA">0</div><div class="stat-label">Grade A ⭐</div></div>
     </div>
     <div class="card">
       <div class="card-title">⚠️ Supervisor Bias Warning</div>
-      <div id="bias-warnings"></div>
+      <div id="bias-warnings"><p style="font-size:13px;color:var(--green);font-weight:600">✅ No bias detected. All supervisors scoring fairly.</p></div>
     </div>
     <div class="card">
       <div class="card-title">📊 Department Average</div>
-      <div id="dept-bars"></div>
+      <div id="dept-bars"><div class="dbar-row"><div class="dbar-label">Cashier</div><div class="dbar-track"><div class="dbar-fill" style="width:67%"></div></div><div class="dbar-val">20.0</div></div></div>
     </div>
   </div>
 
@@ -478,13 +526,18 @@ textarea{resize:vertical;min-height:65px}
         <option value="K0001">KAMRUL</option>
       </select>
     </div>
-    <div id="hr-records-list"></div>
+    <div id="hr-records-list">
+    <div class="record-card" onclick="showDetail(1780901590624)">
+      <div class="record-header"><div class="record-name">HANA</div><div class="badge bC">Grade C · 20/30</div></div>
+      <div class="record-meta">Cashier · CHONG CHING CHIEN · 第2周 Jun (08/06-14/06) </div>
+      <div class="score-pills"><span class="pill">出勤: 4</span><span class="pill">态度: 2</span><span class="pill">卫生: 5</span><span class="pill">服务: 2</span><span class="pill">团队: 2</span><span class="pill">效率: 5</span></div>
+    </div></div>
   </div>
 
   <!-- HR Monthly + Bonus -->
   <div class="page" id="page-hrmonthly">
     <div style="display:flex;gap:8px;margin-bottom:12px">
-      <select id="hr-month-sel" onchange="renderHRMonthly()" style="flex:1"></select>
+      <select id="hr-month-sel" onchange="renderHRMonthly()" style="flex:1"><option value="2026-06" selected="">2026年6月</option><option value="2026-05">2026年5月</option><option value="2026-04">2026年4月</option><option value="2026-03">2026年3月</option><option value="2026-02">2026年2月</option><option value="2026-01">2026年1月</option></select>
       <select id="hr-month-dept" onchange="renderHRMonthly()" style="flex:1">
         <option value="">All Depts</option>
         <option value="Wet Market">Wet Market</option>
@@ -495,7 +548,21 @@ textarea{resize:vertical;min-height:65px}
         <option value="Cashier">Cashier</option>
       </select>
     </div>
-    <div id="hr-monthly-list"></div>
+    <button onclick="exportBonus()" style="width:100%;padding:11px;background:#10b981;color:white;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:12px">📥 导出奖金表 / Export Bonus CSV</button>
+    <div id="hr-monthly-list"><div class="month-emp-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div>
+          <div style="font-size:14px;font-weight:700">HANA </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">Cashier · 1 week(s) this month · CHONG CHING CHIEN</div>
+        </div>
+        <div style="text-align:right">
+          <div style="background:#f59e0b;color:white;border-radius:10px;padding:4px 10px;font-size:12px;font-weight:800">avg 20.0</div>
+          <div style="font-size:13px;font-weight:800;color:#10b981;margin-top:4px">RM 25</div>
+          <div style="font-size:10px;color:#6b7e94;margin-top:2px">1/4周 · 25%</div>
+        </div>
+      </div>
+      <div class="week-row"><span class="week-num">Week 1</span><span class="missing">— Not evaluated</span></div><div class="week-row"><span class="week-num">Week 2</span><span class="missing">— Not evaluated</span></div><div class="week-row"><span class="week-num">Week 3</span><div class="wbar-track"><div class="wbar-fill" style="width:67%;background:#f59e0b"></div></div><span class="week-val">20</span></div><div class="week-row"><span class="week-num">Week 4</span><span class="missing">— Not evaluated</span></div><div class="week-row"><span class="week-num">Week 5</span><span class="missing">— Not evaluated</span></div><div class="week-row"><span class="week-num">Week 6</span><span class="missing">— Not evaluated</span></div>
+    </div></div>
   </div>
 
   <!-- HR Feedback (hidden from supervisors) -->
@@ -505,7 +572,7 @@ textarea{resize:vertical;min-height:65px}
 
   <!-- HR Appeals -->
   <div class="page" id="page-hrappeals">
-    <div id="hr-appeals-list"></div>
+    <div id="hr-appeals-list"><div class="empty"><div class="ei">⚠️</div><p>No appeals submitted</p></div></div>
   </div>
 
 </div>
@@ -519,7 +586,7 @@ textarea{resize:vertical;min-height:65px}
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" style="background: rgb(245, 158, 11);">⚠️ Using local data (offline)</div>
 
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywZWDkWtt3UPtSwPbU1nTr9iiOHhusFqnb1sNGc5k4lWlSYg51VUDBTTWsDfAg7cws1Q/exec';
@@ -547,6 +614,11 @@ const BONUS_TABLE = [
 function calcBonus(avg) {
   for (const b of BONUS_TABLE) if (avg >= b.min && avg <= b.max) return b.amount;
   return 0;
+}
+function calcFinalBonus(avg, weekCount) {
+  const base = calcBonus(avg);
+  const multiplier = weekCount >= 4 ? 1 : weekCount === 3 ? 0.75 : weekCount === 2 ? 0.5 : weekCount === 1 ? 0.25 : 0;
+  return Math.round(base * multiplier);
 }
 
 let currentRole = null;
@@ -765,7 +837,7 @@ function showPage(name) {
   if (name==='hrfeedback') { renderHRFeedback(); }
   if (name==='hrappeals') { renderHRAppeals(); }
   if (name==='myscore') { loadFromCloud(()=>renderMyScore()); }
-  if (name==='appeal') { loadFromCloud(()=>renderMyAppeals()); }
+  if (name==='appeal') { document.getElementById('my-appeals-list').innerHTML=''; }
 }
 
 // ===== SCORING =====
@@ -878,9 +950,11 @@ function renderMyScore() {
   const monthWeeks = getWeeksInMonth(now.getFullYear(), now.getMonth());
   const monthRecs = myRecs.filter(r => monthWeeks.includes(r.week));
   const monthAvg = monthRecs.length ? monthRecs.reduce((s,r)=>s+(Number(r.total)||0),0)/monthRecs.length : (Number(latest.total)||0);
-  const bonus = calcBonus(Math.round(monthAvg));
-  const monthNames2 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const bonusNote = `本月第${monthRecs.length}周记录 · 月均 ${monthAvg.toFixed(1)}/30 → RM ${bonus} | ${monthRecs.length} week(s) this month`;
+  const weekCount = monthRecs.length;
+  const bonus = calcFinalBonus(Math.round(monthAvg), weekCount);
+  const baseBonus = calcBonus(Math.round(monthAvg));
+  const pct = weekCount>=4?100:weekCount===3?75:weekCount===2?50:weekCount===1?25:0;
+  const bonusNote = `本月 ${weekCount}/4 周 · 月均 ${monthAvg.toFixed(1)}/30 · 基本RM${baseBonus} × ${pct}% = RM${bonus}`;
   el.innerHTML = `
     <div class="my-score-card">
       <div style="font-size:12px;opacity:0.75;margin-bottom:4px">Latest · ${weekToLabel(String(latest.week))||latest.week}</div>
@@ -946,7 +1020,15 @@ async function submitAppeal() {
   saveAll();
   postToCloud({type:'appeal',...ap});
   document.getElementById('ap-text').value='';
-  renderMyAppeals();
+  document.getElementById('ap-week').value='';
+  setDefaultWeek();
+  // Don't show appeal list - confidential
+  document.getElementById('my-appeals-list').innerHTML=`
+    <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:14px;text-align:center">
+      <div style="font-size:20px;margin-bottom:6px">✅</div>
+      <div style="font-size:13px;font-weight:700;color:#065f46">申诉已提交！HR会尽快处理。</div>
+      <div style="font-size:12px;color:#047857;margin-top:3px">Appeal submitted. HR will process it soon.</div>
+    </div>`;
   showToast('✅ Appeal submitted!','#f59e0b');
 }
 
@@ -1065,7 +1147,10 @@ function renderHRMonthly() {
     const avg=scored.length?(scored.reduce((s,e)=>s+e.record.total,0)/scored.length):0;
     const avgDisp=scored.length?avg.toFixed(1):'-';
     const grade=avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
-    const bonus=scored.length?calcBonus(Math.round(avg)):0;
+    const weekCount=scored.length;
+    const bonus=scored.length?calcFinalBonus(Math.round(avg),weekCount):0;
+    const baseBonus=calcBonus(Math.round(avg));
+    const pct=weekCount>=4?100:weekCount===3?75:weekCount===2?50:weekCount===1?25:0;
     const gColor=grade==='A'?'#10b981':grade==='B'?'#3b82f6':grade==='C'?'#f59e0b':'#ef4444';
     const scoredArr=scored.map(e=>e.record.total);
     let trend='';
@@ -1079,6 +1164,7 @@ function renderHRMonthly() {
         <div style="text-align:right">
           <div style="background:${gColor};color:white;border-radius:10px;padding:4px 10px;font-size:12px;font-weight:800">avg ${avgDisp}</div>
           <div style="font-size:13px;font-weight:800;color:#10b981;margin-top:4px">RM ${bonus}</div>
+          <div style="font-size:10px;color:#6b7e94;margin-top:2px">${weekCount}/4周 · ${pct}%</div>
         </div>
       </div>
       ${wEntries.map((e,i)=>{
@@ -1156,6 +1242,69 @@ function closeModalDirect(){document.getElementById('modal-overlay').classList.r
 // ===== HELPERS =====
 function cName(k){return{c1:'出勤',c2:'态度',c3:'卫生',c4:'服务',c5:'团队',c6:'效率'}[k]||k;}
 function cNameFull(k){return{c1:'Attendance & Punctuality 出勤与守时',c2:'Work Attitude 工作态度',c3:'Cleanliness 卫生与整洁',c4:'Customer Service 服务态度',c5:'Teamwork 团队合作',c6:'Efficiency 效率与执行力'}[k]||k;}
+
+function exportBonus() {
+  const monthVal = document.getElementById('hr-month-sel').value;
+  const dF = document.getElementById('hr-month-dept').value;
+  const [year, month] = monthVal.split('-').map(Number);
+  const weeks = getWeeksInMonth(year, month-1);
+  const mRecs = records.filter(r => weeks.includes(r.week));
+  const filtered = dF ? mRecs.filter(r=>r.dept===dF) : mRecs;
+
+  // Group by employee
+  const empMap = {};
+  filtered.forEach(r => {
+    const key = r.name;
+    if (!empMap[key]) empMap[key] = { name:r.name, dept:r.dept, sup:r.supName||r.sup, weeks:{} };
+    if (!empMap[key].weeks[r.week] || r.id > empMap[key].weeks[r.week].id) {
+      empMap[key].weeks[r.week] = r;
+    }
+  });
+
+  const monthName = `${year}-${String(month).padStart(2,'0')}`;
+  let csv = '﻿'; // BOM for Excel Chinese support
+  csv += `CH CASH & CARRY SDN BHD - 奖金报告 Bonus Report
+`;
+  csv += `月份 Month:,${monthName}
+
+`;
+  csv += `员工姓名,部门,主管,第1周,第2周,第3周,第4周,完成周数,月均分,等级,基本奖金,比例,最终奖金
+`;
+  csv += `Employee Name,Department,Supervisor,Week1,Week2,Week3,Week4,Weeks Done,Avg Score,Grade,Base Bonus,Ratio,Final Bonus
+`;
+
+  const emps = Object.values(empMap).sort((a,b)=>a.dept.localeCompare(b.dept)||a.name.localeCompare(b.name));
+  let totalBonus = 0;
+
+  emps.forEach(emp => {
+    const wEntries = weeks.map(w => emp.weeks[w]||null);
+    const scored = wEntries.filter(e=>e);
+    const avg = scored.length ? scored.reduce((s,r)=>s+Number(r.total),0)/scored.length : 0;
+    const weekCount = scored.length;
+    const base = calcBonus(Math.round(avg));
+    const pct = weekCount>=4?100:weekCount===3?75:weekCount===2?50:weekCount===1?25:0;
+    const final = Math.round(base * pct / 100);
+    const grade = avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
+    totalBonus += final;
+    const weekScores = wEntries.map(e=>e?e.total:'-').join(',');
+    csv += `${emp.name},${emp.dept},${emp.sup},${weekScores},${weekCount}/4,${scored.length?avg.toFixed(1):'-'},${scored.length?grade:'-'},RM ${base},${pct}%,RM ${final}
+`;
+  });
+
+  csv += `
+总计 TOTAL,,,,,,,,,,,, RM ${totalBonus}
+`;
+
+  // Download
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `CH_CashCarry_Bonus_${monthName}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ 奖金表已导出！','#10b981');
+}
 
 function refreshAllData() {
   loadFromCloud(() => {
