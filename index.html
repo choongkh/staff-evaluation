@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_17.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_18.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CH Cash &amp; Carry - Staff Evaluation</title>
-<link href="./index.html_files/css2" rel="stylesheet">
+<link href="./index_files/css2" rel="stylesheet">
 <style>
 :root {
   --primary: #0f2744;
@@ -600,7 +600,6 @@ function saveAll() {
 }
 
 async function loadFromCloud(callback) {
-  showToast('🔄 Syncing data...','#3b82f6');
   try {
     const rRes = await fetch(SCRIPT_URL + '?type=records');
     const rData = await rRes.json();
@@ -621,7 +620,6 @@ async function loadFromCloud(callback) {
       if (Array.isArray(tData)) targetReports = tData;
     } catch(e){}
     saveAll();
-    showToast('✅ Data synced!','#10b981');
     if(callback) callback();
   } catch(e) {
     showToast('⚠️ Using local data (offline)','#f59e0b');
@@ -753,12 +751,50 @@ function startApp() {
   document.getElementById('app').classList.add('show');
   document.getElementById('app-user').textContent = currentUser.name;
   buildNav();
-  // Load from cloud then render
-  loadFromCloud(() => {
-    if (currentRole==='supervisor') { showPage('evaluate'); setDefaultWeek(); }
-    else if (currentRole==='employee') { setDefaultWeek(); showPage('myscore'); renderMyScore(); }
-    else if (currentRole==='hr') { showPage('hrdash'); renderHRDash(); initHRMonthSel(); }
-  });
+  // Show local data immediately
+  if (currentRole==='supervisor') { showPage('evaluate'); setDefaultWeek(); renderMyRecords(); }
+  else if (currentRole==='employee') { setDefaultWeek(); showPage('myscore'); renderMyScore(); }
+  else if (currentRole==='hr') { showPage('hrdash'); renderHRDash(); initHRMonthSel(); }
+  // Sync cloud in background silently
+  syncCloudBackground();
+}
+
+async function syncCloudBackground() {
+  try {
+    const rRes = await fetch(SCRIPT_URL + '?type=records');
+    const rData = await rRes.json();
+    if (Array.isArray(rData) && rData.length >= 0) {
+      records = rData;
+      localStorage.setItem('evalRecords', JSON.stringify(records));
+    }
+    try {
+      const fRes = await fetch(SCRIPT_URL + '?type=feedbacks');
+      const fData = await fRes.json();
+      if (Array.isArray(fData)) { feedbacks = fData; localStorage.setItem('evalFeedbacks', JSON.stringify(feedbacks)); }
+    } catch(e){}
+    try {
+      const aRes = await fetch(SCRIPT_URL + '?type=appeals');
+      const aData = await aRes.json();
+      if (Array.isArray(aData)) { appeals = aData; localStorage.setItem('evalAppeals', JSON.stringify(appeals)); }
+    } catch(e){}
+    try {
+      const tRes = await fetch(SCRIPT_URL + '?type=targetreports');
+      const tData = await tRes.json();
+      if (Array.isArray(tData)) { targetReports = tData; localStorage.setItem('evalTargetReports', JSON.stringify(targetReports)); }
+    } catch(e){}
+    // Silently refresh current page after sync
+    const activePage = document.querySelector('.page.active');
+    if(activePage) {
+      const id = activePage.id.replace('page-','');
+      if(id==='myrecords') renderMyRecords();
+      else if(id==='hrdash') renderHRDash();
+      else if(id==='hrrecords') renderHRRecords();
+      else if(id==='hrmonthly') renderHRMonthly();
+      else if(id==='hrfeedback') renderHRFeedback();
+      else if(id==='hrappeals') renderHRAppeals();
+      else if(id==='myscore') renderMyScore();
+    }
+  } catch(e) {}
 }
 
 // ===== NAV =====
