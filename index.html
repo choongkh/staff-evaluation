@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_21.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_22.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -627,9 +627,9 @@ async function loadFromCloud(callback) {
   }
 }
 
-async function postToCloud(data) {
+function postToCloud(data) {
   try {
-    fetch(SCRIPT_URL, { method:'POST', body:JSON.stringify(data) });
+    fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
   } catch(e) {}
 }
 
@@ -759,42 +759,46 @@ function startApp() {
   syncCloudBackground();
 }
 
-async function syncCloudBackground() {
-  try {
-    const rRes = await fetch(SCRIPT_URL + '?type=records');
-    const rData = await rRes.json();
-    if (Array.isArray(rData) && rData.length >= 0) {
-      records = rData;
-      localStorage.setItem('evalRecords', JSON.stringify(records));
-    }
-    try {
-      const fRes = await fetch(SCRIPT_URL + '?type=feedbacks');
-      const fData = await fRes.json();
-      if (Array.isArray(fData)) { feedbacks = fData; localStorage.setItem('evalFeedbacks', JSON.stringify(feedbacks)); }
-    } catch(e){}
-    try {
-      const aRes = await fetch(SCRIPT_URL + '?type=appeals');
-      const aData = await aRes.json();
-      if (Array.isArray(aData)) { appeals = aData; localStorage.setItem('evalAppeals', JSON.stringify(appeals)); }
-    } catch(e){}
-    try {
-      const tRes = await fetch(SCRIPT_URL + '?type=targetreports');
-      const tData = await tRes.json();
-      if (Array.isArray(tData)) { targetReports = tData; localStorage.setItem('evalTargetReports', JSON.stringify(targetReports)); }
-    } catch(e){}
-    // Silently refresh current page after sync
-    const activePage = document.querySelector('.page.active');
-    if(activePage) {
-      const id = activePage.id.replace('page-','');
-      if(id==='myrecords') renderMyRecords();
-      else if(id==='hrdash') renderHRDash();
-      else if(id==='hrrecords') renderHRRecords();
-      else if(id==='hrmonthly') renderHRMonthly();
-      else if(id==='hrfeedback') renderHRFeedback();
-      else if(id==='hrappeals') renderHRAppeals();
-      else if(id==='myscore') renderMyScore();
-    }
-  } catch(e) {}
+function jsonpFetch(type, callback) {
+  const cbName = 'cb_' + type + '_' + Date.now();
+  window[cbName] = function(data) {
+    callback(data);
+    delete window[cbName];
+    const script = document.getElementById(cbName);
+    if(script) script.remove();
+  };
+  const script = document.createElement('script');
+  script.id = cbName;
+  script.src = SCRIPT_URL + '?type=' + type + '&callback=' + cbName;
+  script.onerror = function() { callback(null); delete window[cbName]; script.remove(); };
+  document.head.appendChild(script);
+}
+
+function syncCloudBackground() {
+  jsonpFetch('records', function(data) {
+    if(Array.isArray(data)) { records = data; localStorage.setItem('evalRecords', JSON.stringify(records)); }
+    jsonpFetch('feedbacks', function(fData) {
+      if(Array.isArray(fData)) { feedbacks = fData; localStorage.setItem('evalFeedbacks', JSON.stringify(feedbacks)); }
+      jsonpFetch('appeals', function(aData) {
+        if(Array.isArray(aData)) { appeals = aData; localStorage.setItem('evalAppeals', JSON.stringify(appeals)); }
+        jsonpFetch('targetreports', function(tData) {
+          if(Array.isArray(tData)) { targetReports = tData; localStorage.setItem('evalTargetReports', JSON.stringify(targetReports)); }
+          // Refresh current page silently
+          const activePage = document.querySelector('.page.active');
+          if(activePage) {
+            const id = activePage.id.replace('page-','');
+            if(id==='myrecords') renderMyRecords();
+            else if(id==='hrdash') renderHRDash();
+            else if(id==='hrrecords') renderHRRecords();
+            else if(id==='hrmonthly') renderHRMonthly();
+            else if(id==='hrfeedback') renderHRFeedback();
+            else if(id==='hrappeals') renderHRAppeals();
+            else if(id==='myscore') renderMyScore();
+          }
+        });
+      });
+    });
+  });
 }
 
 // ===== NAV =====
