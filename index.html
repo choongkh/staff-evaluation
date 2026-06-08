@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_34.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_35.html -->
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -359,19 +359,34 @@ function save(){
   localStorage.setItem('ev_tr',JSON.stringify(targetReports));
 }
 
-// JSONP fetch
+// Fetch using no-cors workaround via Google Apps Script URL redirect
 function jfetch(type, cb){
-  const name='_cb_'+Date.now();
-  window[name]=function(d){cb(d);delete window[name];const s=document.getElementById(name);if(s)s.remove();};
+  // Use fetch with mode no-cors won't work for reading data
+  // Instead use a proxy approach - load as script tag with callback
+  const name='_cb_'+type+'_'+Date.now();
+  let done=false;
+  const timeout=setTimeout(()=>{
+    if(!done){done=true;cb(null);delete window[name];const s=document.getElementById(name);if(s)s.remove();}
+  },8000);
+  window[name]=function(d){
+    if(!done){done=true;clearTimeout(timeout);cb(d);delete window[name];const s=document.getElementById(name);if(s)s.remove();}
+  };
   const s=document.createElement('script');
   s.id=name;
-  s.src=SCRIPT_URL+'?type='+type+'&callback='+name;
-  s.onerror=function(){cb(null);delete window[name];s.remove();};
+  s.src=SCRIPT_URL+'?type='+type+'&callback='+name+'&t='+Date.now();
+  s.onerror=function(){if(!done){done=true;clearTimeout(timeout);cb(null);delete window[name];s.remove();}};
   document.head.appendChild(s);
 }
 
 function post(data){
-  try{fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});}catch(e){}
+  // Use fetch with text/plain to avoid CORS preflight
+  try{
+    fetch(SCRIPT_URL,{
+      method:'POST',
+      mode:'no-cors',
+      body:JSON.stringify(data)
+    });
+  }catch(e){}
 }
 
 function showLoading(){
