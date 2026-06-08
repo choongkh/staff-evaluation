@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_22.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_26.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -592,6 +592,16 @@ try { feedbacks = JSON.parse(localStorage.getItem('evalFeedbacks')||'[]'); } cat
 try { appeals = JSON.parse(localStorage.getItem('evalAppeals')||'[]'); } catch(e){}
 try { targetReports = JSON.parse(localStorage.getItem('evalTargetReports')||'[]'); } catch(e){}
 
+// Restore session if page was refreshed
+try {
+  const savedRole = localStorage.getItem('sessionRole');
+  const savedUser = localStorage.getItem('sessionUser');
+  if(savedRole && savedUser) {
+    currentRole = savedRole;
+    currentUser = JSON.parse(savedUser);
+  }
+} catch(e){}
+
 function saveAll() {
   localStorage.setItem('evalRecords', JSON.stringify(records));
   localStorage.setItem('evalFeedbacks', JSON.stringify(feedbacks));
@@ -736,6 +746,8 @@ function loginHR() {
 
 function logout() {
   currentRole = null; currentUser = null;
+  localStorage.removeItem('sessionRole');
+  localStorage.removeItem('sessionUser');
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('app').classList.remove('show');
   document.querySelectorAll('.login-form').forEach(f=>f.classList.remove('show'));
@@ -747,6 +759,9 @@ function logout() {
 }
 
 function startApp() {
+  // Save session to localStorage
+  localStorage.setItem('sessionRole', currentRole);
+  localStorage.setItem('sessionUser', JSON.stringify(currentUser));
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').classList.add('show');
   document.getElementById('app-user').textContent = currentUser.name;
@@ -1486,6 +1501,13 @@ function showToast(msg,color){
   t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2800);
 }
+
+// Auto-restore session on page load
+(function() {
+  if(currentRole && currentUser) {
+    startApp();
+  }
+})();
 
 // ===== LANGUAGE =====
 const LANGS = ['中文','BM','EN'];
