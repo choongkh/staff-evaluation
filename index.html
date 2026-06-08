@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_15.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_17.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CH Cash &amp; Carry - Staff Evaluation</title>
-<link href="./index_files/css2" rel="stylesheet">
+<link href="./index.html_files/css2" rel="stylesheet">
 <style>
 :root {
   --primary: #0f2744;
@@ -431,6 +431,32 @@ textarea{resize:vertical;min-height:65px}
     <div id="my-appeals-list" style="margin-top:12px"></div>
   </div>
 
+  <!-- EMPLOYEE TARGET REPORT PAGE -->
+  <div class="page" id="page-targetreport">
+    <div class="card">
+      <div class="card-title">🎯 目标回报 / Laporan Sasaran / Target Report</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px">
+        每月最少2次，最多4次回报。主管和HR都可以看到。<br>
+        Min 2, max 4 reports per month. Visible to supervisor &amp; HR.
+      </p>
+      <div class="form-group">
+        <label class="form-label">月份 / Month</label>
+        <select id="tr-month"></select>
+      </div>
+      <div id="tr-last-target" style="background:#f0f4f9;border-radius:10px;padding:12px;margin-bottom:12px;display:none">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px">🎯 主管设定的目标 / Supervisor's Target</div>
+        <div id="tr-target-text" style="font-size:13px;color:var(--text)"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">完成情况 / Pencapaian / Achievement</label>
+        <textarea id="tr-text" placeholder="写下这个月你完成了什么目标..." style="min-height:120px"></textarea>
+      </div>
+      <div id="tr-count-display" style="font-size:12px;color:var(--muted);margin-bottom:10px;text-align:right"></div>
+      <button class="btn-primary" onclick="submitTargetReport()" id="tr-submit-btn">📤 提交回报 / Submit Report</button>
+    </div>
+    <div id="tr-my-reports" style="margin-top:4px"></div>
+  </div>
+
   <!-- HR PAGES -->
   <!-- HR Dashboard -->
   <div class="page" id="page-hrdash">
@@ -557,17 +583,20 @@ let currentUser = null;
 let records = [];
 let feedbacks = [];
 let appeals = [];
+let targetReports = [];
 const scores = { c1:0,c2:0,c3:0,c4:0,c5:0,c6:0 };
 
 // Load local cache first (fast)
 try { records = JSON.parse(localStorage.getItem('evalRecords')||'[]'); } catch(e){}
 try { feedbacks = JSON.parse(localStorage.getItem('evalFeedbacks')||'[]'); } catch(e){}
 try { appeals = JSON.parse(localStorage.getItem('evalAppeals')||'[]'); } catch(e){}
+try { targetReports = JSON.parse(localStorage.getItem('evalTargetReports')||'[]'); } catch(e){}
 
 function saveAll() {
   localStorage.setItem('evalRecords', JSON.stringify(records));
   localStorage.setItem('evalFeedbacks', JSON.stringify(feedbacks));
   localStorage.setItem('evalAppeals', JSON.stringify(appeals));
+  localStorage.setItem('evalTargetReports', JSON.stringify(targetReports));
 }
 
 async function loadFromCloud(callback) {
@@ -585,6 +614,11 @@ async function loadFromCloud(callback) {
       const aRes = await fetch(SCRIPT_URL + '?type=appeals');
       const aData = await aRes.json();
       if (Array.isArray(aData)) appeals = aData;
+    } catch(e){}
+    try {
+      const tRes = await fetch(SCRIPT_URL + '?type=targetreports');
+      const tData = await tRes.json();
+      if (Array.isArray(tData)) targetReports = tData;
     } catch(e){}
     saveAll();
     showToast('✅ Data synced!','#10b981');
@@ -735,6 +769,7 @@ const NAV_CONFIG = {
   ],
   employee: [
     { id:'myscore', icon:'⭐', label:'我的分数 / My Score' },
+    { id:'targetreport', icon:'🎯', label:'目标回报 / Target' },
     { id:'feedback', icon:'💬', label:'意见 / Feedback' },
     { id:'appeal', icon:'⚠️', label:'申诉 / Appeal' },
   ],
@@ -769,6 +804,7 @@ function showPage(name) {
   if (name==='hrappeals') { renderHRAppeals(); }
   if (name==='myscore') { loadFromCloud(()=>renderMyScore()); }
   if (name==='appeal') { document.getElementById('my-appeals-list').innerHTML=''; }
+  if (name==='targetreport') { initTargetReport(); }
 }
 
 // ===== SCORING =====
@@ -1098,7 +1134,7 @@ function renderHRMonthly() {
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <div>
           <div style="font-size:14px;font-weight:700">${emp.name} ${trend}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px">${emp.dept} · ${scored.length} week(s) this month · ${emp.sup}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">${emp.dept} · ${scored.length} week(s) · ${emp.sup}</div>
         </div>
         <div style="text-align:right">
           <div style="background:${gColor};color:white;border-radius:10px;padding:4px 10px;font-size:12px;font-weight:800">avg ${avgDisp}</div>
@@ -1106,6 +1142,13 @@ function renderHRMonthly() {
           <div style="font-size:10px;color:#6b7e94;margin-top:2px">${weekCount}/4周 · ${pct}%</div>
         </div>
       </div>
+      ${(()=>{
+        const empReports = targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal);
+        const rCount = empReports.length;
+        const rColor = rCount>=2?'#10b981':rCount>=1?'#f59e0b':'#ef4444';
+        const rText = rCount>=2?`✅ 目标回报 ${rCount}/4次`:`⚠️ 目标回报 ${rCount}/4次 (需最少2次)`;
+        return rCount>0?`<div style="font-size:11px;font-weight:700;color:${rColor};background:${rCount>=2?'#d1fae5':rCount>=1?'#fef9c3':'#fee2e2'};padding:4px 8px;border-radius:6px;margin-bottom:8px">${rText}</div>`:`<div style="font-size:11px;color:#ef4444;background:#fee2e2;padding:4px 8px;border-radius:6px;margin-bottom:8px">❌ 未提交目标回报</div>`;
+      })()}
       ${wEntries.map((e,i)=>{
         if(!e.record)return`<div class="week-row"><span class="week-num">Week ${i+1}</span><span class="missing">— Not evaluated</span></div>`;
         const pct=(e.record.total/30*100).toFixed(0);
@@ -1179,6 +1222,23 @@ function showDetail(id) {
     ${r.strength?`<div style="margin-top:12px"><div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px">STRENGTHS</div><div style="font-size:13px;background:#f8fafd;padding:9px;border-radius:8px">${r.strength}</div></div>`:''}
     ${r.target?`<div style="margin-top:8px"><div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px">NEXT MONTH TARGET</div><div style="font-size:13px;background:#f8fafd;padding:9px;border-radius:8px">${r.target}</div></div>`:''}
     ${r.confirmed?`<div style="margin-top:10px"><span class="confirmed-badge" style="background:#10b981">✅ Employee Confirmed</span></div>`:''}
+    ${(()=>{
+      const [yr,mo] = (() => {
+        try {
+          const wk = r.week.split('-W');
+          const jan1 = new Date(parseInt(wk[0]),0,1);
+          const mon = new Date(parseInt(wk[0]),0,1+(parseInt(wk[1])-1)*7-jan1.getDay()+1);
+          return [`${mon.getFullYear()}`,`${String(mon.getMonth()+1).padStart(2,'0')}`];
+        } catch(e) { return ['',''] }
+      })();
+      const monthVal2 = `${yr}-${mo}`;
+      const empReports = targetReports.filter(t=>String(t.name).toUpperCase()===String(r.name).toUpperCase()&&t.month===monthVal2);
+      if(!empReports.length) return `<div style="margin-top:12px;background:#fee2e2;border-radius:10px;padding:10px"><div style="font-size:12px;font-weight:700;color:#7f1d1d">🎯 员工目标回报</div><div style="font-size:12px;color:#991b1b;margin-top:3px">❌ 本月未提交回报</div></div>`;
+      return `<div style="margin-top:12px;background:#f0fdf4;border-radius:10px;padding:10px">
+        <div style="font-size:12px;font-weight:700;color:#065f46;margin-bottom:6px">🎯 员工目标回报 (${empReports.length}次)</div>
+        ${empReports.map((t,i)=>`<div style="font-size:12px;padding:5px 0;border-bottom:1px solid #bbf7d0"><span style="font-weight:700;color:#047857">第${i+1}次:</span> ${t.report}</div>`).join('')}
+      </div>`;
+    })()}
   `;
   document.getElementById('modal-overlay').classList.add('open');
 }
@@ -1250,6 +1310,113 @@ function exportBonus() {
   a.click();
   URL.revokeObjectURL(url);
   showToast('✅ 奖金表已导出！','#10b981');
+}
+
+// ===== TARGET REPORT =====
+function initTargetReport() {
+  // Populate month selector
+  const sel = document.getElementById('tr-month');
+  const now = new Date();
+  sel.innerHTML = '';
+  for(let i=0; i<3; i++){
+    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+    const val = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    const label = `${d.getFullYear()}年${d.getMonth()+1}月`;
+    sel.innerHTML += `<option value="${val}"${i===0?' selected':''}>${label}</option>`;
+  }
+  sel.onchange = updateTargetReportUI;
+  updateTargetReportUI();
+}
+
+function updateTargetReportUI() {
+  const monthVal = document.getElementById('tr-month').value;
+  const empName = currentUser.name.toUpperCase();
+  
+  // Get this month's reports
+  const myReports = targetReports.filter(t => 
+    String(t.name).toUpperCase()===empName && t.month===monthVal
+  );
+  
+  const count = myReports.length;
+  const maxReached = count >= 4;
+  
+  // Show count
+  const countEl = document.getElementById('tr-count-display');
+  const color = count >= 2 ? '#10b981' : '#f59e0b';
+  countEl.innerHTML = `<span style="color:${color};font-weight:700">本月已提交 ${count}/4 次 ${count>=2?'✅':'⚠️ 最少需要2次'}</span>`;
+  
+  // Show/hide submit button
+  const btn = document.getElementById('tr-submit-btn');
+  if(maxReached) {
+    btn.disabled = true;
+    btn.textContent = '✅ 本月已达最多4次 / Max 4 reached';
+    btn.style.background = '#6b7e94';
+  } else {
+    btn.disabled = false;
+    btn.textContent = '📤 提交回报 / Submit Report';
+    btn.style.background = '';
+  }
+
+  // Show latest supervisor target for this month
+  const [year, month] = monthVal.split('-').map(Number);
+  const weeks = getWeeksInMonth(year, month-1);
+  const monthRecs = records.filter(r => 
+    String(r.name).toUpperCase()===empName && weeks.includes(r.week)
+  );
+  const latestWithTarget = monthRecs.filter(r=>r.target&&r.target.trim()).sort((a,b)=>b.id-a.id)[0];
+  
+  const targetDiv = document.getElementById('tr-last-target');
+  const targetText = document.getElementById('tr-target-text');
+  if(latestWithTarget && latestWithTarget.target) {
+    targetDiv.style.display = 'block';
+    targetText.textContent = latestWithTarget.target;
+  } else {
+    targetDiv.style.display = 'none';
+  }
+
+  // Show my reports this month
+  renderMyTargetReports(myReports);
+}
+
+function renderMyTargetReports(myReports) {
+  const el = document.getElementById('tr-my-reports');
+  if(!myReports.length) {
+    el.innerHTML = `<div class="empty"><div class="ei">🎯</div><p>本月暂无回报<br>No reports this month</p></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="card"><div class="card-title">📋 本月回报记录</div>` +
+    myReports.map((t,i) => `
+      <div style="padding:10px 0;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+          <div style="font-size:12px;font-weight:700;color:var(--primary)">第${i+1}次回报</div>
+          <div style="font-size:11px;color:var(--muted)">${t.createdAt||''}</div>
+        </div>
+        <div style="font-size:13px">${t.report}</div>
+      </div>`).join('') + `</div>`;
+}
+
+async function submitTargetReport() {
+  const text = document.getElementById('tr-text').value.trim();
+  const month = document.getElementById('tr-month').value;
+  if(!text) { showToast('⚠️ 请填写完成情况 / Please fill in your report','#ef4444'); return; }
+  
+  const empName = currentUser.name.toUpperCase();
+  const existing = targetReports.filter(t=>String(t.name).toUpperCase()===empName && t.month===month);
+  if(existing.length >= 4) { showToast('⚠️ 本月已达最多4次','#ef4444'); return; }
+
+  const tr = {
+    id: Date.now(),
+    name: empName,
+    month,
+    report: text,
+    createdAt: new Date().toLocaleDateString('ms-MY')
+  };
+  targetReports.unshift(tr);
+  saveAll();
+  postToCloud({type:'targetreport', ...tr});
+  document.getElementById('tr-text').value = '';
+  showToast('✅ 回报已提交！','#10b981');
+  updateTargetReportUI();
 }
 
 function refreshAllData() {
