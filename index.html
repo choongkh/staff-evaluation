@@ -1,1605 +1,986 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_33.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_34.html -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CH Cash &amp; Carry - Staff Evaluation</title>
-<link href="./index_files/css2" rel="stylesheet">
 <style>
-:root {
-  --primary: #0f2744;
-  --primary2: #1a3a5c;
-  --accent: #e8612a;
-  --green: #10b981;
-  --blue: #3b82f6;
-  --yellow: #f59e0b;
-  --red: #ef4444;
-  --bg: #f0f4f9;
-  --card: #ffffff;
-  --text: #0f2030;
-  --muted: #6b7e94;
-  --border: #dde4ee;
-  --shadow: 0 2px 16px rgba(15,39,68,0.09);
-  --r: 14px;
-}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Plus Jakarta Sans','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f9;color:#1a2533;min-height:100vh}
 
 /* LOGIN */
-.login-screen{min-height:100vh;background:linear-gradient(145deg,#0f2744 0%,#1a4a7a 60%,#e8612a 100%);display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{background:white;border-radius:24px;padding:36px 28px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-.login-logo{text-align:center;margin-bottom:28px}
-.login-logo .logo-icon{width:64px;height:64px;background:linear-gradient(135deg,#0f2744,#e8612a);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px}
-.login-logo h1{font-size:20px;font-weight:800;color:var(--primary)}
-.login-logo p{font-size:12px;color:var(--muted);margin-top:3px}
-.role-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px}
-.role-btn{padding:14px 8px;border-radius:12px;border:2px solid var(--border);background:white;cursor:pointer;text-align:center;transition:all 0.2s;font-family:inherit}
-.role-btn:hover{border-color:var(--accent);background:#fff8f5}
-.role-btn.selected{border-color:var(--primary);background:#f0f4f9}
-.role-btn .role-icon{font-size:22px;display:block;margin-bottom:5px}
-.role-btn .role-name{font-size:11px;font-weight:700;color:var(--primary)}
-.role-btn .role-sub{font-size:10px;color:var(--muted)}
-.login-form{display:none}
-.login-form.show{display:block}
-.login-field{margin-bottom:12px}
-.login-field label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px}
-.login-field input, .login-field select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);background:#fff;appearance:none;-webkit-appearance:none}
-.login-field input:focus, .login-field select:focus{outline:none;border-color:var(--primary)}
-.login-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7e94' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:35px}
-.btn-login{width:100%;padding:13px;background:linear-gradient(135deg,var(--primary),var(--primary2));color:white;border:none;border-radius:11px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;transition:opacity 0.2s}
-.btn-login:hover{opacity:0.9}
-.login-err{color:var(--red);font-size:12px;text-align:center;margin-top:8px;display:none}
-.login-err.show{display:block}
+.login-wrap{min-height:100vh;background:linear-gradient(145deg,#0f2744,#1a4a7a,#e8612a);display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:white;border-radius:20px;padding:32px 24px;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.login-logo{text-align:center;margin-bottom:24px}
+.login-logo h1{font-size:20px;font-weight:800;color:#0f2744;margin-bottom:4px}
+.login-logo p{font-size:12px;color:#6b7e94}
+.role-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px}
+.role-btn{padding:14px 6px;border-radius:12px;border:2px solid #dde4ee;background:white;cursor:pointer;text-align:center;transition:all 0.2s}
+.role-btn.active{border-color:#0f2744;background:#f0f4f9}
+.role-btn .ri{font-size:22px;display:block;margin-bottom:4px}
+.role-btn .rn{font-size:12px;font-weight:700;color:#0f2744}
+.role-btn .rs{font-size:10px;color:#6b7e94}
+.lform{display:none}.lform.show{display:block}
+.lf{margin-bottom:12px}
+.lf label{display:block;font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:4px;text-transform:uppercase}
+.lf input,.lf select{width:100%;padding:10px 12px;border:1.5px solid #dde4ee;border-radius:9px;font-size:14px;font-family:inherit}
+.lf select{appearance:none;-webkit-appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7e94' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center white;padding-right:35px}
+.lbtn{width:100%;padding:12px;background:#0f2744;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px}
+.lerr{color:#ef4444;font-size:12px;text-align:center;margin-top:8px;display:none}
+.lerr.show{display:block}
 
 /* APP */
-.app{display:none}
-.app.show{display:block}
+.app{display:none}.app.show{display:block}
+.hdr{background:#0f2744;color:white;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.hdr-l h2{font-size:15px;font-weight:700}
+.hdr-l span{font-size:11px;opacity:0.7;display:block;margin-top:1px}
+.hdr-r{display:flex;gap:8px}
+.hbtn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer}
+.nav{display:flex;background:#0f2744;border-top:1px solid rgba(255,255,255,0.1)}
+.ntab{flex:1;padding:9px 2px;text-align:center;color:rgba(255,255,255,0.55);font-size:10px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent}
+.ntab.active{color:white;border-bottom-color:#e8612a}
+.ntab .ni{font-size:15px;display:block;margin-bottom:2px}
+.pg{display:none;padding:14px}.pg.active{display:block}
 
-.header{background:var(--primary);color:white;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.2)}
-.header-left h2{font-size:15px;font-weight:700}
-.header-left span{font-size:11px;opacity:0.7;display:block;margin-top:1px}
-.header-right{display:flex;gap:8px;align-items:center}
-.logout-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:white;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+/* CARDS */
+.card{background:white;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(15,39,68,0.08);border:1px solid #dde4ee}
+.ctitle{font-size:13px;font-weight:700;color:#0f2744;margin-bottom:11px;display:flex;align-items:center;gap:6px}
+.ctitle::before{content:'';width:4px;height:15px;background:#e8612a;border-radius:2px;display:inline-block}
+.fg{margin-bottom:11px}
+.fl{display:block;font-size:11px;font-weight:600;color:#6b7e94;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.4px}
+select,input,textarea{width:100%;padding:9px 12px;border:1.5px solid #dde4ee;border-radius:9px;font-family:inherit;font-size:14px;color:#1a2533;background:white;appearance:none;-webkit-appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7e94' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:35px}
+select:focus,input:focus,textarea:focus{outline:none;border-color:#0f2744}
+textarea{resize:vertical;min-height:70px}
 
-.nav-tabs{display:flex;background:var(--primary);border-top:1px solid rgba(255,255,255,0.1)}
-.nav-tab{flex:1;padding:9px 2px;text-align:center;color:rgba(255,255,255,0.55);font-size:10px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s}
-.nav-tab.active{color:#fff;border-bottom-color:var(--accent)}
-.nav-tab .ti{font-size:15px;display:block;margin-bottom:2px}
-
-.page{display:none;padding:14px}
-.page.active{display:block}
-
-.card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--border)}
-.card-title{font-size:13px;font-weight:700;color:var(--primary);margin-bottom:11px;display:flex;align-items:center;gap:6px}
-.card-title::before{content:'';display:inline-block;width:4px;height:15px;background:var(--accent);border-radius:2px}
-
-.form-group{margin-bottom:11px}
-.form-label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.4px}
-select,input,textarea{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-family:inherit;font-size:14px;color:var(--text);background:#fff;transition:border-color 0.2s;appearance:none;-webkit-appearance:none}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7e94' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:35px}
-select:focus,input:focus,textarea:focus{outline:none;border-color:var(--primary)}
-textarea{resize:vertical;min-height:65px}
-
-.score-item{background:#f7fafd;border-radius:10px;padding:11px;margin-bottom:9px;border:1px solid var(--border)}
-.score-label{font-size:13px;font-weight:700;margin-bottom:2px}
-.score-sublabel{font-size:11px;color:var(--muted);margin-bottom:8px}
-.score-dots{display:flex;gap:7px;margin-bottom:7px}
-.score-dot{flex:1;aspect-ratio:1;max-width:46px;border-radius:50%;border:2px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--muted)}
-.score-dot:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.1)}
-.score-dot.s1{background:#fee2e2;border-color:#ef4444;color:#ef4444}
-.score-dot.s2{background:#fef3c7;border-color:#f59e0b;color:#f59e0b}
-.score-dot.s3{background:#fef9c3;border-color:#eab308;color:#eab308}
-.score-dot.s4{background:#dcfce7;border-color:#22c55e;color:#22c55e}
-.score-dot.s5{background:#d1fae5;border-color:#10b981;color:#10b981}
-
-.total-bar{background:linear-gradient(135deg,var(--primary),#1e5a9c);color:white;border-radius:12px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.total-score{font-size:30px;font-weight:800}
-.total-grade{font-size:12px;padding:4px 12px;border-radius:20px;font-weight:700;background:rgba(255,255,255,0.2)}
-
-.btn-primary{width:100%;padding:13px;background:var(--accent);color:white;border:none;border-radius:11px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-top:4px}
-.btn-primary:hover{background:#d45520}
-.btn-primary:active{transform:scale(0.98)}
-.btn-primary:disabled{background:var(--muted);cursor:not-allowed}
-
-/* BONUS BANNER */
-.bonus-banner{background:linear-gradient(135deg,#10b981,#059669);color:white;border-radius:12px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.bonus-amount{font-size:26px;font-weight:800}
-.bonus-label{font-size:12px;opacity:0.85}
+/* SCORING */
+.si{background:#f7fafd;border-radius:10px;padding:11px;margin-bottom:9px;border:1px solid #dde4ee}
+.sl{font-size:13px;font-weight:700;margin-bottom:2px}
+.ss{font-size:11px;color:#6b7e94;margin-bottom:8px}
+.sdots{display:flex;gap:7px;margin-bottom:8px}
+.sd{flex:1;max-width:46px;aspect-ratio:1;border-radius:50%;border:2px solid #dde4ee;background:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;cursor:pointer;color:#6b7e94;transition:all 0.15s}
+.sd:hover{border-color:#e8612a;color:#e8612a;transform:scale(1.1)}
+.sd.s1{background:#fee2e2;border-color:#ef4444;color:#ef4444}
+.sd.s2{background:#fef3c7;border-color:#f59e0b;color:#f59e0b}
+.sd.s3{background:#fef9c3;border-color:#eab308;color:#eab308}
+.sd.s4{background:#dcfce7;border-color:#22c55e;color:#22c55e}
+.sd.s5{background:#d1fae5;border-color:#10b981;color:#10b981}
+.sni{font-size:12px;padding:7px 10px;border:1.5px solid #94a3b8;border-radius:8px;background:white;width:100%;margin-top:4px}
+.tbar{background:linear-gradient(135deg,#0f2744,#1e5a9c);color:white;border-radius:12px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tscore{font-size:30px;font-weight:800}
+.tgrade{font-size:12px;padding:4px 12px;border-radius:20px;font-weight:700;background:rgba(255,255,255,0.2)}
+.pbtn{width:100%;padding:13px;background:#e8612a;color:white;border:none;border-radius:11px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px}
+.pbtn:disabled{background:#6b7e94;cursor:not-allowed}
 
 /* RECORDS */
-.filter-row{display:flex;gap:8px;margin-bottom:11px}
-.filter-row select{flex:1;font-size:13px;padding:8px 10px}
-.record-card{background:var(--card);border-radius:12px;padding:12px 13px;margin-bottom:9px;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;transition:box-shadow 0.2s}
-.record-card:hover{box-shadow:0 4px 20px rgba(15,39,68,0.13)}
-.record-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
-.record-name{font-size:14px;font-weight:700}
+.frow{display:flex;gap:8px;margin-bottom:11px}
+.frow select{flex:1;font-size:13px;padding:8px 10px}
+.rc{background:white;border-radius:12px;padding:12px 13px;margin-bottom:9px;box-shadow:0 2px 12px rgba(15,39,68,0.08);border:1px solid #dde4ee;cursor:pointer}
+.rh{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.rname{font-size:14px;font-weight:700}
 .badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
-.bA{background:#d1fae5;color:#065f46}.bB{background:#dbeafe;color:#1e3a8a}.bC{background:#fef9c3;color:#713f12}.bD{background:#fee2e2;color:#7f1d1d}
-.record-meta{font-size:11px;color:var(--muted)}
-.score-pills{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
-.pill{font-size:11px;padding:2px 8px;border-radius:20px;background:#eef2f8;color:var(--text);font-weight:600}
+.bA{background:#d1fae5;color:#065f46}.bB{background:#dbeafe;color:#1e3a8a}
+.bC{background:#fef9c3;color:#713f12}.bD{background:#fee2e2;color:#7f1d1d}
+.rmeta{font-size:11px;color:#6b7e94}
+.pills{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.pill{font-size:11px;padding:2px 8px;border-radius:20px;background:#eef2f8;font-weight:600}
+
+/* BONUS */
+.bbar{background:linear-gradient(135deg,#10b981,#059669);color:white;border-radius:12px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.bamt{font-size:26px;font-weight:800}
 
 /* MONTHLY */
-.month-emp-card{background:var(--card);border-radius:12px;padding:13px;margin-bottom:11px;box-shadow:var(--shadow);border:1px solid var(--border)}
-.week-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f0f4f8;font-size:12px}
-.week-row:last-child{border-bottom:none}
-.week-num{color:var(--muted);min-width:52px;font-weight:600}
-.wbar-track{flex:1;height:6px;background:#eef2f7;border-radius:3px;overflow:hidden}
-.wbar-fill{height:100%;border-radius:3px;transition:width 0.5s}
-.week-val{font-weight:700;color:var(--primary);min-width:28px;text-align:right}
-.missing{color:var(--muted);font-style:italic}
+.mecard{background:white;border-radius:12px;padding:13px;margin-bottom:11px;box-shadow:0 2px 12px rgba(15,39,68,0.08);border:1px solid #dde4ee}
+.wrow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f0f4f8;font-size:12px}
+.wrow:last-child{border-bottom:none}
+.wnum{color:#6b7e94;min-width:55px;font-weight:600}
+.wtrack{flex:1;height:6px;background:#eef2f7;border-radius:3px;overflow:hidden}
+.wfill{height:100%;border-radius:3px}
+.wval{font-weight:700;color:#0f2744;min-width:28px;text-align:right}
 
-/* DASHBOARD */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
-.stat-box{background:var(--card);border-radius:12px;padding:13px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border)}
-.stat-num{font-size:26px;font-weight:800;color:var(--primary)}
-.stat-label{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600}
-.dbar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
-.dbar-label{font-size:12px;font-weight:600;min-width:90px}
-.dbar-track{flex:1;height:8px;background:#e8edf4;border-radius:4px;overflow:hidden}
-.dbar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 0.6s}
-.dbar-val{font-size:12px;font-weight:700;color:var(--primary);min-width:30px;text-align:right}
+/* DASH */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.sbox{background:white;border-radius:12px;padding:13px;text-align:center;box-shadow:0 2px 12px rgba(15,39,68,0.08);border:1px solid #dde4ee}
+.snum{font-size:26px;font-weight:800;color:#0f2744}
+.slbl{font-size:11px;color:#6b7e94;margin-top:3px;font-weight:600}
+.dbar-r{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.dbar-l{font-size:12px;font-weight:600;min-width:90px}
+.dbar-t{flex:1;height:8px;background:#e8edf4;border-radius:4px;overflow:hidden}
+.dbar-f{height:100%;border-radius:4px;background:linear-gradient(90deg,#0f2744,#e8612a)}
+.dbar-v{font-size:12px;font-weight:700;color:#0f2744;min-width:28px;text-align:right}
 
-/* WARNINGS */
-.warn-card{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px;margin-bottom:10px}
-.warn-header{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#c2410c;margin-bottom:4px}
-.warn-sub{font-size:12px;color:#92400e}
-
-/* APPEAL */
-.appeal-item{background:var(--card);border-radius:12px;padding:12px;margin-bottom:9px;box-shadow:var(--shadow);border:1px solid var(--border)}
-.appeal-status{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
-.status-pending{background:#fef9c3;color:#713f12}
-.status-done{background:#d1fae5;color:#065f46}
-
-/* EMPLOYEE VIEW */
-.my-score-card{background:linear-gradient(135deg,var(--primary),#1e5a9c);color:white;border-radius:16px;padding:18px;margin-bottom:12px}
-.confirm-btn{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;border-radius:9px;padding:8px 16px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px}
-.confirmed-badge{background:#10b981;color:white;border-radius:9px;padding:4px 12px;font-size:12px;font-weight:700;display:inline-block;margin-top:8px}
+/* WARN */
+.wcard{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px;margin-bottom:10px}
+.wc-h{font-size:13px;font-weight:700;color:#c2410c;margin-bottom:3px}
+.wc-s{font-size:12px;color:#92400e}
 
 /* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center}
-.modal-overlay.open{display:flex}
-.modal{background:white;border-radius:20px 20px 0 0;padding:18px 16px 32px;width:100%;max-height:88vh;overflow-y:auto;animation:slideUp 0.3s ease}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-handle{width:40px;height:4px;background:#dde3ec;border-radius:2px;margin:0 auto 14px}
-.modal-close{float:right;background:#f0f4f8;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;line-height:28px;text-align:center}
-.mscore-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
-.mscore-row:last-of-type{border-bottom:none}
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center}
+.mo.open{display:flex}
+.mb{background:white;border-radius:20px 20px 0 0;padding:18px 16px 32px;width:100%;max-height:88vh;overflow-y:auto;animation:su 0.3s ease}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{width:40px;height:4px;background:#dde4ee;border-radius:2px;margin:0 auto 14px}
+.mc{float:right;background:#f0f4f8;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;line-height:28px;text-align:center}
+.msr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #dde4ee;font-size:13px;flex-direction:column;gap:3px}
+.msr:last-of-type{border-bottom:none}
+.msr-top{display:flex;justify-content:space-between}
+.mnote{font-size:11px;color:#6b7e94;background:#f7fafd;padding:4px 8px;border-radius:6px}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:white;padding:12px 20px;border-radius:50px;font-weight:700;font-size:14px;box-shadow:0 4px 20px rgba(0,0,0,0.2);z-index:999;transition:transform 0.3s;white-space:nowrap}
-.toast.show{transform:translateX(-50%) translateY(0)}
+/* LOADING */
+.loading-ov{position:fixed;inset:0;background:rgba(15,39,68,0.85);z-index:500;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.loading-ov p{color:white;font-size:15px;font-weight:700}
+.loading-ov span{color:rgba(255,255,255,0.7);font-size:12px}
 
-.empty{text-align:center;padding:36px 20px;color:var(--muted)}
+/* MISC */
+.empty{text-align:center;padding:36px 20px;color:#6b7e94}
 .empty .ei{font-size:38px;margin-bottom:8px}
 .empty p{font-size:13px}
-
-.week-tag{background:var(--primary);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:5px}
+.wtag{background:#0f2744;color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:5px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#10b981;color:white;padding:12px 20px;border-radius:50px;font-weight:700;font-size:14px;box-shadow:0 4px 20px rgba(0,0,0,0.2);z-index:999;transition:transform 0.3s;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.gbtn{width:100%;padding:11px;background:#10b981;color:white;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:12px}
+.bbtn{width:100%;padding:11px;background:#3b82f6;color:white;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:12px}
 </style>
-<script id="cb_targetreports_1780922817113" src="https://script.google.com/macros/s/AKfycbywZWDkWtt3UPtSwPbU1nTr9iiOHhusFqnb1sNGc5k4lWlSYg51VUDBTTWsDfAg7cws1Q/exec?type=targetreports&amp;callback=cb_targetreports_1780922817113"></script></head>
+</head>
 <body>
 
-<!-- ===== LOGIN ===== -->
-<div class="login-screen" id="login-screen" style="display: none;">
-  <div class="login-box">
-    <div class="login-logo">
-      <div class="logo-icon">⭐</div>
-      <h1>CH CASH &amp; CARRY</h1>
-      <p>SDN BHD · Staff Evaluation System</p>
-      <p style="font-size:11px;color:#aaa;margin-top:2px">员工评估系统 · Sistem Penilaian Pekerja</p>
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap">
+<div class="login-box">
+  <div class="login-logo">
+    <div style="font-size:36px;margin-bottom:8px">⭐</div>
+    <h1>CH CASH &amp; CARRY</h1>
+    <p>SDN BHD · Staff Evaluation System · 员工评估系统</p>
+  </div>
+  <div class="role-grid">
+    <div class="role-btn" onclick="selRole(&#39;supervisor&#39;)" id="rb-supervisor"><span class="ri">👔</span><div class="rn">主管</div><div class="rs">Supervisor</div></div>
+    <div class="role-btn" onclick="selRole(&#39;employee&#39;)" id="rb-employee"><span class="ri">👤</span><div class="rn">员工</div><div class="rs">Staff</div></div>
+    <div class="role-btn" onclick="selRole(&#39;hr&#39;)" id="rb-hr"><span class="ri">👩‍💼</span><div class="rn">HR</div><div class="rs">Manager</div></div>
+  </div>
+  <div class="lform" id="lf-supervisor">
+    <div class="lf"><label>选择主管 / Select Supervisor</label>
+      <select id="ls-sup">
+        <option value="">-- Select --</option>
+        <option value="C0001|045571">CHONG CHING CHIEN (C0001)</option>
+        <option value="H0002|045094">HARLINA BINTI MOHD TAKIM (H0002)</option>
+        <option value="T0002|065126">TUAN NURFARAHANA (T0002)</option>
+        <option value="N0005|045352">NORSHILA BINTI MOHAMAD ZAIDI (N0005)</option>
+        <option value="S0003|085692">SITI NOORAYU BINTI HARIN (S0003)</option>
+        <option value="H0003|045103">HAIROL BIN ABU HASHIM (H0003)</option>
+        <option value="R0001|060244">RENUGGA A/P MANIMARAN (R0001)</option>
+        <option value="K0001|556903">KAMRUL HASAN (K0001)</option>
+      </select>
     </div>
-    <div class="role-grid">
-      <div class="role-btn" onclick="selectRole(&#39;supervisor&#39;)" id="role-supervisor">
-        <span class="role-icon">👔</span>
-        <div class="role-name">主管</div>
-        <div class="role-sub">Penyelia</div>
-      </div>
-      <div class="role-btn" onclick="selectRole(&#39;employee&#39;)" id="role-employee">
-        <span class="role-icon">👤</span>
-        <div class="role-name">员工</div>
-        <div class="role-sub">Pekerja</div>
-      </div>
-      <div class="role-btn" onclick="selectRole(&#39;hr&#39;)" id="role-hr">
-        <span class="role-icon">👩‍💼</span>
-        <div class="role-name">HR</div>
-        <div class="role-sub">Pengurus</div>
-      </div>
-    </div>
-
-    <!-- Supervisor Login -->
-    <div class="login-form" id="form-supervisor">
-      <div class="login-field">
-        <label>选择主管 / Pilih Penyelia</label>
-        <select id="sel-sup">
-          <option value="">-- Select --</option>
-          <option value="C0001">C0001 · CHONG CHING CHIEN</option>
-          <option value="H0002">H0002 · HARLINA BINTI MOHD TAKIM</option>
-          <option value="T0002">T0002 · TUAN NURFARAHANA</option>
-          <option value="N0005">N0005 · NORSHILA BINTI MOHAMAD ZAIDI</option>
-          <option value="S0003">S0003 · SITI NOORAYU BINTI HARIN</option>
-          <option value="H0003">H0003 · HAIROL BIN ABU HASHIM</option>
-          <option value="R0001">R0001 · RENUGGA A/P MANIMARAN</option>
-          <option value="K0001">K0001 · KAMRUL HASAN</option>
-        </select>
-      </div>
-      <div class="login-field">
-        <label>密码 (IC后6位) / Kata Laluan</label>
-        <input type="password" id="pwd-sup" placeholder="••••••" maxlength="6">
-      </div>
-      <button class="btn-login" onclick="loginSupervisor()">Login 登录</button>
-      <div class="login-err" id="err-sup">❌ 密码错误 / Kata laluan salah</div>
-    </div>
-
-    <!-- Employee Login -->
-    <div class="login-form" id="form-employee">
-      <div class="login-field">
-        <label>全名 / Nama Penuh / Full Name</label>
-        <input type="text" id="emp-login-name" placeholder="Enter your full name...">
-      </div>
-      <button class="btn-login" onclick="loginEmployee()">Login 登录</button>
-      <div class="login-err" id="err-emp">❌ 名字不在记录中 / Nama tidak dijumpai</div>
-    </div>
-
-    <!-- HR Login -->
-    <div class="login-form" id="form-hr">
-      <div class="login-field">
-        <label>HR 密码 / Kata Laluan HR</label>
-        <input type="password" id="pwd-hr" placeholder="••••••">
-      </div>
-      <button class="btn-login" onclick="loginHR()">Login 登录</button>
-      <div class="login-err" id="err-hr">❌ 密码错误 / Kata laluan salah</div>
-    </div>
+    <div class="lf"><label>密码 IC后6位 / Password</label><input type="password" id="ls-pwd" placeholder="••••••" maxlength="6"></div>
+    <button class="lbtn" onclick="doLogin(&#39;supervisor&#39;)">Login</button>
+    <div class="lerr" id="le-sup">❌ Wrong password / 密码错误</div>
+  </div>
+  <div class="lform" id="lf-employee">
+    <div class="lf"><label>全名 / Full Name</label><input type="text" id="ls-emp" placeholder="Enter your full name..."></div>
+    <button class="lbtn" onclick="doLogin(&#39;employee&#39;)">Login</button>
+  </div>
+  <div class="lform" id="lf-hr">
+    <div class="lf"><label>HR Password</label><input type="password" id="ls-hr" placeholder="••••••"></div>
+    <button class="lbtn" onclick="doLogin(&#39;hr&#39;)">Login</button>
+    <div class="lerr" id="le-hr">❌ Wrong password / 密码错误</div>
   </div>
 </div>
+</div>
 
-<!-- ===== APP ===== -->
-<div class="app show" id="app">
-
-  <div class="header">
-    <div class="header-left">
-      <h2 id="app-title">CH CASH &amp; CARRY</h2>
-      <span id="app-user">CHONG CHING CHIEN</span>
-    </div>
-    <div class="header-right">
-      <button class="logout-btn" onclick="cycleLang()" id="lang-btn">中文</button>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
+<!-- APP -->
+<div class="app" id="app-wrap">
+  <div class="hdr">
+    <div class="hdr-l"><h2>CH CASH &amp; CARRY</h2><span id="app-user"></span></div>
+    <div class="hdr-r"><button class="hbtn" onclick="doLogout()">Logout</button></div>
   </div>
-
-  <div class="nav-tabs" id="nav-tabs">
-    <div class="nav-tab active" onclick="showPage(&#39;evaluate&#39;)" id="tab-evaluate">
-      <span class="ti">✏️</span>评分 / Score
-    </div>
-    <div class="nav-tab" onclick="showPage(&#39;myrecords&#39;)" id="tab-myrecords">
-      <span class="ti">📋</span>记录 / Records
-    </div></div>
+  <div class="nav" id="app-nav"></div>
 
   <!-- SUPERVISOR PAGES -->
-  <!-- Evaluate -->
-  <div class="page active" id="page-evaluate">
+  <div class="pg" id="pg-evaluate">
     <div class="card">
-      <div class="card-title"><span id="lbl-empinfo">员工信息 / Maklumat Pekerja</span></div>
-      <div class="form-group">
-        <label class="form-label" id="lbl-empname">员工姓名 / Nama / Name</label>
-        <input type="text" id="emp_name" placeholder="Full name...">
-      </div>
-      <div class="form-group">
-        <label class="form-label" id="lbl-emppos">职位 / Jawatan / Position</label>
-        <input type="text" id="emp_pos" placeholder="Position...">
-      </div>
-      <div class="form-group">
-        <label class="form-label" id="lbl-empdept">部门 / Bahagian / Department</label>
-        <select id="emp_dept">
-          <option value="">-- Select Department --</option>
-          <option value="Wet Market">Wet Market</option>
-          <option value="Admin">Admin</option>
-          <option value="Frozen">Frozen</option>
-          <option value="Merchandiser">Merchandiser</option>
-          <option value="Security">Security</option>
-          <option value="Cashier">Cashier</option>
+      <div class="ctitle">员工信息 / Employee Info</div>
+      <div class="fg"><label class="fl">员工全名 / Full Name</label><input type="text" id="e-name" placeholder="Enter employee full name..."></div>
+      <div class="fg"><label class="fl">职位 / Position</label><input type="text" id="e-pos" placeholder="Position..."></div>
+      <div class="fg"><label class="fl">部门 / Department</label>
+        <select id="e-dept">
+          <option value="">-- Select --</option>
+          <option>Wet Market</option><option>Admin</option><option>Frozen</option>
+          <option>Merchandiser</option><option>Security</option><option>Cashier</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label" id="lbl-empweek">评估周 / Minggu / Week</label>
-        <select id="emp_week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
-      </div>
+      <div class="fg"><label class="fl">评估周 / Week</label><select id="e-week"></select></div>
     </div>
-
     <div class="card">
-      <div class="card-title"><span id="lbl-criteria">评分项目 / Kriteria Penilaian</span></div>
-      <div class="score-item">
-        <div class="score-label">出勤与守时</div>
-        <div class="score-sublabel">Kehadiran / Attendance &amp; Punctuality</div>
-        <div class="score-dots" id="dots_c1">
-          <div class="score-dot" onclick="setScore(&#39;c1&#39;,1)">1</div><div class="score-dot" onclick="setScore(&#39;c1&#39;,2)">2</div><div class="score-dot" onclick="setScore(&#39;c1&#39;,3)">3</div><div class="score-dot" onclick="setScore(&#39;c1&#39;,4)">4</div><div class="score-dot" onclick="setScore(&#39;c1&#39;,5)">5</div>
-        </div>
-        <input type="text" id="note_c1" placeholder="📝 Notes / 备注..." style="font-size:12px;padding:8px 10px;margin-top:8px;border:1.5px solid #94a3b8;border-radius:8px;background:#fff;width:100%;display:block;box-sizing:border-box">
-      </div>
-      <div class="score-item">
-        <div class="score-label">工作态度</div>
-        <div class="score-sublabel">Sikap Kerja / Work Attitude</div>
-        <div class="score-dots" id="dots_c2">
-          <div class="score-dot" onclick="setScore(&#39;c2&#39;,1)">1</div><div class="score-dot" onclick="setScore(&#39;c2&#39;,2)">2</div><div class="score-dot" onclick="setScore(&#39;c2&#39;,3)">3</div><div class="score-dot" onclick="setScore(&#39;c2&#39;,4)">4</div><div class="score-dot" onclick="setScore(&#39;c2&#39;,5)">5</div>
-        </div>
-        <input type="text" id="note_c2" placeholder="📝 Notes / 备注..." style="font-size:12px;padding:8px 10px;margin-top:8px;border:1.5px solid #94a3b8;border-radius:8px;background:#fff;width:100%;display:block;box-sizing:border-box">
-      </div>
-      <div class="score-item">
-        <div class="score-label">卫生与整洁</div>
-        <div class="score-sublabel">Kebersihan / Cleanliness</div>
-        <div class="score-dots" id="dots_c3">
-          <div class="score-dot" onclick="setScore(&#39;c3&#39;,1)">1</div><div class="score-dot" onclick="setScore(&#39;c3&#39;,2)">2</div><div class="score-dot" onclick="setScore(&#39;c3&#39;,3)">3</div><div class="score-dot" onclick="setScore(&#39;c3&#39;,4)">4</div><div class="score-dot" onclick="setScore(&#39;c3&#39;,5)">5</div>
-        </div>
-        <input type="text" id="note_c3" placeholder="📝 Notes / 备注..." style="font-size:12px;padding:8px 10px;margin-top:8px;border:1.5px solid #94a3b8;border-radius:8px;background:#fff;width:100%;display:block;box-sizing:border-box">
-      </div>
-      <div class="score-item">
-        <div class="score-label">服务态度</div>
-        <div class="score-sublabel">Layanan / Customer Service</div>
-        <div class="score-dots" id="dots_c4">
-          <div class="score-dot" onclick="setScore(&#39;c4&#39;,1)">1</div><div class="score-dot" onclick="setScore(&#39;c4&#39;,2)">2</div><div class="score-dot" onclick="setScore(&#39;c4&#39;,3)">3</div><div class="score-dot" onclick="setScore(&#39;c4&#39;,4)">4</div><div class="score-dot" onclick="setScore(&#39;c4&#39;,5)">5</div>
-        </div>
-        <input type="text" id="note_c4" placeholder="📝 Notes / 备注..." style="font-size:12px;padding:8px 10px;margin-top:8px;border:1.5px solid #94a3b8;border-radius:8px;background:#fff;width:100%;display:block;box-sizing:border-box">
-      </div>
-      <div class="score-item">
-        <div class="score-label">团队合作</div>
-        <div class="score-sublabel">Kerjasama / Teamwork</div>
-        <div class="score-dots" id="dots_c5">
-          <div class="score-dot" onclick="setScore(&#39;c5&#39;,1)">1</div><div class="score-dot" onclick="setScore(&#39;c5&#39;,2)">2</div><div class="score-dot" onclick="setScore(&#39;c5&#39;,3)">3</div><div class="score-dot" onclick="setScore(&#39;c5&#39;,4)">4</div><div class="score-dot" onclick="setScore(&#39;c5&#39;,5)">5</div>
-        </div>
-        <input type="text" id="note_c5" placeholder="📝 Notes / 备注..." style="font-size:12px;padding:8px 10px;margin-top:8px;border:1.5px solid #94a3b8;border-radius:8px;background:#fff;width:100%;display:block;box-sizing:border-box">
-      </div>
-      <div class="score-item">
-        <div class="score-label">效率与执行力</div>
-        <div class="score-sublabel">Kecekapan / Efficiency</div>
-        <div class="score-dots" id="dots_c6">
-          <div class="score-dot" onclick="setScore(&#39;c6&#39;,1)">1</div><div class="score-dot" onclick="setScore(&#39;c6&#39;,2)">2</div><div class="score-dot" onclick="setScore(&#39;c6&#39;,3)">3</div><div class="score-dot" onclick="setScore(&#39;c6&#39;,4)">4</div><div class="score-dot" onclick="setScore(&#39;c6&#39;,5)">5</div>
-        </div>
-        <input type="text" id="note_c6" placeholder="📝 Notes / 备注..." style="font-size:12px;padding:8px 10px;margin-top:8px;border:1.5px solid #94a3b8;border-radius:8px;background:#fff;width:100%;display:block;box-sizing:border-box">
-      </div>
+      <div class="ctitle">评分 / Scoring (1-5)</div>
+      <div id="score-items"></div>
     </div>
-
-    <div class="total-bar">
-      <div><div style="font-size:13px;font-weight:600">总分 / Total Score</div><div style="font-size:11px;opacity:0.7">Out of 30</div></div>
-      <div style="text-align:center"><div class="total-score" id="total-score-display">0</div><div style="font-size:10px;opacity:0.7">/30</div></div>
-      <div class="total-grade" id="total-grade-display">-</div>
+    <div class="tbar">
+      <div><div style="font-size:13px;font-weight:600">总分 / Total</div><div style="font-size:11px;opacity:0.7">Out of 30</div></div>
+      <div style="text-align:center"><div class="tscore" id="t-score">0</div><div style="font-size:10px;opacity:0.7">/30</div></div>
+      <div class="tgrade" id="t-grade">-</div>
     </div>
-
     <div class="card">
-      <div class="card-title">总结 / Rumusan</div>
-      <div class="form-group">
-        <label class="form-label" id="lbl-strengths">优点 / Strengths / Kekuatan</label>
-        <textarea id="strength" placeholder="Employee strengths..."></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label" id="lbl-target">下月目标 / Next Month Target</label>
-        <textarea id="target" placeholder="Target for next month..."></textarea>
-      </div>
+      <div class="ctitle">总结 / Summary</div>
+      <div class="fg"><label class="fl">优点 / Strengths</label><textarea id="e-str" placeholder="Employee strengths..."></textarea></div>
+      <div class="fg"><label class="fl">下月目标 / Next Month Target</label><textarea id="e-tgt" placeholder="Target for next month..."></textarea></div>
     </div>
-    <button class="btn-primary" onclick="submitEval()" id="btn-submit">💾 Submit Evaluation 提交评估</button>
+    <button class="pbtn" onclick="submitEval()">💾 Submit Evaluation 提交评估</button>
     <div style="height:20px"></div>
   </div>
 
-  <!-- My Records (Supervisor) -->
-  <div class="page" id="page-myrecords">
-    <div class="filter-row">
-      <select id="fr-dept" onchange="renderMyRecords()">
-        <option value="">All Departments</option>
-        <option value="Wet Market">Wet Market</option>
-        <option value="Admin">Admin</option>
-        <option value="Frozen">Frozen</option>
-        <option value="Merchandiser">Merchandiser</option>
-        <option value="Security">Security</option>
-        <option value="Cashier">Cashier</option>
-      </select>
-      <select id="fr-week" onchange="renderMyRecords()">
-        <option value="">All Weeks</option>
-      </select>
+  <div class="pg" id="pg-myrecords">
+    <div class="frow">
+      <select id="fr-dept" onchange="renderMyRec()"><option value="">All Departments</option><option>Wet Market</option><option>Admin</option><option>Frozen</option><option>Merchandiser</option><option>Security</option><option>Cashier</option></select>
+      <select id="fr-week" onchange="renderMyRec()"><option value="">All Weeks</option></select>
     </div>
-    <div id="myrecords-list"></div>
+    <div id="myrecords"></div>
   </div>
 
   <!-- EMPLOYEE PAGES -->
-  <!-- My Score -->
-  <div class="page" id="page-myscore">
-    <div id="myscore-content"></div>
-  </div>
-
-  <!-- Feedback -->
-  <div class="page" id="page-feedback">
+  <div class="pg" id="pg-myscore"><div id="myscore-content"></div></div>
+  <div class="pg" id="pg-targetreport">
     <div class="card">
-      <div class="card-title">💬 <span id="lbl-fbtitle">意见 / Maklum Balas / Feedback</span></div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:12px" id="lbl-fbnote">Your feedback is confidential. Only HR can see this.</p>
-      <div class="form-group">
-        <label class="form-label">评估周 / Week</label>
-        <select id="fb-week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
+      <div class="ctitle">🎯 目标回报 / Target Report</div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px">每月最少2次，最多4次 / Min 2, max 4 per month</p>
+      <div class="fg"><label class="fl">月份 / Month</label><select id="tr-month" onchange="updateTR()"></select></div>
+      <div id="tr-target-box" style="display:none;background:#f0f4f9;border-radius:10px;padding:12px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:5px">🎯 主管设定目标 / Supervisor Target:</div>
+        <div id="tr-target-txt" style="font-size:13px"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">你的意见 / Your Feedback / Maklum Balas Anda</label>
-        <textarea id="fb-text" placeholder="Write your feedback about your supervisor or workplace..." style="min-height:120px"></textarea>
-      </div>
-      <button class="btn-primary" onclick="submitFeedback()">📤 Submit 提交</button>
+      <div class="fg"><label class="fl">完成情况 / Achievement</label><textarea id="tr-text" placeholder="写下这个月完成了什么..." style="min-height:100px"></textarea></div>
+      <div id="tr-count" style="font-size:12px;text-align:right;margin-bottom:8px"></div>
+      <button class="pbtn" onclick="submitTR()" id="tr-btn">📤 Submit Report 提交回报</button>
+    </div>
+    <div id="tr-history"></div>
+  </div>
+  <div class="pg" id="pg-feedback">
+    <div class="card">
+      <div class="ctitle">💬 意见 / Feedback (Confidential)</div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px">只有HR看到 / Only HR can see this</p>
+      <div class="fg"><label class="fl">评估周 / Week</label><select id="fb-week"></select></div>
+      <div class="fg"><label class="fl">意见 / Feedback</label><textarea id="fb-text" placeholder="Write your feedback..." style="min-height:100px"></textarea></div>
+      <button class="pbtn" onclick="submitFB()">📤 Submit 提交</button>
     </div>
   </div>
-
-  <!-- Appeal -->
-  <div class="page" id="page-appeal">
+  <div class="pg" id="pg-appeal">
     <div class="card">
-      <div class="card-title">⚠️ <span id="lbl-aptitle">申诉 / Rayuan / Appeal</span></div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:12px" id="lbl-apnote">不服分数可以在这里申诉，HR会处理。</p>
-      <div class="form-group">
-        <label class="form-label">评估周 / Week</label>
-        <select id="ap-week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
+      <div class="ctitle">⚠️ 申诉 / Appeal</div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px">只有HR看到 / Only HR can see this</p>
+      <div class="fg"><label class="fl">评估周 / Week</label><select id="ap-week"></select></div>
+      <div class="fg"><label class="fl">申诉原因 / Reason</label><textarea id="ap-text" placeholder="Explain your reason..." style="min-height:100px"></textarea></div>
+      <button class="pbtn" onclick="submitAP()">📤 Submit 提交</button>
+      <div id="ap-done" style="display:none;margin-top:12px;background:#d1fae5;border-radius:10px;padding:14px;text-align:center">
+        <div style="font-size:20px;margin-bottom:6px">✅</div>
+        <div style="font-size:13px;font-weight:700;color:#065f46">申诉已提交！HR会处理。</div>
       </div>
-      <div class="form-group">
-        <label class="form-label">申诉原因 / Reason for Appeal</label>
-        <textarea id="ap-text" placeholder="Explain why you disagree with your score..." style="min-height:100px"></textarea>
-      </div>
-      <button class="btn-primary" onclick="submitAppeal()">📤 Submit Appeal 提交申诉</button>
     </div>
-    <div id="my-appeals-list" style="margin-top:12px"></div>
-  </div>
-
-  <!-- EMPLOYEE TARGET REPORT PAGE -->
-  <div class="page" id="page-targetreport">
-    <div class="card">
-      <div class="card-title">🎯 目标回报 / Laporan Sasaran / Target Report</div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:12px">
-        每月最少2次，最多4次回报。主管和HR都可以看到。<br>
-        Min 2, max 4 reports per month. Visible to supervisor &amp; HR.
-      </p>
-      <div class="form-group">
-        <label class="form-label">月份 / Month</label>
-        <select id="tr-month"></select>
-      </div>
-      <div id="tr-last-target" style="background:#f0f4f9;border-radius:10px;padding:12px;margin-bottom:12px;display:none">
-        <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px">🎯 主管设定的目标 / Supervisor's Target</div>
-        <div id="tr-target-text" style="font-size:13px;color:var(--text)"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">完成情况 / Pencapaian / Achievement</label>
-        <textarea id="tr-text" placeholder="写下这个月你完成了什么目标..." style="min-height:120px"></textarea>
-      </div>
-      <div id="tr-count-display" style="font-size:12px;color:var(--muted);margin-bottom:10px;text-align:right"></div>
-      <button class="btn-primary" onclick="submitTargetReport()" id="tr-submit-btn">📤 提交回报 / Submit Report</button>
-    </div>
-    <div id="tr-my-reports" style="margin-top:4px"></div>
   </div>
 
   <!-- HR PAGES -->
-  <!-- HR Dashboard -->
-  <div class="page" id="page-hrdash">
-    <button onclick="refreshAllData()" style="width:100%;padding:10px;background:#3b82f6;color:white;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:12px">🔄 Refresh / 刷新数据</button>
-    <div class="stat-grid">
-      <div class="stat-box"><div class="stat-num" id="hr-stat-total">0</div><div class="stat-label">Total Records</div></div>
-      <div class="stat-box"><div class="stat-num" id="hr-stat-avg">-</div><div class="stat-label">Overall Avg</div></div>
-      <div class="stat-box"><div class="stat-num" id="hr-stat-week">0</div><div class="stat-label">This Week</div></div>
-      <div class="stat-box"><div class="stat-num" id="hr-stat-gradeA">0</div><div class="stat-label">Grade A ⭐</div></div>
+  <div class="pg" id="pg-hrdash">
+    <button class="bbtn" onclick="refreshAll()">🔄 Refresh All Data 刷新</button>
+    <div class="sgrid">
+      <div class="sbox"><div class="snum" id="s-total">0</div><div class="slbl">Total Records</div></div>
+      <div class="sbox"><div class="snum" id="s-avg">-</div><div class="slbl">Overall Avg</div></div>
+      <div class="sbox"><div class="snum" id="s-week">0</div><div class="slbl">This Week</div></div>
+      <div class="sbox"><div class="snum" id="s-gradeA">0</div><div class="slbl">Grade A ⭐</div></div>
     </div>
-    <div class="card">
-      <div class="card-title">⚠️ Supervisor Bias Warning</div>
-      <div id="bias-warnings"></div>
-    </div>
-    <div class="card">
-      <div class="card-title">📊 Department Average</div>
-      <div id="dept-bars"></div>
-    </div>
+    <div class="card"><div class="ctitle">⚠️ Supervisor Bias Warning</div><div id="bias-list"></div></div>
+    <div class="card"><div class="ctitle">📊 Department Average</div><div id="dept-bars"></div></div>
   </div>
 
-  <!-- HR All Records -->
-  <div class="page" id="page-hrrecords">
-    <div class="filter-row">
-      <select id="hr-fr-dept" onchange="renderHRRecords()">
-        <option value="">All Departments</option>
-        <option value="Wet Market">Wet Market</option>
-        <option value="Admin">Admin</option>
-        <option value="Frozen">Frozen</option>
-        <option value="Merchandiser">Merchandiser</option>
-        <option value="Security">Security</option>
-        <option value="Cashier">Cashier</option>
-      </select>
-      <select id="hr-fr-sup" onchange="renderHRRecords()">
+  <div class="pg" id="pg-hrrecords">
+    <div class="frow">
+      <select id="hr-dept" onchange="renderHRRec()"><option value="">All Depts</option><option>Wet Market</option><option>Admin</option><option>Frozen</option><option>Merchandiser</option><option>Security</option><option>Cashier</option></select>
+      <select id="hr-sup" onchange="renderHRRec()">
         <option value="">All Supervisors</option>
-        <option value="C0001">CHONG</option>
-        <option value="H0002">HARLINA</option>
-        <option value="T0002">TUAN NURFARAHANA</option>
-        <option value="N0005">NORSHILA</option>
-        <option value="S0003">SITI NOORAYU</option>
-        <option value="H0003">HAIROL</option>
-        <option value="R0001">RENUGGA</option>
-        <option value="K0001">KAMRUL</option>
+        <option value="C0001">CHONG</option><option value="H0002">HARLINA</option>
+        <option value="T0002">TUAN NURFARAHANA</option><option value="N0005">NORSHILA</option>
+        <option value="S0003">SITI NOORAYU</option><option value="H0003">HAIROL</option>
+        <option value="R0001">RENUGGA</option><option value="K0001">KAMRUL</option>
       </select>
     </div>
-    <div id="hr-records-list"></div>
+    <div id="hr-records"></div>
   </div>
 
-  <!-- HR Monthly + Bonus -->
-  <div class="page" id="page-hrmonthly">
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-      <select id="hr-month-sel" onchange="renderHRMonthly()" style="flex:1"></select>
-      <select id="hr-month-dept" onchange="renderHRMonthly()" style="flex:1">
-        <option value="">All Depts</option>
-        <option value="Wet Market">Wet Market</option>
-        <option value="Admin">Admin</option>
-        <option value="Frozen">Frozen</option>
-        <option value="Merchandiser">Merchandiser</option>
-        <option value="Security">Security</option>
-        <option value="Cashier">Cashier</option>
-      </select>
+  <div class="pg" id="pg-hrmonthly">
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <select id="hr-month" onchange="renderHRMonthly()" style="flex:1"></select>
+      <select id="hr-mdept" onchange="renderHRMonthly()" style="flex:1"><option value="">All Depts</option><option>Wet Market</option><option>Admin</option><option>Frozen</option><option>Merchandiser</option><option>Security</option><option>Cashier</option></select>
     </div>
-    <button onclick="exportBonus()" style="width:100%;padding:11px;background:#10b981;color:white;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:12px">📥 导出奖金表 / Export Bonus CSV</button>
-    <div id="hr-monthly-list"></div>
+    <button class="gbtn" onclick="exportBonus()">📥 Export Bonus CSV 导出奖金表</button>
+    <div id="hr-monthly"></div>
   </div>
 
-  <!-- HR Feedback (hidden from supervisors) -->
-  <div class="page" id="page-hrfeedback">
-    <div id="hr-feedback-list"></div>
-  </div>
-
-  <!-- HR Appeals -->
-  <div class="page" id="page-hrappeals">
-    <div id="hr-appeals-list"></div>
-  </div>
-
+  <div class="pg" id="pg-hrfeedback"><div id="hr-feedbacks"></div></div>
+  <div class="pg" id="pg-hrappeals"><div id="hr-appeals"></div></div>
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <button class="modal-close" onclick="closeModalDirect()">✕</button>
-    <div id="modal-body"></div>
-  </div>
+<div class="mo" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="mb"><div class="mh"></div><button class="mc" onclick="closeModal()">✕</button><div id="modal-body"></div></div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywZWDkWtt3UPtSwPbU1nTr9iiOHhusFqnb1sNGc5k4lWlSYg51VUDBTTWsDfAg7cws1Q/exec';
 const HR_PWD = '1919';
 
-const SUPERVISORS = {
-  'C0001': { name: 'CHONG CHING CHIEN', pwd: '045571' },
-  'H0002': { name: 'HARLINA BINTI MOHD TAKIM', pwd: '045094' },
-  'T0002': { name: 'TUAN NURFARAHANA', pwd: '065126' },
-  'N0005': { name: 'NORSHILA BINTI MOHAMAD ZAIDI', pwd: '045352' },
-  'S0003': { name: 'SITI NOORAYU BINTI HARIN', pwd: '085692' },
-  'H0003': { name: 'HAIROL BIN ABU HASHIM', pwd: '045103' },
-  'R0001': { name: 'RENUGGA A/P MANIMARAN', pwd: '060244' },
-  'K0001': { name: 'KAMRUL HASAN', pwd: '556903' },
+const SUPS = {
+  'C0001':'CHONG CHING CHIEN','H0002':'HARLINA BINTI MOHD TAKIM',
+  'T0002':'TUAN NURFARAHANA','N0005':'NORSHILA BINTI MOHAMAD ZAIDI',
+  'S0003':'SITI NOORAYU BINTI HARIN','H0003':'HAIROL BIN ABU HASHIM',
+  'R0001':'RENUGGA A/P MANIMARAN','K0001':'KAMRUL HASAN'
 };
-
-const BONUS_TABLE = [
-  { min:27, max:30, amount:180 },
-  { min:23, max:26, amount:140 },
-  { min:19, max:22, amount:100 },
-  { min:15, max:18, amount:60 },
-  { min:0,  max:14, amount:0 },
+const BONUS = [{min:27,max:30,amt:180},{min:23,max:26,amt:140},{min:19,max:22,amt:100},{min:15,max:18,amt:60},{min:0,max:14,amt:0}];
+const CRITERIA = [
+  {id:'c1',zh:'出勤与守时',en:'Attendance & Punctuality',ms:'Kehadiran & Masa'},
+  {id:'c2',zh:'工作态度',en:'Work Attitude',ms:'Sikap Kerja'},
+  {id:'c3',zh:'卫生与整洁',en:'Cleanliness',ms:'Kebersihan'},
+  {id:'c4',zh:'服务态度',en:'Customer Service',ms:'Layanan Pelanggan'},
+  {id:'c5',zh:'团队合作',en:'Teamwork',ms:'Kerjasama'},
+  {id:'c6',zh:'效率与执行力',en:'Efficiency',ms:'Kecekapan'}
 ];
 
-function calcBonus(avg) {
-  for (const b of BONUS_TABLE) if (avg >= b.min && avg <= b.max) return b.amount;
-  return 0;
-}
-function calcFinalBonus(avg, weekCount) {
-  const base = calcBonus(avg);
-  const multiplier = weekCount >= 4 ? 1 : weekCount === 3 ? 0.75 : weekCount === 2 ? 0.5 : weekCount === 1 ? 0.25 : 0;
-  return Math.round(base * multiplier);
+let role=null, user=null;
+let records=[], feedbacks=[], appeals=[], targetReports=[];
+let scores={c1:0,c2:0,c3:0,c4:0,c5:0,c6:0};
+
+// Load local cache
+try{records=JSON.parse(localStorage.getItem('ev_records')||'[]')}catch(e){}
+try{feedbacks=JSON.parse(localStorage.getItem('ev_feedbacks')||'[]')}catch(e){}
+try{appeals=JSON.parse(localStorage.getItem('ev_appeals')||'[]')}catch(e){}
+try{targetReports=JSON.parse(localStorage.getItem('ev_tr')||'[]')}catch(e){}
+
+function save(){
+  localStorage.setItem('ev_records',JSON.stringify(records));
+  localStorage.setItem('ev_feedbacks',JSON.stringify(feedbacks));
+  localStorage.setItem('ev_appeals',JSON.stringify(appeals));
+  localStorage.setItem('ev_tr',JSON.stringify(targetReports));
 }
 
-let currentRole = null;
-let currentUser = null;
-let records = [];
-let feedbacks = [];
-let appeals = [];
-let targetReports = [];
-const scores = { c1:0,c2:0,c3:0,c4:0,c5:0,c6:0 };
-
-// Load local cache first (fast)
-try { records = JSON.parse(localStorage.getItem('evalRecords')||'[]'); } catch(e){}
-try { feedbacks = JSON.parse(localStorage.getItem('evalFeedbacks')||'[]'); } catch(e){}
-try { appeals = JSON.parse(localStorage.getItem('evalAppeals')||'[]'); } catch(e){}
-try { targetReports = JSON.parse(localStorage.getItem('evalTargetReports')||'[]'); } catch(e){}
-
-
-
-function saveAll() {
-  localStorage.setItem('evalRecords', JSON.stringify(records));
-  localStorage.setItem('evalFeedbacks', JSON.stringify(feedbacks));
-  localStorage.setItem('evalAppeals', JSON.stringify(appeals));
-  localStorage.setItem('evalTargetReports', JSON.stringify(targetReports));
+// JSONP fetch
+function jfetch(type, cb){
+  const name='_cb_'+Date.now();
+  window[name]=function(d){cb(d);delete window[name];const s=document.getElementById(name);if(s)s.remove();};
+  const s=document.createElement('script');
+  s.id=name;
+  s.src=SCRIPT_URL+'?type='+type+'&callback='+name;
+  s.onerror=function(){cb(null);delete window[name];s.remove();};
+  document.head.appendChild(s);
 }
 
-async function loadFromCloud(callback) {
-  try {
-    const rRes = await fetch(SCRIPT_URL + '?type=records');
-    const rData = await rRes.json();
-    if (Array.isArray(rData) && rData.length >= 0) records = rData;
-    try {
-      const fRes = await fetch(SCRIPT_URL + '?type=feedbacks');
-      const fData = await fRes.json();
-      if (Array.isArray(fData)) feedbacks = fData;
-    } catch(e){}
-    try {
-      const aRes = await fetch(SCRIPT_URL + '?type=appeals');
-      const aData = await aRes.json();
-      if (Array.isArray(aData)) appeals = aData;
-    } catch(e){}
-    try {
-      const tRes = await fetch(SCRIPT_URL + '?type=targetreports');
-      const tData = await tRes.json();
-      if (Array.isArray(tData)) targetReports = tData;
-    } catch(e){}
-    saveAll();
-    if(callback) callback();
-  } catch(e) {
-    showToast('⚠️ Using local data (offline)','#f59e0b');
-    if(callback) callback();
-  }
+function post(data){
+  try{fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});}catch(e){}
 }
 
-function postToCloud(data) {
-  try {
-    fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-  } catch(e) {}
+function showLoading(){
+  const d=document.createElement('div');
+  d.id='lov';d.className='loading-ov';
+  d.innerHTML='<p>🔄 Loading data... 加载中</p><span>Please wait / 请稍等</span>';
+  document.body.appendChild(d);
 }
+function hideLoading(){const d=document.getElementById('lov');if(d)d.remove();}
 
-// ===== WEEK =====
-function getCurrentWeek() {
-  const now = new Date();
-  return getWeekStr(now);
-}
-function getWeekStr(date) {
-  const d = new Date(date);
-  // Get Monday of that week
-  const day = d.getDay();
-  const diff = d.getDate() - day + (day===0?-6:1);
-  const mon = new Date(d.setDate(diff));
-  const year = mon.getFullYear();
-  const start = new Date(year,0,1);
-  const weekNum = Math.ceil(((mon-start)/86400000+start.getDay()+1)/7);
-  return `${year}-W${String(weekNum).padStart(2,'0')}`;
-}
-function weekToLabel(weekStr) {
-  // Convert 2026-W23 to "第X周 (01/06-07/06)"
-  if (!weekStr || !weekStr.includes('-W')) return weekStr;
-  const [year, wPart] = weekStr.split('-W');
-  const weekNum = parseInt(wPart);
-  // Get Monday of this week
-  const jan1 = new Date(parseInt(year), 0, 1);
-  const daysToMonday = (weekNum-1)*7 - jan1.getDay() + 1;
-  const monday = new Date(parseInt(year), 0, 1 + daysToMonday);
-  const sunday = new Date(monday); sunday.setDate(monday.getDate()+6);
-  const fmt = d => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
-  // Get week of month (1-4/5)
-  const monthStart = new Date(monday.getFullYear(), monday.getMonth(), 1);
-  const weekOfMonth = Math.ceil((monday.getDate()) / 7);
-  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const mon = monthNames[monday.getMonth()];
-  return `第${weekOfMonth}周 ${mon} (${fmt(monday)}-${fmt(sunday)})`;
-}
-function getWeeksInMonth(year, month) {
-  const weeks = new Set();
-  const d = new Date(year,month,1);
-  while(d.getMonth()===month){weeks.add(getWeekStr(new Date(d)));d.setDate(d.getDate()+7);}
-  const d2 = new Date(year,month,1); d2.setDate(d2.getDate()-6);
-  while(d2<=new Date(year,month+1,0)){const ws=getWeekStr(new Date(d2));if(!weeks.has(ws))weeks.add(ws);d2.setDate(d2.getDate()+7);}
-  return [...weeks].sort();
-}
-function getWeekOptions() {
-  // Show weeks from current month + last month
-  const options = [];
-  const now = new Date();
-  for (let i = -8; i <= 1; i++) {
-    const d = new Date(now);
-    d.setDate(now.getDate() + i*7);
-    const ws = getWeekStr(d);
-    if (!options.find(o=>o.value===ws)) {
-      options.push({value: ws, label: weekToLabel(ws)});
-    }
-  }
-  return [...new Map(options.map(o=>[o.value,o])).values()].sort((a,b)=>b.value.localeCompare(a.value));
-}
-
-// ===== ROLE SELECT =====
-let selectedRole = null;
-function selectRole(role) {
-  selectedRole = role;
-  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('selected'));
-  document.getElementById(`role-${role}`).classList.add('selected');
-  document.querySelectorAll('.login-form').forEach(f=>f.classList.remove('show'));
-  document.getElementById(`form-${role}`).classList.add('show');
-}
-
-// ===== LOGIN =====
-function loginSupervisor() {
-  const code = document.getElementById('sel-sup').value;
-  const pwd = document.getElementById('pwd-sup').value;
-  const err = document.getElementById('err-sup');
-  if (!code || !SUPERVISORS[code]) { err.classList.add('show'); return; }
-  if (SUPERVISORS[code].pwd !== pwd) { err.classList.add('show'); return; }
-  err.classList.remove('show');
-  currentRole = 'supervisor';
-  currentUser = { code, name: SUPERVISORS[code].name };
-  startApp();
-}
-
-function loginEmployee() {
-  const name = document.getElementById('emp-login-name').value.trim().toUpperCase();
-  const err = document.getElementById('err-emp');
-  if (!name) { err.classList.add('show'); return; }
-  // Allow any name - employee can login and see their own records
-  currentRole = 'employee';
-  currentUser = { name };
-  err.classList.remove('show');
-  startApp();
-}
-
-function loginHR() {
-  const pwd = document.getElementById('pwd-hr').value;
-  const err = document.getElementById('err-hr');
-  if (pwd !== HR_PWD) { err.classList.add('show'); return; }
-  err.classList.remove('show');
-  currentRole = 'hr';
-  currentUser = { name: 'HR Manager' };
-  startApp();
-}
-
-function logout() {
-  currentRole = null; currentUser = null;
-  localStorage.removeItem('sessionRole');
-  localStorage.removeItem('sessionUser');
-  document.getElementById('login-screen').style.display='flex';
-  document.getElementById('app').classList.remove('show');
-  document.querySelectorAll('.login-form').forEach(f=>f.classList.remove('show'));
-  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('selected'));
-  document.getElementById('pwd-sup').value='';
-  document.getElementById('pwd-hr').value='';
-  document.getElementById('emp-login-name').value='';
-  selectedRole = null;
-}
-
-function startApp() {
-  // Save session to localStorage
-  localStorage.setItem('sessionRole', currentRole);
-  localStorage.setItem('sessionUser', JSON.stringify(currentUser));
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('app').classList.add('show');
-  document.getElementById('app-user').textContent = currentUser.name;
-  buildNav();
-  // Show local data immediately
-  if (currentRole==='supervisor') { showPage('evaluate'); setDefaultWeek(); renderMyRecords(); }
-  else if (currentRole==='employee') { setDefaultWeek(); showPage('myscore'); renderMyScore(); }
-  else if (currentRole==='hr') { showPage('hrdash'); renderHRDash(); initHRMonthSel(); }
-  // Sync cloud in background silently
-  syncCloudBackground();
-}
-
-function jsonpFetch(type, callback) {
-  const cbName = 'cb_' + type + '_' + Date.now();
-  window[cbName] = function(data) {
-    callback(data);
-    delete window[cbName];
-    const script = document.getElementById(cbName);
-    if(script) script.remove();
-  };
-  const script = document.createElement('script');
-  script.id = cbName;
-  script.src = SCRIPT_URL + '?type=' + type + '&callback=' + cbName;
-  script.onerror = function() { callback(null); delete window[cbName]; script.remove(); };
-  document.head.appendChild(script);
-}
-
-function syncCloudBackground() {
-  jsonpFetch('records', function(data) {
-    if(Array.isArray(data)) { records = data; localStorage.setItem('evalRecords', JSON.stringify(records)); }
-    jsonpFetch('feedbacks', function(fData) {
-      if(Array.isArray(fData)) { feedbacks = fData; localStorage.setItem('evalFeedbacks', JSON.stringify(feedbacks)); }
-      jsonpFetch('appeals', function(aData) {
-        if(Array.isArray(aData)) { appeals = aData; localStorage.setItem('evalAppeals', JSON.stringify(appeals)); }
-        jsonpFetch('targetreports', function(tData) {
-          if(Array.isArray(tData)) { targetReports = tData; localStorage.setItem('evalTargetReports', JSON.stringify(targetReports)); }
-          // Refresh current page silently
-          const activePage = document.querySelector('.page.active');
-          if(activePage) {
-            const id = activePage.id.replace('page-','');
-            if(id==='myrecords') renderMyRecords();
-            else if(id==='hrdash') renderHRDash();
-            else if(id==='hrrecords') renderHRRecords();
-            else if(id==='hrmonthly') renderHRMonthly();
-            else if(id==='hrfeedback') renderHRFeedback();
-            else if(id==='hrappeals') renderHRAppeals();
-            else if(id==='myscore') renderMyScore();
-          }
+function syncAll(cb){
+  jfetch('records',function(r){
+    if(Array.isArray(r)){records=r;localStorage.setItem('ev_records',JSON.stringify(r));}
+    jfetch('feedbacks',function(f){
+      if(Array.isArray(f)){feedbacks=f;localStorage.setItem('ev_feedbacks',JSON.stringify(f));}
+      jfetch('appeals',function(a){
+        if(Array.isArray(a)){appeals=a;localStorage.setItem('ev_appeals',JSON.stringify(a));}
+        jfetch('targetreports',function(t){
+          if(Array.isArray(t)){targetReports=t;localStorage.setItem('ev_tr',JSON.stringify(t));}
+          if(cb)cb();
         });
       });
     });
   });
 }
 
-// ===== NAV =====
-const NAV_CONFIG = {
-  supervisor: [
-    { id:'evaluate', icon:'✏️', label:'评分 / Score' },
-    { id:'myrecords', icon:'📋', label:'记录 / Records' },
-  ],
-  employee: [
-    { id:'myscore', icon:'⭐', label:'我的分数 / My Score' },
-    { id:'targetreport', icon:'🎯', label:'目标回报 / Target' },
-    { id:'feedback', icon:'💬', label:'意见 / Feedback' },
-    { id:'appeal', icon:'⚠️', label:'申诉 / Appeal' },
-  ],
-  hr: [
-    { id:'hrdash', icon:'📊', label:'报表' },
-    { id:'hrrecords', icon:'📋', label:'记录' },
-    { id:'hrmonthly', icon:'📅', label:'月报' },
-    { id:'hrfeedback', icon:'💬', label:'意见' },
-    { id:'hrappeals', icon:'⚠️', label:'申诉' },
-  ]
+// WEEK HELPERS
+function getWeekStr(d){
+  const date=new Date(d);
+  const day=date.getDay();
+  const diff=date.getDate()-day+(day===0?-6:1);
+  const mon=new Date(date.setDate(diff));
+  const yr=mon.getFullYear();
+  const s=new Date(yr,0,1);
+  const wk=Math.ceil(((mon-s)/86400000+s.getDay()+1)/7);
+  return `${yr}-W${String(wk).padStart(2,'0')}`;
+}
+function curWeek(){return getWeekStr(new Date());}
+function weekLabel(ws){
+  if(!ws||!ws.includes('-W'))return ws;
+  const[yr,wp]=ws.split('-W');
+  const wn=parseInt(wp);
+  const j=new Date(parseInt(yr),0,1);
+  const dm=(wn-1)*7-j.getDay()+1;
+  const mon=new Date(parseInt(yr),0,1+dm);
+  const sun=new Date(mon);sun.setDate(mon.getDate()+6);
+  const fmt=d=>`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
+  const wom=Math.ceil(mon.getDate()/7);
+  const mns=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `第${wom}周 ${mns[mon.getMonth()]} (${fmt(mon)}-${fmt(sun)})`;
+}
+function getMonthWeeks(yr,mo){
+  const s=new Set();
+  const d=new Date(yr,mo,1);
+  while(d.getMonth()===mo){s.add(getWeekStr(new Date(d)));d.setDate(d.getDate()+7);}
+  const d2=new Date(yr,mo,1);d2.setDate(d2.getDate()-6);
+  while(d2<=new Date(yr,mo+1,0)){const w=getWeekStr(new Date(d2));if(!s.has(w))s.add(w);d2.setDate(d2.getDate()+7);}
+  return[...s].sort();
+}
+function weekOptions(){
+  const opts=[];const now=new Date();const cw=curWeek();
+  for(let i=-8;i<=1;i++){const d=new Date(now);d.setDate(now.getDate()+i*7);const ws=getWeekStr(d);if(!opts.find(o=>o.v===ws))opts.push({v:ws,l:weekLabel(ws)});}
+  return[...new Map(opts.map(o=>[o.v,o])).values()].sort((a,b)=>b.v.localeCompare(a.v));
+}
+function fillWeekSel(id){
+  const el=document.getElementById(id);if(!el)return;
+  const cw=curWeek();
+  el.innerHTML=weekOptions().map(o=>`<option value="${o.v}"${o.v===cw?' selected':''}>${o.l}</option>`).join('');
+}
+
+// BONUS CALC
+function calcBase(avg){for(const b of BONUS)if(avg>=b.min&&avg<=b.max)return b.amt;return 0;}
+function calcFinal(avg,wks){const b=calcBase(avg);const p=wks>=4?1:wks===3?0.75:wks===2?0.5:wks===1?0.25:0;return Math.round(b*p);}
+
+// LOGIN
+function selRole(r){
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('rb-'+r).classList.add('active');
+  document.querySelectorAll('.lform').forEach(f=>f.classList.remove('show'));
+  document.getElementById('lf-'+r).classList.add('show');
+}
+
+function doLogin(r){
+  if(r==='supervisor'){
+    const val=document.getElementById('ls-sup').value;
+    const pwd=document.getElementById('ls-pwd').value;
+    if(!val){showToast('Please select supervisor','#ef4444');return;}
+    const[code,expPwd]=val.split('|');
+    if(pwd!==expPwd){document.getElementById('le-sup').classList.add('show');return;}
+    document.getElementById('le-sup').classList.remove('show');
+    role='supervisor';user={code,name:SUPS[code]||code};
+  } else if(r==='employee'){
+    const name=document.getElementById('ls-emp').value.trim().toUpperCase();
+    if(!name){showToast('Please enter your full name','#ef4444');return;}
+    role='employee';user={name};
+  } else if(r==='hr'){
+    const pwd=document.getElementById('ls-hr').value;
+    if(pwd!==HR_PWD){document.getElementById('le-hr').classList.add('show');return;}
+    document.getElementById('le-hr').classList.remove('show');
+    role='hr';user={name:'HR Manager'};
+  }
+  startApp();
+}
+
+function startApp(){
+  document.getElementById('login-wrap').style.display='none';
+  document.getElementById('app-wrap').classList.add('show');
+  document.getElementById('app-user').textContent=user.name;
+  buildNav();
+  showLoading();
+  syncAll(function(){
+    hideLoading();
+    if(role==='supervisor'){buildScoreItems();fillWeekSel('e-week');showPg('evaluate');renderMyRec();}
+    else if(role==='employee'){fillWeekSel('fb-week');fillWeekSel('ap-week');initTRMonth();showPg('myscore');renderMyScore();}
+    else if(role==='hr'){initHRMonth();showPg('hrdash');renderHRDash();}
+  });
+}
+
+function doLogout(){
+  role=null;user=null;
+  document.getElementById('login-wrap').style.display='flex';
+  document.getElementById('app-wrap').classList.remove('show');
+  document.getElementById('ls-pwd').value='';
+  document.getElementById('ls-hr').value='';
+  document.getElementById('ls-emp').value='';
+  document.getElementById('ls-sup').value='';
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.lform').forEach(f=>f.classList.remove('show'));
+}
+
+// BUILD SCORE ITEMS
+function buildScoreItems(){
+  const el=document.getElementById('score-items');
+  el.innerHTML=CRITERIA.map(c=>`
+    <div class="si">
+      <div class="sl">${c.zh}</div>
+      <div class="ss">${c.ms} / ${c.en}</div>
+      <div class="sdots" id="dots-${c.id}">
+        ${[1,2,3,4,5].map(n=>`<div class="sd" onclick="setScore('${c.id}',${n})">${n}</div>`).join('')}
+      </div>
+      <input class="sni" type="text" id="note-${c.id}" placeholder="📝 Notes / 备注 (optional)"/>
+    </div>`).join('');
+}
+
+// NAV
+const NAVS={
+  supervisor:[{id:'evaluate',ic:'✏️',lb:'评分'},{id:'myrecords',ic:'📋',lb:'记录'}],
+  employee:[{id:'myscore',ic:'⭐',lb:'我的分数'},{id:'targetreport',ic:'🎯',lb:'目标回报'},{id:'feedback',ic:'💬',lb:'意见'},{id:'appeal',ic:'⚠️',lb:'申诉'}],
+  hr:[{id:'hrdash',ic:'📊',lb:'报表'},{id:'hrrecords',ic:'📋',lb:'记录'},{id:'hrmonthly',ic:'📅',lb:'月报'},{id:'hrfeedback',ic:'💬',lb:'意见'},{id:'hrappeals',ic:'⚠️',lb:'申诉'}]
 };
-
-function buildNav() {
-  const nav = document.getElementById('nav-tabs');
-  nav.innerHTML = NAV_CONFIG[currentRole].map(t=>`
-    <div class="nav-tab" onclick="showPage('${t.id}')" id="tab-${t.id}">
-      <span class="ti">${t.icon}</span>${t.label}
-    </div>`).join('');
+function buildNav(){
+  document.getElementById('app-nav').innerHTML=NAVS[role].map(t=>`
+    <div class="ntab" onclick="showPg('${t.id}')" id="nt-${t.id}"><span class="ni">${t.ic}</span>${t.lb}</div>`).join('');
+}
+function showPg(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));
+  const pg=document.getElementById('pg-'+id);
+  const tab=document.getElementById('nt-'+id);
+  if(pg)pg.classList.add('active');
+  if(tab)tab.classList.add('active');
+  if(id==='myrecords')renderMyRec();
+  else if(id==='myscore')renderMyScore();
+  else if(id==='targetreport')updateTR();
+  else if(id==='hrdash')renderHRDash();
+  else if(id==='hrrecords')renderHRRec();
+  else if(id==='hrmonthly')renderHRMonthly();
+  else if(id==='hrfeedback')renderHRFB();
+  else if(id==='hrappeals')renderHRAppeals();
 }
 
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(`page-${name}`).classList.add('active');
-  const tab = document.getElementById(`tab-${name}`);
-  if (tab) tab.classList.add('active');
-  if (name==='myrecords') renderMyRecords();
-  if (name==='hrdash') { renderHRDash(); }
-  if (name==='hrrecords') { renderHRRecords(); }
-  if (name==='hrmonthly') { renderHRMonthly(); }
-  if (name==='hrfeedback') { renderHRFeedback(); }
-  if (name==='hrappeals') { renderHRAppeals(); }
-  if (name==='myscore') { loadFromCloud(()=>renderMyScore()); }
-  if (name==='appeal') { document.getElementById('my-appeals-list').innerHTML=''; }
-  if (name==='targetreport') { initTargetReport(); }
-}
-
-// ===== SCORING =====
-function setScore(c, val) {
-  scores[c] = val;
-  document.querySelectorAll(`#dots_${c} .score-dot`).forEach((d,i)=>{
-    d.className='score-dot';
-    if(i+1===val) d.classList.add(`s${val}`);
-  });
-  updateTotal();
-}
-function updateTotal() {
-  const total = Object.values(scores).reduce((a,b)=>a+b,0);
-  document.getElementById('total-score-display').textContent=total;
-  const grade = total>=27?'A':total>=21?'B':total>=15?'C':'D';
-  const gEl = document.getElementById('total-grade-display');
-  gEl.textContent=`Grade ${grade}`;
-  gEl.style.background=grade==='A'?'#10b981':grade==='B'?'#3b82f6':grade==='C'?'#f59e0b':'#ef4444';
-}
-function setDefaultWeek() {
-  const opts = getWeekOptions();
-  const cw = getCurrentWeek();
-  ['emp_week','fb-week','ap-week'].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.innerHTML = opts.map(o=>`<option value="${o.value}"${o.value===cw?' selected':''}>${o.label}</option>`).join('');
+function refreshAll(){
+  showLoading();
+  syncAll(function(){
+    hideLoading();
+    const active=document.querySelector('.pg.active');
+    if(active){const id=active.id.replace('pg-','');showPg(id);}
+    showToast('✅ Data refreshed!','#10b981');
   });
 }
 
-// ===== SUBMIT EVAL =====
-async function submitEval() {
-  const name = document.getElementById('emp_name').value.trim().toUpperCase();
-  const pos = document.getElementById('emp_pos').value.trim();
-  const dept = document.getElementById('emp_dept').value;
-  const week = document.getElementById('emp_week').value;
-  if (!name||!dept||!week||!Object.values(scores).every(s=>s>0)) {
-    showToast('⚠️ Please fill all fields and complete scoring','#ef4444'); return;
-  }
-  // Check duplicate - ANY supervisor cannot re-evaluate same employee same week
-  const dup = records.find(r=>String(r.name).toUpperCase()===name&&String(r.week)===week);
-  if (dup) { 
-    showToast(`❌ ${name} sudah dinilai minggu ini / already evaluated this week`,'#ef4444'); 
-    return; 
-  }
+// SCORING
+function setScore(c,v){
+  scores[c]=v;
+  document.querySelectorAll(`#dots-${c} .sd`).forEach((d,i)=>{
+    d.className='sd';if(i+1===v)d.classList.add('s'+v);
+  });
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  document.getElementById('t-score').textContent=total;
+  const g=total>=27?'A':total>=21?'B':total>=15?'C':'D';
+  const gel=document.getElementById('t-grade');
+  gel.textContent=`Grade ${g}`;
+  gel.style.background=g==='A'?'#10b981':g==='B'?'#3b82f6':g==='C'?'#f59e0b':'#ef4444';
+}
 
-  const total = Object.values(scores).reduce((a,b)=>a+b,0);
-  const grade = total>=27?'A':total>=21?'B':total>=15?'C':'D';
-  const record = {
-    id:Date.now(), name, pos, dept, sup:currentUser.code, supName:currentUser.name, week,
-    scores:{...scores},
-    notes:{c1:document.getElementById('note_c1').value,c2:document.getElementById('note_c2').value,c3:document.getElementById('note_c3').value,c4:document.getElementById('note_c4').value,c5:document.getElementById('note_c5').value,c6:document.getElementById('note_c6').value},
-    strength:document.getElementById('strength').value,
-    target:document.getElementById('target').value,
-    total, grade, confirmed:false, createdAt:new Date().toISOString()
+// SUBMIT EVAL
+function submitEval(){
+  const name=document.getElementById('e-name').value.trim().toUpperCase();
+  const pos=document.getElementById('e-pos').value.trim();
+  const dept=document.getElementById('e-dept').value;
+  const week=document.getElementById('e-week').value;
+  if(!name||!dept||!week||!Object.values(scores).every(s=>s>0)){
+    showToast('⚠️ Please fill all fields and score all items','#ef4444');return;
+  }
+  // Check duplicate - any supervisor, same employee same week
+  const dup=records.find(r=>String(r.name).toUpperCase()===name&&String(r.week)===week);
+  if(dup){showToast(`❌ ${name} already evaluated for ${weekLabel(week)}`,'#ef4444');return;}
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  const grade=total>=27?'A':total>=21?'B':total>=15?'C':'D';
+  const notes={};
+  CRITERIA.forEach(c=>{notes[c.id]=document.getElementById('note-'+c.id).value;});
+  const rec={
+    id:Date.now(),createdAt:new Date().toLocaleString('ms-MY'),
+    name,pos,dept,sup:user.code,supName:user.name,week,
+    scores:{...scores},notes,total,grade,
+    strength:document.getElementById('e-str').value,
+    target:document.getElementById('e-tgt').value,
+    confirmed:false
   };
-  records.unshift(record);
-  saveAll();
-  // Send to Google Sheet
-  postToCloud({type:'evaluation',...record});
-  resetEvalForm();
-  showToast('✅ Evaluation submitted!','#10b981');
-  setTimeout(()=>showPage('myrecords'),1200);
-}
-
-function resetEvalForm() {
-  ['emp_name','emp_pos','strength','target'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('emp_dept').value='';
-  ['c1','c2','c3','c4','c5','c6'].forEach(c=>{
-    scores[c]=0;
-    document.querySelectorAll(`#dots_${c} .score-dot`).forEach(d=>d.className='score-dot');
-    document.getElementById(`note_${c}`).value='';
+  records.unshift(rec);save();
+  post({type:'evaluation',...rec});
+  // Reset form
+  document.getElementById('e-name').value='';
+  document.getElementById('e-pos').value='';
+  document.getElementById('e-dept').value='';
+  document.getElementById('e-str').value='';
+  document.getElementById('e-tgt').value='';
+  CRITERIA.forEach(c=>{
+    scores[c.id]=0;
+    document.querySelectorAll(`#dots-${c.id} .sd`).forEach(d=>d.className='sd');
+    document.getElementById('note-'+c.id).value='';
   });
-  document.getElementById('total-score-display').textContent='0';
-  document.getElementById('total-grade-display').textContent='-';
-  document.getElementById('total-grade-display').style.background='rgba(255,255,255,0.2)';
-  setDefaultWeek();
+  document.getElementById('t-score').textContent='0';
+  document.getElementById('t-grade').textContent='-';
+  document.getElementById('t-grade').style.background='rgba(255,255,255,0.2)';
+  fillWeekSel('e-week');
+  showToast('✅ Evaluation submitted!','#10b981');
+  setTimeout(()=>showPg('myrecords'),1200);
 }
 
-// ===== MY RECORDS (SUPERVISOR) =====
-function renderMyRecords() {
-  const deptF = document.getElementById('fr-dept').value;
-  const weekF = document.getElementById('fr-week').value;
-  // Supervisor can ONLY see their own records
-  const myRecs = records.filter(r=>String(r.sup).trim()===String(currentUser.code).trim()&&(!deptF||r.dept===deptF)&&(!weekF||r.week===weekF));
-  const el = document.getElementById('myrecords-list');
-  // Debug: show what we're filtering
-  if(myRecs.length===0 && records.length>0) {
-    const supCodes = [...new Set(records.map(r=>String(r.sup).trim()))];
-    console.log('My code:', currentUser.code, '| Found sup codes:', supCodes);
-  }
+// MY RECORDS (Supervisor)
+function renderMyRec(){
+  const dF=document.getElementById('fr-dept')?document.getElementById('fr-dept').value:'';
+  const wF=document.getElementById('fr-week')?document.getElementById('fr-week').value:'';
+  const mine=records.filter(r=>String(r.sup).trim()===String(user.code).trim()&&(!dF||r.dept===dF)&&(!wF||r.week===wF));
   // Populate week filter
-  const weeks = [...new Set(records.filter(r=>String(r.sup).trim()===String(currentUser.code).trim()).map(r=>r.week))].sort().reverse();
-  const wSel = document.getElementById('fr-week');
-  const curW = wSel.value;
-  wSel.innerHTML='<option value="">All Weeks</option>'+weeks.map(w=>`<option value="${w}"${w===curW?' selected':''}>${weekToLabel(w)}</option>`).join('');
-  if (!myRecs.length) { el.innerHTML=`<div class="empty"><div class="ei">📋</div><p>No records yet</p></div>`; return; }
-  el.innerHTML = myRecs.map(r=>`
-    <div class="record-card" onclick="showDetail(${r.id})">
-      <div class="record-header"><div class="record-name">${r.name}</div><div class="badge b${r.grade}">Grade ${r.grade} · ${r.total}/30</div></div>
-      <div class="record-meta">${r.dept} · ${weekToLabel(r.week)} ${r.confirmed?'✅':''}</div>
-      <div class="score-pills">${Object.entries(r.scores).map(([k,v])=>`<span class="pill">${cName(k)}: ${v}</span>`).join('')}</div>
-    </div>`).join('');
-}
-
-// ===== EMPLOYEE: MY SCORE =====
-function renderMyScore() {
-  const empName = currentUser.name.toUpperCase();
-  const myRecs = records.filter(r=>r.name===empName).sort((a,b)=>b.id-a.id);
-  const el = document.getElementById('myscore-content');
-  if (!myRecs.length) {
-    el.innerHTML=`<div class="empty"><div class="ei">⭐</div><p>No evaluation records yet.<br>请等主管评分后再查看。</p></div>`;
+  const wSel=document.getElementById('fr-week');
+  if(wSel){
+    const weeks=[...new Set(records.filter(r=>String(r.sup).trim()===String(user.code).trim()).map(r=>r.week))].sort().reverse();
+    const curW=wSel.value;
+    wSel.innerHTML='<option value="">All Weeks</option>'+weeks.map(w=>`<option value="${w}"${w===curW?' selected':''}>${weekLabel(w)}</option>`).join('');
+  }
+  const el=document.getElementById('myrecords');if(!el)return;
+  if(!mine.length){
+    el.innerHTML=`<div class="empty"><div class="ei">📋</div><p>No records yet</p><p style="font-size:11px;color:#aaa;margin-top:6px">Total in DB: ${records.length} | Your code: ${user.code}</p></div>`;
     return;
   }
-  const latest = myRecs[0];
-  // Calculate monthly bonus based on average of current month's scores
-  const now = new Date();
-  const curMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-  const monthWeeks = getWeeksInMonth(now.getFullYear(), now.getMonth());
-  const monthRecs = myRecs.filter(r => monthWeeks.includes(r.week));
-  const monthAvg = monthRecs.length ? monthRecs.reduce((s,r)=>s+(Number(r.total)||0),0)/monthRecs.length : (Number(latest.total)||0);
-  const weekCount = monthRecs.length;
-  const bonus = calcFinalBonus(Math.round(monthAvg), weekCount);
-  const baseBonus = calcBonus(Math.round(monthAvg));
-  const pct = weekCount>=4?100:weekCount===3?75:weekCount===2?50:weekCount===1?25:0;
-  const bonusNote = `本月 ${weekCount}/4 周 · 月均 ${monthAvg.toFixed(1)}/30 · 基本RM${baseBonus} × ${pct}% = RM${bonus}`;
-  el.innerHTML = `
-    <div class="my-score-card">
-      <div style="font-size:12px;opacity:0.75;margin-bottom:4px">Latest · ${weekToLabel(String(latest.week))||latest.week}</div>
-      <div style="font-size:22px;font-weight:800;margin-bottom:2px">${latest.name}</div>
+  el.innerHTML=mine.map(r=>`
+    <div class="rc" onclick="showDetail(${r.id})">
+      <div class="rh"><div class="rname">${r.name}</div><div class="badge b${r.grade}">Grade ${r.grade} · ${r.total}/30</div></div>
+      <div class="rmeta">${r.dept} · ${weekLabel(r.week)} ${r.confirmed?'✅':''}</div>
+      <div class="pills">${CRITERIA.map(c=>`<span class="pill">${c.zh.slice(0,2)}: ${r.scores[c.id]}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+// MY SCORE (Employee)
+function renderMyScore(){
+  const empName=user.name.toUpperCase();
+  const myR=records.filter(r=>String(r.name).toUpperCase()===empName).sort((a,b)=>b.id-a.id);
+  const el=document.getElementById('myscore-content');if(!el)return;
+  if(!myR.length){el.innerHTML=`<div class="empty"><div class="ei">⭐</div><p>No evaluation records yet.<br>请等主管评分后再查看。</p></div>`;return;}
+  const latest=myR[0];
+  const now=new Date();
+  const mWks=getMonthWeeks(now.getFullYear(),now.getMonth());
+  const mRecs=myR.filter(r=>mWks.includes(r.week));
+  const mAvg=mRecs.length?mRecs.reduce((s,r)=>s+Number(r.total),0)/mRecs.length:Number(latest.total);
+  const wks=mRecs.length;
+  const bonus=calcFinal(Math.round(mAvg),wks);
+  const pct=wks>=4?100:wks===3?75:wks===2?50:wks===1?25:0;
+  el.innerHTML=`
+    <div style="background:linear-gradient(135deg,#0f2744,#1e5a9c);color:white;border-radius:16px;padding:18px;margin-bottom:12px">
+      <div style="font-size:12px;opacity:0.75;margin-bottom:4px">Latest · ${weekLabel(latest.week)}</div>
+      <div style="font-size:22px;font-weight:800">${latest.name}</div>
       <div style="font-size:13px;opacity:0.8">${latest.dept}</div>
       <div style="display:flex;align-items:center;gap:16px;margin-top:12px">
         <div><div style="font-size:36px;font-weight:800">${latest.total}</div><div style="font-size:11px;opacity:0.7">/30 points</div></div>
-        <div style="background:rgba(255,255,255,0.2);border-radius:12px;padding:10px 16px;text-align:center">
-          <div style="font-size:24px;font-weight:800">Grade ${latest.grade}</div>
-        </div>
+        <div style="background:rgba(255,255,255,0.2);border-radius:12px;padding:10px 16px;text-align:center"><div style="font-size:24px;font-weight:800">Grade ${latest.grade}</div></div>
       </div>
-      ${latest.confirmed
-        ? `<div class="confirmed-badge">✅ Confirmed 已确认</div>`
-        : `<button class="confirm-btn" onclick="confirmScore(${latest.id})">✅ Confirm Score 确认分数</button>`}
+      ${latest.confirmed?'<div style="background:#10b981;color:white;border-radius:9px;padding:4px 12px;font-size:12px;font-weight:700;display:inline-block;margin-top:10px">✅ Confirmed</div>':
+      `<button onclick="confirmScore(${latest.id})" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;border-radius:9px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px">✅ Confirm Score 确认分数</button>`}
     </div>
-    <div class="bonus-banner">
-      <div><div class="bonus-label">This Month Bonus Estimate · 奖金估算</div><div style="font-size:11px;opacity:0.8;margin-top:2px">Based on latest week score</div></div>
-      <div><div class="bonus-amount">RM ${bonus}</div></div>
+    <div class="bbar">
+      <div><div style="font-size:12px;opacity:0.85">本月奖金估算 / This Month Bonus</div><div style="font-size:11px;opacity:0.75;margin-top:2px">本月${wks}/4周 · 月均${mAvg.toFixed(1)}/30 · 基本RM${calcBase(Math.round(mAvg))}×${pct}%</div></div>
+      <div class="bamt">RM ${bonus}</div>
     </div>
-    <div class="card">
-      <div class="card-title">Score Breakdown</div>
-      ${Object.entries(latest.scores).map(([k,v])=>`
-        <div class="mscore-row" style="flex-direction:column;align-items:flex-start;gap:3px">
-          <div style="display:flex;justify-content:space-between;width:100%">
-            <div>${cNameFull(k)}</div>
-            <div style="font-weight:700;color:var(--primary)">${v}/5 ${['','⭕','🟡','🟡','🟢','🌟'][v]}</div>
-          </div>
-          ${latest.notes&&latest.notes[k]?`<div style="font-size:11px;color:#6b7e94;background:#f0f4f9;padding:4px 8px;border-radius:6px;width:100%">📝 ${latest.notes[k]}</div>`:''}
+    <div class="card"><div class="ctitle">Score Breakdown</div>
+      ${CRITERIA.map(c=>`
+        <div class="msr">
+          <div class="msr-top"><div>${c.en} ${c.zh}</div><div style="font-weight:700">${latest.scores[c.id]}/5 ${['','⭕','🟡','🟡','🟢','🌟'][latest.scores[c.id]]}</div></div>
+          ${latest.notes&&latest.notes[c.id]?`<div class="mnote">📝 ${latest.notes[c.id]}</div>`:''}
         </div>`).join('')}
     </div>
-    ${latest.strength?`<div class="card"><div class="card-title">💪 Strengths</div><p style="font-size:13px">${latest.strength}</p></div>`:''}
-    ${latest.target?`<div class="card"><div class="card-title">🎯 Next Month Target</div><p style="font-size:13px">${latest.target}</p></div>`:''}
-    <div class="card">
-      <div class="card-title">📅 History</div>
-      ${myRecs.slice(0,8).map(r=>`
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
-          <div><div style="font-size:13px;font-weight:600">${weekToLabel(String(r.week))||r.week}</div><div style="font-size:11px;color:var(--muted)">${r.dept}</div></div>
+    ${latest.strength?`<div class="card"><div class="ctitle">💪 Strengths</div><p style="font-size:13px">${latest.strength}</p></div>`:''}
+    ${latest.target?`<div class="card"><div class="ctitle">🎯 Next Month Target</div><p style="font-size:13px">${latest.target}</p></div>`:''}
+    <div class="card"><div class="ctitle">📅 History</div>
+      ${myR.slice(0,8).map(r=>`
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f4f8">
+          <div><div style="font-size:13px;font-weight:600">${weekLabel(r.week)}</div><div style="font-size:11px;color:#6b7e94">${r.dept}</div></div>
           <div class="badge b${r.grade}">Grade ${r.grade} · ${r.total}/30</div>
         </div>`).join('')}
     </div>`;
 }
 
-function confirmScore(id) {
-  const r = records.find(x=>x.id===id);
-  if(r){r.confirmed=true;saveAll();renderMyScore();showToast('✅ Score confirmed!','#10b981');}
+function confirmScore(id){
+  const r=records.find(x=>x.id===id||String(x.id)===String(id));
+  if(r){r.confirmed=true;save();post({type:'confirm',id});renderMyScore();showToast('✅ Score confirmed!','#10b981');}
 }
 
-// ===== FEEDBACK =====
-async function submitFeedback() {
-  const text = document.getElementById('fb-text').value.trim();
-  const week = document.getElementById('fb-week').value;
-  if (!text||!week) { showToast('⚠️ Please fill in feedback and week','#ef4444'); return; }
-  const fb = { id:Date.now(), name:currentUser.name.toUpperCase(), week, feedback:text, createdAt:new Date().toISOString() };
-  feedbacks.unshift(fb);
-  saveAll();
-  postToCloud({type:'feedback',...fb});
+// TARGET REPORT
+function initTRMonth(){
+  const sel=document.getElementById('tr-month');if(!sel)return;
+  const now=new Date();sel.innerHTML='';
+  for(let i=0;i<3;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    sel.innerHTML+=`<option value="${val}"${i===0?' selected':''}>${d.getFullYear()}年${d.getMonth()+1}月</option>`;
+  }
+  updateTR();
+}
+function updateTR(){
+  const month=document.getElementById('tr-month')?document.getElementById('tr-month').value:'';
+  const empName=user.name.toUpperCase();
+  const myTR=targetReports.filter(t=>String(t.name).toUpperCase()===empName&&t.month===month);
+  const count=myTR.length;
+  const countEl=document.getElementById('tr-count');
+  if(countEl)countEl.innerHTML=`<span style="color:${count>=2?'#10b981':'#f59e0b'};font-weight:700">本月已提交 ${count}/4 次 ${count>=2?'✅':'⚠️ 需最少2次'}</span>`;
+  const btn=document.getElementById('tr-btn');
+  if(btn){btn.disabled=count>=4;btn.style.background=count>=4?'#6b7e94':'';}
+  // Show supervisor target
+  if(month){
+    const[yr,mo]=month.split('-').map(Number);
+    const mWks=getMonthWeeks(yr,mo-1);
+    const mRecs=records.filter(r=>String(r.name).toUpperCase()===empName&&mWks.includes(r.week));
+    const withTgt=mRecs.filter(r=>r.target&&r.target.trim()).sort((a,b)=>b.id-a.id)[0];
+    const box=document.getElementById('tr-target-box');
+    const txt=document.getElementById('tr-target-txt');
+    if(box&&txt){if(withTgt){box.style.display='block';txt.textContent=withTgt.target;}else box.style.display='none';}
+  }
+  // History
+  const hEl=document.getElementById('tr-history');
+  if(hEl){
+    if(!myTR.length){hEl.innerHTML='';return;}
+    hEl.innerHTML=`<div class="card"><div class="ctitle">本月回报记录</div>`+
+      myTR.map((t,i)=>`<div style="padding:9px 0;border-bottom:1px solid #f0f4f8"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:12px;font-weight:700;color:#0f2744">第${i+1}次</span><span style="font-size:11px;color:#6b7e94">${t.createdAt||''}</span></div><div style="font-size:13px">${t.report}</div></div>`).join('')+`</div>`;
+  }
+}
+function submitTR(){
+  const text=document.getElementById('tr-text').value.trim();
+  const month=document.getElementById('tr-month').value;
+  if(!text){showToast('⚠️ Please write your report','#ef4444');return;}
+  const empName=user.name.toUpperCase();
+  const existing=targetReports.filter(t=>String(t.name).toUpperCase()===empName&&t.month===month);
+  if(existing.length>=4){showToast('⚠️ 本月已达最多4次','#ef4444');return;}
+  const tr={id:Date.now(),name:empName,month,report:text,createdAt:new Date().toLocaleDateString('ms-MY')};
+  targetReports.unshift(tr);save();
+  post({type:'targetreport',...tr});
+  document.getElementById('tr-text').value='';
+  showToast('✅ Report submitted!','#10b981');
+  updateTR();
+}
+
+// FEEDBACK
+function submitFB(){
+  const text=document.getElementById('fb-text').value.trim();
+  const week=document.getElementById('fb-week').value;
+  if(!text||!week){showToast('⚠️ Please fill all fields','#ef4444');return;}
+  const fb={id:Date.now(),name:user.name.toUpperCase(),week,feedback:text,createdAt:new Date().toISOString()};
+  feedbacks.unshift(fb);save();
+  post({type:'feedback',...fb});
   document.getElementById('fb-text').value='';
   showToast('✅ Feedback submitted confidentially!','#10b981');
 }
 
-// ===== APPEAL =====
-async function submitAppeal() {
-  const text = document.getElementById('ap-text').value.trim();
-  const week = document.getElementById('ap-week').value;
-  if (!text||!week) { showToast('⚠️ Please fill in appeal reason and week','#ef4444'); return; }
-  const ap = { id:Date.now(), name:currentUser.name.toUpperCase(), week, appeal:text, status:'Pending 待处理', createdAt:new Date().toISOString() };
-  appeals.unshift(ap);
-  saveAll();
-  postToCloud({type:'appeal',...ap});
+// APPEAL
+function submitAP(){
+  const text=document.getElementById('ap-text').value.trim();
+  const week=document.getElementById('ap-week').value;
+  if(!text||!week){showToast('⚠️ Please fill all fields','#ef4444');return;}
+  const ap={id:Date.now(),name:user.name.toUpperCase(),week,appeal:text,status:'待处理 Pending',createdAt:new Date().toISOString()};
+  appeals.unshift(ap);save();
+  post({type:'appeal',...ap});
   document.getElementById('ap-text').value='';
-  document.getElementById('ap-week').value='';
-  setDefaultWeek();
-  // Don't show appeal list - confidential
-  document.getElementById('my-appeals-list').innerHTML=`
-    <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:14px;text-align:center">
-      <div style="font-size:20px;margin-bottom:6px">✅</div>
-      <div style="font-size:13px;font-weight:700;color:#065f46">申诉已提交！HR会尽快处理。</div>
-      <div style="font-size:12px;color:#047857;margin-top:3px">Appeal submitted. HR will process it soon.</div>
-    </div>`;
+  document.getElementById('ap-done').style.display='block';
   showToast('✅ Appeal submitted!','#f59e0b');
 }
 
-function renderMyAppeals() {
-  const myAps = appeals.filter(a=>String(a.name).toUpperCase()===currentUser.name.toUpperCase());
-  const el = document.getElementById('my-appeals-list');
-  if(!myAps.length){el.innerHTML=`<p style="font-size:13px;color:var(--muted)">No appeals yet. / 暂无申诉记录</p>`;return;}
-  // Show resolved ones with notification banner
-  const resolved = myAps.filter(a=>a.status&&a.status.includes('Resolved'));
-  let html = '';
-  if(resolved.length){
-    html += `<div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:12px;margin-bottom:10px">
-      <div style="font-size:13px;font-weight:700;color:#065f46">✅ HR has resolved your appeal! / HR已处理你的申诉！</div>
-      <div style="font-size:12px;color:#047857;margin-top:3px">Please check with HR for details.</div>
-    </div>`;
-  }
-  html += myAps.map(a=>`
-    <div class="appeal-item">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-        <div style="font-size:12px;font-weight:700">${weekToLabel(String(a.week))||a.week}</div>
-        <span class="appeal-status ${a.status&&a.status.includes('Resolved')?'status-done':'status-pending'}">${a.status||'Pending'}</span>
-      </div>
-      <div style="font-size:13px">${a.appeal}</div>
-    </div>`).join('');
-  el.innerHTML = html;
-}
-
-// ===== HR DASH =====
-function renderHRDash() {
-  const total = records.length;
-  const avg = total?(records.reduce((a,r)=>a+r.total,0)/total).toFixed(1):'-';
-  const cw = getCurrentWeek();
-  document.getElementById('hr-stat-total').textContent=total;
-  document.getElementById('hr-stat-avg').textContent=avg;
-  document.getElementById('hr-stat-week').textContent=records.filter(r=>r.week===cw).length;
-  document.getElementById('hr-stat-gradeA').textContent=records.filter(r=>r.grade==='A').length;
-  // Bias warnings
-  const bEl = document.getElementById('bias-warnings');
-  const overallAvg = total?(records.reduce((a,r)=>a+r.total,0)/total):0;
-  const warnings = [];
-  Object.entries(SUPERVISORS).forEach(([code,sup])=>{
-    const recs = records.filter(r=>r.sup===code);
-    if(recs.length<3) return;
-    const sAvg = recs.reduce((a,r)=>a+r.total,0)/recs.length;
-    const diff = sAvg - overallAvg;
-    if(Math.abs(diff)>=5) warnings.push({name:sup.name,avg:sAvg.toFixed(1),diff,high:diff>0});
+// HR DASH
+function renderHRDash(){
+  const total=records.length;
+  const avg=total?(records.reduce((a,r)=>a+Number(r.total),0)/total).toFixed(1):'-';
+  const cw=curWeek();
+  document.getElementById('s-total').textContent=total;
+  document.getElementById('s-avg').textContent=avg;
+  document.getElementById('s-week').textContent=records.filter(r=>r.week===cw).length;
+  document.getElementById('s-gradeA').textContent=records.filter(r=>r.grade==='A').length;
+  // Bias
+  const bEl=document.getElementById('bias-list');
+  const oAvg=total?records.reduce((a,r)=>a+Number(r.total),0)/total:0;
+  const warns=[];
+  Object.entries(SUPS).forEach(([code,name])=>{
+    const sr=records.filter(r=>String(r.sup).trim()===code);
+    if(sr.length<3)return;
+    const sa=sr.reduce((a,r)=>a+Number(r.total),0)/sr.length;
+    const diff=sa-oAvg;
+    if(Math.abs(diff)>=5)warns.push({name,avg:sa.toFixed(1),diff,high:diff>0});
   });
-  if(!warnings.length) bEl.innerHTML=`<p style="font-size:13px;color:var(--green);font-weight:600">✅ No bias detected. All supervisors scoring fairly.</p>`;
-  else bEl.innerHTML=warnings.map(w=>`
-    <div class="warn-card">
-      <div class="warn-header">⚠️ ${w.name}</div>
-      <div class="warn-sub">${w.high?'Scoring HIGH':'Scoring LOW'} — Avg: ${w.avg}/30 (${w.diff>0?'+':''}${w.diff.toFixed(1)} vs overall avg)</div>
-    </div>`).join('');
+  bEl.innerHTML=!warns.length?`<p style="font-size:13px;color:#10b981;font-weight:600">✅ No bias detected. All supervisors scoring fairly.</p>`:
+    warns.map(w=>`<div class="wcard"><div class="wc-h">⚠️ ${w.name}</div><div class="wc-s">${w.high?'Scoring HIGH':'Scoring LOW'} — Avg: ${w.avg}/30 (${w.diff>0?'+':''}${w.diff.toFixed(1)} vs overall)</div></div>`).join('');
   // Dept bars
-  const depts = ['Wet Market','Admin','Frozen','Merchandiser','Security','Cashier'];
-  const dEl = document.getElementById('dept-bars');
+  const dEl=document.getElementById('dept-bars');
+  const depts=['Wet Market','Admin','Frozen','Merchandiser','Security','Cashier'];
   if(!total){dEl.innerHTML=`<div class="empty"><div class="ei">📊</div><p>No data yet</p></div>`;return;}
   dEl.innerHTML=depts.map(d=>{
-    const recs=records.filter(r=>r.dept===d);
-    if(!recs.length)return'';
-    const dAvg=(recs.reduce((a,r)=>a+r.total,0)/recs.length).toFixed(1);
-    return`<div class="dbar-row"><div class="dbar-label">${d}</div><div class="dbar-track"><div class="dbar-fill" style="width:${(dAvg/30*100).toFixed(0)}%"></div></div><div class="dbar-val">${dAvg}</div></div>`;
+    const dr=records.filter(r=>r.dept===d);if(!dr.length)return'';
+    const da=(dr.reduce((a,r)=>a+Number(r.total),0)/dr.length).toFixed(1);
+    return`<div class="dbar-r"><div class="dbar-l">${d}</div><div class="dbar-t"><div class="dbar-f" style="width:${(da/30*100).toFixed(0)}%"></div></div><div class="dbar-v">${da}</div></div>`;
   }).join('');
 }
 
-// ===== HR RECORDS =====
-function renderHRRecords() {
-  const dF=document.getElementById('hr-fr-dept').value;
-  const sF=document.getElementById('hr-fr-sup').value;
-  const filtered=records.filter(r=>(!dF||r.dept===dF)&&(!sF||r.sup===sF));
-  const el=document.getElementById('hr-records-list');
+// HR RECORDS
+function renderHRRec(){
+  const dF=document.getElementById('hr-dept').value;
+  const sF=document.getElementById('hr-sup').value;
+  const filtered=records.filter(r=>(!dF||r.dept===dF)&&(!sF||String(r.sup).trim()===sF));
+  const el=document.getElementById('hr-records');
   if(!filtered.length){el.innerHTML=`<div class="empty"><div class="ei">📋</div><p>No records</p></div>`;return;}
   el.innerHTML=filtered.map(r=>`
-    <div class="record-card" onclick="showDetail(${r.id})">
-      <div class="record-header"><div class="record-name">${r.name}</div><div class="badge b${r.grade}">Grade ${r.grade} · ${r.total}/30</div></div>
-      <div class="record-meta">${r.dept} · ${r.supName||r.sup} · ${weekToLabel(r.week)} ${r.confirmed?'✅ Confirmed':''}</div>
-      <div class="score-pills">${Object.entries(r.scores).map(([k,v])=>`<span class="pill">${cName(k)}: ${v}</span>`).join('')}</div>
+    <div class="rc" onclick="showDetail(${r.id})">
+      <div class="rh"><div class="rname">${r.name}</div><div class="badge b${r.grade}">Grade ${r.grade} · ${r.total}/30</div></div>
+      <div class="rmeta">${r.dept} · ${r.supName||r.sup} · ${weekLabel(r.week)} ${r.confirmed?'✅':''}</div>
+      <div class="pills">${CRITERIA.map(c=>`<span class="pill">${c.zh.slice(0,2)}: ${r.scores[c.id]}</span>`).join('')}</div>
     </div>`).join('');
 }
 
-// ===== HR MONTHLY + BONUS =====
-function initHRMonthSel() {
-  const sel=document.getElementById('hr-month-sel');
-  const now=new Date();
-  sel.innerHTML='';
+// HR MONTHLY
+function initHRMonth(){
+  const sel=document.getElementById('hr-month');if(!sel)return;
+  const now=new Date();sel.innerHTML='';
   for(let i=0;i<6;i++){
     const d=new Date(now.getFullYear(),now.getMonth()-i,1);
     const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
     sel.innerHTML+=`<option value="${val}"${i===0?' selected':''}>${d.getFullYear()}年${d.getMonth()+1}月</option>`;
   }
 }
-
-function renderHRMonthly() {
-  const monthVal=document.getElementById('hr-month-sel').value;
-  const dF=document.getElementById('hr-month-dept').value;
-  const [year,month]=monthVal.split('-').map(Number);
-  const weeks=getWeeksInMonth(year,month-1);
+function renderHRMonthly(){
+  const monthVal=document.getElementById('hr-month').value;
+  const dF=document.getElementById('hr-mdept').value;
+  const[yr,mo]=monthVal.split('-').map(Number);
+  const weeks=getMonthWeeks(yr,mo-1);
   const mRecs=records.filter(r=>weeks.includes(r.week));
   const filtered=dF?mRecs.filter(r=>r.dept===dF):mRecs;
-  const el=document.getElementById('hr-monthly-list');
+  const el=document.getElementById('hr-monthly');
   const empMap={};
   filtered.forEach(r=>{
-    if(!empMap[r.name]) empMap[r.name]={name:r.name,dept:r.dept,sup:r.supName||r.sup,weeks:{}};
-    if(!empMap[r.name].weeks[r.week]||r.id>empMap[r.name].weeks[r.week].id) empMap[r.name].weeks[r.week]=r;
+    if(!empMap[r.name])empMap[r.name]={name:r.name,dept:r.dept,sup:r.supName||r.sup,weeks:{}};
+    if(!empMap[r.name].weeks[r.week]||r.id>empMap[r.name].weeks[r.week].id)empMap[r.name].weeks[r.week]=r;
   });
-  const emps=Object.values(empMap);
-  if(!emps.length){el.innerHTML=`<div class="empty"><div class="ei">📅</div><p>No records this month</p></div>`;return;}
-  emps.sort((a,b)=>{
-    const aA=Object.values(a.weeks).reduce((s,r)=>s+r.total,0)/Object.values(a.weeks).length;
-    const bA=Object.values(b.weeks).reduce((s,r)=>s+r.total,0)/Object.values(b.weeks).length;
+  const emps=Object.values(empMap).sort((a,b)=>{
+    const aA=Object.values(a.weeks).reduce((s,r)=>s+Number(r.total),0)/Object.values(a.weeks).length;
+    const bA=Object.values(b.weeks).reduce((s,r)=>s+Number(r.total),0)/Object.values(b.weeks).length;
     return bA-aA;
   });
+  if(!emps.length){el.innerHTML=`<div class="empty"><div class="ei">📅</div><p>No records this month</p></div>`;return;}
   el.innerHTML=emps.map(emp=>{
-    const wEntries=weeks.map(w=>({week:w,record:emp.weeks[w]||null}));
-    const scored=wEntries.filter(e=>e.record);
-    const avg=scored.length?(scored.reduce((s,e)=>s+e.record.total,0)/scored.length):0;
-    const avgDisp=scored.length?avg.toFixed(1):'-';
-    const grade=avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
-    const weekCount=scored.length;
-    const bonus=scored.length?calcFinalBonus(Math.round(avg),weekCount):0;
-    const baseBonus=calcBonus(Math.round(avg));
-    const pct=weekCount>=4?100:weekCount===3?75:weekCount===2?50:weekCount===1?25:0;
-    const gColor=grade==='A'?'#10b981':grade==='B'?'#3b82f6':grade==='C'?'#f59e0b':'#ef4444';
-    const scoredArr=scored.map(e=>e.record.total);
-    let trend='';
-    if(scoredArr.length>=2){const d=scoredArr[scoredArr.length-1]-scoredArr[scoredArr.length-2];trend=d>0?'📈':d<0?'📉':'➡️';}
-    return`<div class="month-emp-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div>
-          <div style="font-size:14px;font-weight:700">${emp.name} ${trend}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px">${emp.dept} · ${scored.length} week(s) · ${emp.sup}</div>
-        </div>
-        <div style="text-align:right">
-          <div style="background:${gColor};color:white;border-radius:10px;padding:4px 10px;font-size:12px;font-weight:800">avg ${avgDisp}</div>
-          <div style="font-size:13px;font-weight:800;color:#10b981;margin-top:4px">RM ${bonus}</div>
-          <div style="font-size:10px;color:#6b7e94;margin-top:2px">${weekCount}/4周 · ${pct}%</div>
-        </div>
+    const we=weeks.map(w=>({week:w,rec:emp.weeks[w]||null}));
+    const scored=we.filter(e=>e.rec);
+    const avg=scored.length?scored.reduce((s,e)=>s+Number(e.rec.total),0)/scored.length:0;
+    const wks=scored.length;
+    const bonus=calcFinal(Math.round(avg),wks);
+    const pct=wks>=4?100:wks===3?75:wks===2?50:wks===1?25:0;
+    const gc=avg>=27?'#10b981':avg>=21?'#3b82f6':avg>=15?'#f59e0b':'#ef4444';
+    const scoredArr=scored.map(e=>Number(e.rec.total));
+    const trend=scoredArr.length>=2?(scoredArr[scoredArr.length-1]-scoredArr[scoredArr.length-2]>0?'📈':scoredArr[scoredArr.length-1]-scoredArr[scoredArr.length-2]<0?'📉':'➡️'):'';
+    const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal);
+    const trStatus=empTR.length>=2?`<div style="font-size:11px;color:#10b981;font-weight:700">✅ 目标回报 ${empTR.length}/4次</div>`:empTR.length===1?`<div style="font-size:11px;color:#f59e0b;font-weight:700">⚠️ 目标回报 1/4次 (需2次)</div>`:`<div style="font-size:11px;color:#ef4444;font-weight:700">❌ 未提交目标回报</div>`;
+    return`<div class="mecard">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div><div style="font-size:14px;font-weight:700">${emp.name} ${trend}</div><div style="font-size:11px;color:#6b7e94;margin-top:2px">${emp.dept} · ${wks}/4周 · ${emp.sup}</div>${trStatus}</div>
+        <div style="text-align:right"><div style="background:${gc};color:white;border-radius:10px;padding:4px 10px;font-size:12px;font-weight:800">avg ${scored.length?avg.toFixed(1):'-'}</div><div style="font-size:13px;font-weight:800;color:#10b981;margin-top:4px">RM ${bonus}</div><div style="font-size:10px;color:#6b7e94">${pct}%</div></div>
       </div>
-      ${(()=>{
-        const empReports = targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal);
-        const rCount = empReports.length;
-        const rColor = rCount>=2?'#10b981':rCount>=1?'#f59e0b':'#ef4444';
-        const rText = rCount>=2?`✅ 目标回报 ${rCount}/4次`:`⚠️ 目标回报 ${rCount}/4次 (需最少2次)`;
-        return rCount>0?`<div style="font-size:11px;font-weight:700;color:${rColor};background:${rCount>=2?'#d1fae5':rCount>=1?'#fef9c3':'#fee2e2'};padding:4px 8px;border-radius:6px;margin-bottom:8px">${rText}</div>`:`<div style="font-size:11px;color:#ef4444;background:#fee2e2;padding:4px 8px;border-radius:6px;margin-bottom:8px">❌ 未提交目标回报</div>`;
-      })()}
-      ${wEntries.map((e,i)=>{
-        if(!e.record)return`<div class="week-row"><span class="week-num">Week ${i+1}</span><span class="missing">— Not evaluated</span></div>`;
-        const pct=(e.record.total/30*100).toFixed(0);
-        const bc=e.record.grade==='A'?'#10b981':e.record.grade==='B'?'#3b82f6':e.record.grade==='C'?'#f59e0b':'#ef4444';
-        return`<div class="week-row"><span class="week-num">Week ${i+1}</span><div class="wbar-track"><div class="wbar-fill" style="width:${pct}%;background:${bc}"></div></div><span class="week-val">${e.record.total}</span></div>`;
+      ${we.map((e,i)=>{
+        if(!e.rec)return`<div class="wrow"><span class="wnum">Week ${i+1}</span><span style="color:#6b7e94;font-style:italic">— Not evaluated</span></div>`;
+        const bc=e.rec.grade==='A'?'#10b981':e.rec.grade==='B'?'#3b82f6':e.rec.grade==='C'?'#f59e0b':'#ef4444';
+        return`<div class="wrow"><span class="wnum">Week ${i+1}</span><div class="wtrack"><div class="wfill" style="width:${(Number(e.rec.total)/30*100).toFixed(0)}%;background:${bc}"></div></div><span class="wval">${e.rec.total}</span></div>`;
       }).join('')}
     </div>`;
   }).join('');
 }
 
-// ===== HR FEEDBACK (CONFIDENTIAL) =====
-function renderHRFeedback() {
-  const el=document.getElementById('hr-feedback-list');
-  if(!feedbacks.length){el.innerHTML=`<div class="empty"><div class="ei">💬</div><p>No feedback submitted yet</p></div>`;return;}
-  el.innerHTML=`<div class="card"><div class="card-title">💬 Employee Feedback (Confidential)</div>`+
-    feedbacks.map(f=>`
-      <div style="padding:10px 0;border-bottom:1px solid var(--border)">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <div style="font-size:13px;font-weight:700">${f.name}</div>
-          <div style="font-size:11px;color:var(--muted)">${weekToLabel(String(f.week))||f.week}</div>
-        </div>
-        <div style="font-size:13px;color:var(--text)">${f.feedback}</div>
-      </div>`).join('')+`</div>`;
+// EXPORT BONUS
+function exportBonus(){
+  const monthVal=document.getElementById('hr-month').value;
+  const dF=document.getElementById('hr-mdept').value;
+  const[yr,mo]=monthVal.split('-').map(Number);
+  const weeks=getMonthWeeks(yr,mo-1);
+  const mRecs=records.filter(r=>weeks.includes(r.week));
+  const filtered=dF?mRecs.filter(r=>r.dept===dF):mRecs;
+  const empMap={};
+  filtered.forEach(r=>{
+    if(!empMap[r.name])empMap[r.name]={name:r.name,dept:r.dept,sup:r.supName||r.sup,weeks:{}};
+    if(!empMap[r.name].weeks[r.week]||r.id>empMap[r.name].weeks[r.week].id)empMap[r.name].weeks[r.week]=r;
+  });
+  const emps=Object.values(empMap).sort((a,b)=>a.dept.localeCompare(b.dept)||a.name.localeCompare(b.name));
+  let csv='\uFEFF';
+  csv+=`CH CASH & CARRY SDN BHD - Bonus Report 奖金报告\nMonth 月份:,${monthVal}\n\n`;
+  csv+=`Employee,Department,Supervisor,Week1,Week2,Week3,Week4,Weeks,Avg,Grade,Base Bonus,Ratio,Final Bonus,Target Reports\n`;
+  let totalBonus=0;
+  emps.forEach(emp=>{
+    const we=weeks.map(w=>emp.weeks[w]||null);
+    const scored=we.filter(e=>e);
+    const avg=scored.length?scored.reduce((s,r)=>s+Number(r.total),0)/scored.length:0;
+    const wks=scored.length;
+    const base=calcBase(Math.round(avg));
+    const pct=wks>=4?100:wks===3?75:wks===2?50:wks===1?25:0;
+    const final=Math.round(base*pct/100);
+    const grade=avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
+    const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal).length;
+    totalBonus+=final;
+    csv+=`${emp.name},${emp.dept},${emp.sup},${we.map(e=>e?e.total:'-').join(',')},${wks}/4,${scored.length?avg.toFixed(1):'-'},${scored.length?grade:'-'},RM ${base},${pct}%,RM ${final},${empTR}/4\n`;
+  });
+  csv+=`\nTOTAL,,,,,,,,,,,,RM ${totalBonus}\n`;
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`CH_Bonus_${monthVal}.csv`;a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ Bonus CSV exported!','#10b981');
 }
 
-// ===== HR APPEALS =====
-function renderHRAppeals() {
-  const el=document.getElementById('hr-appeals-list');
-  if(!appeals.length){el.innerHTML=`<div class="empty"><div class="ei">⚠️</div><p>No appeals submitted</p></div>`;return;}
+// HR FEEDBACK
+function renderHRFB(){
+  const el=document.getElementById('hr-feedbacks');
+  if(!feedbacks.length){el.innerHTML=`<div class="empty"><div class="ei">💬</div><p>No feedback yet</p></div>`;return;}
+  el.innerHTML=`<div class="card"><div class="ctitle">💬 Employee Feedback (Confidential)</div>`+
+    feedbacks.map(f=>`<div style="padding:10px 0;border-bottom:1px solid #f0f4f8"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><div style="font-size:13px;font-weight:700">${f.name}</div><div style="font-size:11px;color:#6b7e94">${weekLabel(f.week)||f.week}</div></div><div style="font-size:13px">${f.feedback}</div></div>`).join('')+`</div>`;
+}
+
+// HR APPEALS
+function renderHRAppeals(){
+  const el=document.getElementById('hr-appeals');
+  if(!appeals.length){el.innerHTML=`<div class="empty"><div class="ei">⚠️</div><p>No appeals</p></div>`;return;}
   el.innerHTML=appeals.map(a=>`
-    <div class="appeal-item">
+    <div class="card" style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <div><div style="font-size:14px;font-weight:700">${a.name}</div><div style="font-size:11px;color:var(--muted)">${a.week}</div></div>
+        <div><div style="font-size:14px;font-weight:700">${a.name}</div><div style="font-size:11px;color:#6b7e94">${weekLabel(a.week)||a.week}</div></div>
         <div style="display:flex;gap:6px;align-items:center">
-          <span class="appeal-status ${a.status.includes('Pending')?'status-pending':'status-done'}">${a.status}</span>
-          ${a.status.includes('Pending')?`<button onclick="resolveAppeal(${a.id})" style="background:var(--green);color:white;border:none;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">Resolve</button>`:''}
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;${a.status&&a.status.includes('Resolved')?'background:#d1fae5;color:#065f46':'background:#fef9c3;color:#713f12'}">${a.status||'Pending'}</span>
+          ${!a.status||a.status.includes('Pending')?`<button onclick="resolveAP('${a.id}')" style="background:#10b981;color:white;border:none;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer">Resolve</button>`:''}
         </div>
       </div>
       <div style="font-size:13px">${a.appeal}</div>
     </div>`).join('');
 }
 
-function resolveAppeal(id) {
-  const a=appeals.find(x=>x.id===id);
-  if(a){a.status='Resolved ✅';saveAll();postToCloud({type:'resolve_appeal',id});renderHRAppeals();showToast('✅ Appeal resolved','#10b981');}
+function resolveAP(id){
+  const a=appeals.find(x=>String(x.id)===String(id));
+  if(a){a.status='Resolved ✅';save();post({type:'resolve_appeal',id});renderHRAppeals();showToast('✅ Resolved','#10b981');}
 }
 
-// ===== DETAIL MODAL =====
-function showDetail(id) {
-  const r=records.find(x=>x.id===id);
-  if(!r)return;
+// DETAIL MODAL
+function showDetail(id){
+  const r=records.find(x=>String(x.id)===String(id));if(!r)return;
+  const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===String(r.name).toUpperCase());
+  // Get month of this record
+  let monthTR=[];
+  try{
+    const ws=r.week.split('-W');const yr=parseInt(ws[0]);const wn=parseInt(ws[1]);
+    const j=new Date(yr,0,1);const mon=new Date(yr,0,1+(wn-1)*7-j.getDay()+1);
+    const mv=`${mon.getFullYear()}-${String(mon.getMonth()+1).padStart(2,'0')}`;
+    monthTR=empTR.filter(t=>t.month===mv);
+  }catch(e){}
   document.getElementById('modal-body').innerHTML=`
     <div style="margin-bottom:12px">
-      <span class="week-tag">${weekToLabel(String(r.week))||r.week}</span>
+      <span class="wtag">${weekLabel(r.week)}</span>
       <h3 style="font-size:17px;font-weight:800">${r.name}</h3>
-      <div style="font-size:12px;color:var(--muted);margin-top:2px">${r.pos||''} · ${r.dept} · ${r.supName||r.sup}</div>
+      <div style="font-size:12px;color:#6b7e94;margin-top:2px">${r.pos||''} · ${r.dept} · ${r.supName||r.sup}</div>
     </div>
-    <div class="total-bar" style="margin-bottom:12px">
+    <div class="tbar" style="margin-bottom:12px">
       <div><div style="font-size:13px;font-weight:600">Total Score</div></div>
-      <div style="text-align:center"><div class="total-score">${r.total}</div><div style="font-size:10px;opacity:0.7">/30</div></div>
-      <div class="total-grade" style="background:${r.grade==='A'?'#10b981':r.grade==='B'?'#3b82f6':r.grade==='C'?'#f59e0b':'#ef4444'}">Grade ${r.grade}</div>
+      <div style="text-align:center"><div class="tscore">${r.total}</div><div style="font-size:10px;opacity:0.7">/30</div></div>
+      <div class="tgrade" style="background:${r.grade==='A'?'#10b981':r.grade==='B'?'#3b82f6':r.grade==='C'?'#f59e0b':'#ef4444'}">Grade ${r.grade}</div>
     </div>
-    ${Object.entries(r.scores).map(([k,v])=>`
-      <div class="mscore-row" style="flex-direction:column;align-items:flex-start;gap:3px">
-        <div style="display:flex;justify-content:space-between;width:100%">
-          <div>${cNameFull(k)}</div>
-          <div style="font-weight:700">${v}/5 ${['','⭕','🟡','🟡','🟢','🌟'][v]}</div>
-        </div>
-        ${r.notes&&r.notes[k]?`<div style="font-size:11px;color:#6b7e94;background:#f8fafd;padding:4px 8px;border-radius:6px;width:100%">📝 ${r.notes[k]}</div>`:''}
-      </div>`).join('')}
-    ${r.strength?`<div style="margin-top:12px"><div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px">STRENGTHS</div><div style="font-size:13px;background:#f8fafd;padding:9px;border-radius:8px">${r.strength}</div></div>`:''}
-    ${r.target?`<div style="margin-top:8px"><div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px">NEXT MONTH TARGET</div><div style="font-size:13px;background:#f8fafd;padding:9px;border-radius:8px">${r.target}</div></div>`:''}
-    ${r.confirmed?`<div style="margin-top:10px"><span class="confirmed-badge" style="background:#10b981">✅ Employee Confirmed</span></div>`:''}
-    ${(()=>{
-      const [yr,mo] = (() => {
-        try {
-          const wk = r.week.split('-W');
-          const jan1 = new Date(parseInt(wk[0]),0,1);
-          const mon = new Date(parseInt(wk[0]),0,1+(parseInt(wk[1])-1)*7-jan1.getDay()+1);
-          return [`${mon.getFullYear()}`,`${String(mon.getMonth()+1).padStart(2,'0')}`];
-        } catch(e) { return ['',''] }
-      })();
-      const monthVal2 = `${yr}-${mo}`;
-      const empReports = targetReports.filter(t=>String(t.name).toUpperCase()===String(r.name).toUpperCase()&&t.month===monthVal2);
-      if(!empReports.length) return `<div style="margin-top:12px;background:#fee2e2;border-radius:10px;padding:10px"><div style="font-size:12px;font-weight:700;color:#7f1d1d">🎯 员工目标回报</div><div style="font-size:12px;color:#991b1b;margin-top:3px">❌ 本月未提交回报</div></div>`;
-      return `<div style="margin-top:12px;background:#f0fdf4;border-radius:10px;padding:10px">
-        <div style="font-size:12px;font-weight:700;color:#065f46;margin-bottom:6px">🎯 员工目标回报 (${empReports.length}次)</div>
-        ${empReports.map((t,i)=>`<div style="font-size:12px;padding:5px 0;border-bottom:1px solid #bbf7d0"><span style="font-weight:700;color:#047857">第${i+1}次:</span> ${t.report}</div>`).join('')}
-      </div>`;
-    })()}
-  `;
-  document.getElementById('modal-overlay').classList.add('open');
+    ${CRITERIA.map(c=>`<div class="msr"><div class="msr-top"><div>${c.en} ${c.zh}</div><div style="font-weight:700">${r.scores[c.id]}/5 ${['','⭕','🟡','🟡','🟢','🌟'][r.scores[c.id]]}</div></div>${r.notes&&r.notes[c.id]?`<div class="mnote">📝 ${r.notes[c.id]}</div>`:''}</div>`).join('')}
+    ${r.strength?`<div style="margin-top:12px"><div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:4px">STRENGTHS</div><div style="font-size:13px;background:#f7fafd;padding:9px;border-radius:8px">${r.strength}</div></div>`:''}
+    ${r.target?`<div style="margin-top:8px"><div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:4px">TARGET</div><div style="font-size:13px;background:#f7fafd;padding:9px;border-radius:8px">${r.target}</div></div>`:''}
+    ${r.confirmed?'<div style="margin-top:10px"><span style="background:#10b981;color:white;border-radius:9px;padding:4px 12px;font-size:12px;font-weight:700">✅ Employee Confirmed</span></div>':''}
+    <div style="margin-top:12px;background:${monthTR.length>=2?'#f0fdf4':'#fff7ed'};border-radius:10px;padding:10px">
+      <div style="font-size:12px;font-weight:700;color:${monthTR.length>=2?'#065f46':'#c2410c'};margin-bottom:6px">🎯 员工目标回报 (${monthTR.length}次)</div>
+      ${monthTR.length?monthTR.map((t,i)=>`<div style="font-size:12px;padding:4px 0;border-bottom:1px solid rgba(0,0,0,0.05)"><b>第${i+1}次:</b> ${t.report}</div>`).join(''):'<div style="font-size:12px;color:#92400e">❌ 本月未提交回报</div>'}
+    </div>`;
+  document.getElementById('modal').classList.add('open');
 }
-function closeModal(e){if(e.target===document.getElementById('modal-overlay'))closeModalDirect();}
-function closeModalDirect(){document.getElementById('modal-overlay').classList.remove('open');}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
 
-// ===== HELPERS =====
-function cName(k){return{c1:'出勤',c2:'态度',c3:'卫生',c4:'服务',c5:'团队',c6:'效率'}[k]||k;}
-function cNameFull(k){return{c1:'Attendance & Punctuality 出勤与守时',c2:'Work Attitude 工作态度',c3:'Cleanliness 卫生与整洁',c4:'Customer Service 服务态度',c5:'Teamwork 团队合作',c6:'Efficiency 效率与执行力'}[k]||k;}
-
-function exportBonus() {
-  const monthVal = document.getElementById('hr-month-sel').value;
-  const dF = document.getElementById('hr-month-dept').value;
-  const [year, month] = monthVal.split('-').map(Number);
-  const weeks = getWeeksInMonth(year, month-1);
-  const mRecs = records.filter(r => weeks.includes(r.week));
-  const filtered = dF ? mRecs.filter(r=>r.dept===dF) : mRecs;
-
-  // Group by employee
-  const empMap = {};
-  filtered.forEach(r => {
-    const key = r.name;
-    if (!empMap[key]) empMap[key] = { name:r.name, dept:r.dept, sup:r.supName||r.sup, weeks:{} };
-    if (!empMap[key].weeks[r.week] || r.id > empMap[key].weeks[r.week].id) {
-      empMap[key].weeks[r.week] = r;
-    }
-  });
-
-  const monthName = `${year}-${String(month).padStart(2,'0')}`;
-  let csv = '﻿'; // BOM for Excel Chinese support
-  csv += `CH CASH & CARRY SDN BHD - 奖金报告 Bonus Report
-`;
-  csv += `月份 Month:,${monthName}
-
-`;
-  csv += `员工姓名,部门,主管,第1周,第2周,第3周,第4周,完成周数,月均分,等级,基本奖金,比例,最终奖金
-`;
-  csv += `Employee Name,Department,Supervisor,Week1,Week2,Week3,Week4,Weeks Done,Avg Score,Grade,Base Bonus,Ratio,Final Bonus
-`;
-
-  const emps = Object.values(empMap).sort((a,b)=>a.dept.localeCompare(b.dept)||a.name.localeCompare(b.name));
-  let totalBonus = 0;
-
-  emps.forEach(emp => {
-    const wEntries = weeks.map(w => emp.weeks[w]||null);
-    const scored = wEntries.filter(e=>e);
-    const avg = scored.length ? scored.reduce((s,r)=>s+Number(r.total),0)/scored.length : 0;
-    const weekCount = scored.length;
-    const base = calcBonus(Math.round(avg));
-    const pct = weekCount>=4?100:weekCount===3?75:weekCount===2?50:weekCount===1?25:0;
-    const final = Math.round(base * pct / 100);
-    const grade = avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
-    totalBonus += final;
-    const weekScores = wEntries.map(e=>e?e.total:'-').join(',');
-    csv += `${emp.name},${emp.dept},${emp.sup},${weekScores},${weekCount}/4,${scored.length?avg.toFixed(1):'-'},${scored.length?grade:'-'},RM ${base},${pct}%,RM ${final}
-`;
-  });
-
-  csv += `
-总计 TOTAL,,,,,,,,,,,, RM ${totalBonus}
-`;
-
-  // Download
-  const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `CH_CashCarry_Bonus_${monthName}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('✅ 奖金表已导出！','#10b981');
-}
-
-// ===== TARGET REPORT =====
-function initTargetReport() {
-  // Populate month selector
-  const sel = document.getElementById('tr-month');
-  const now = new Date();
-  sel.innerHTML = '';
-  for(let i=0; i<3; i++){
-    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
-    const val = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-    const label = `${d.getFullYear()}年${d.getMonth()+1}月`;
-    sel.innerHTML += `<option value="${val}"${i===0?' selected':''}>${label}</option>`;
-  }
-  sel.onchange = updateTargetReportUI;
-  updateTargetReportUI();
-}
-
-function updateTargetReportUI() {
-  const monthVal = document.getElementById('tr-month').value;
-  const empName = currentUser.name.toUpperCase();
-  
-  // Get this month's reports
-  const myReports = targetReports.filter(t => 
-    String(t.name).toUpperCase()===empName && t.month===monthVal
-  );
-  
-  const count = myReports.length;
-  const maxReached = count >= 4;
-  
-  // Show count
-  const countEl = document.getElementById('tr-count-display');
-  const color = count >= 2 ? '#10b981' : '#f59e0b';
-  countEl.innerHTML = `<span style="color:${color};font-weight:700">本月已提交 ${count}/4 次 ${count>=2?'✅':'⚠️ 最少需要2次'}</span>`;
-  
-  // Show/hide submit button
-  const btn = document.getElementById('tr-submit-btn');
-  if(maxReached) {
-    btn.disabled = true;
-    btn.textContent = '✅ 本月已达最多4次 / Max 4 reached';
-    btn.style.background = '#6b7e94';
-  } else {
-    btn.disabled = false;
-    btn.textContent = '📤 提交回报 / Submit Report';
-    btn.style.background = '';
-  }
-
-  // Show latest supervisor target for this month
-  const [year, month] = monthVal.split('-').map(Number);
-  const weeks = getWeeksInMonth(year, month-1);
-  const monthRecs = records.filter(r => 
-    String(r.name).toUpperCase()===empName && weeks.includes(r.week)
-  );
-  const latestWithTarget = monthRecs.filter(r=>r.target&&r.target.trim()).sort((a,b)=>b.id-a.id)[0];
-  
-  const targetDiv = document.getElementById('tr-last-target');
-  const targetText = document.getElementById('tr-target-text');
-  if(latestWithTarget && latestWithTarget.target) {
-    targetDiv.style.display = 'block';
-    targetText.textContent = latestWithTarget.target;
-  } else {
-    targetDiv.style.display = 'none';
-  }
-
-  // Show my reports this month
-  renderMyTargetReports(myReports);
-}
-
-function renderMyTargetReports(myReports) {
-  const el = document.getElementById('tr-my-reports');
-  if(!myReports.length) {
-    el.innerHTML = `<div class="empty"><div class="ei">🎯</div><p>本月暂无回报<br>No reports this month</p></div>`;
-    return;
-  }
-  el.innerHTML = `<div class="card"><div class="card-title">📋 本月回报记录</div>` +
-    myReports.map((t,i) => `
-      <div style="padding:10px 0;border-bottom:1px solid var(--border)">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <div style="font-size:12px;font-weight:700;color:var(--primary)">第${i+1}次回报</div>
-          <div style="font-size:11px;color:var(--muted)">${t.createdAt||''}</div>
-        </div>
-        <div style="font-size:13px">${t.report}</div>
-      </div>`).join('') + `</div>`;
-}
-
-async function submitTargetReport() {
-  const text = document.getElementById('tr-text').value.trim();
-  const month = document.getElementById('tr-month').value;
-  if(!text) { showToast('⚠️ 请填写完成情况 / Please fill in your report','#ef4444'); return; }
-  
-  const empName = currentUser.name.toUpperCase();
-  const existing = targetReports.filter(t=>String(t.name).toUpperCase()===empName && t.month===month);
-  if(existing.length >= 4) { showToast('⚠️ 本月已达最多4次','#ef4444'); return; }
-
-  const tr = {
-    id: Date.now(),
-    name: empName,
-    month,
-    report: text,
-    createdAt: new Date().toLocaleDateString('ms-MY')
-  };
-  targetReports.unshift(tr);
-  saveAll();
-  postToCloud({type:'targetreport', ...tr});
-  document.getElementById('tr-text').value = '';
-  showToast('✅ 回报已提交！','#10b981');
-  updateTargetReportUI();
-}
-
-function refreshAllData() {
-  loadFromCloud(() => {
-    // Re-render current active page
-    const activePage = document.querySelector('.page.active');
-    if(!activePage) return;
-    const id = activePage.id.replace('page-','');
-    if(id==='hrdash') renderHRDash();
-    else if(id==='hrrecords') renderHRRecords();
-    else if(id==='hrmonthly') renderHRMonthly();
-    else if(id==='hrfeedback') renderHRFeedback();
-    else if(id==='hrappeals') renderHRAppeals();
-    else if(id==='myscore') renderMyScore();
-    else if(id==='appeal') renderMyAppeals();
-  });
-}
-
+// TOAST
 function showToast(msg,color){
   const t=document.getElementById('toast');
   t.textContent=msg;t.style.background=color||'#10b981';
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
 }
-
-// ===== LANGUAGE =====
-const LANGS = ['中文','BM','EN'];
-let langIdx = 0;
-const L = {
-  '中文': {
-    evaluate:'评分',records:'记录',myscore:'我的分数',feedback:'意见',appeal:'申诉',
-    empInfo:'员工信息', empName:'员工姓名 / Nama / Name', empPos:'职位 / Jawatan / Position',
-    empDept:'部门 / Bahagian / Department', empWeek:'评估周 / Minggu / Week',
-    criteria:'评分项目', c1:'出勤与守时', c2:'工作态度', c3:'卫生与整洁',
-    c4:'服务态度', c5:'团队合作', c6:'效率与执行力',
-    total:'总分', submit:'💾 提交评估',
-    strengths:'优点 / Strengths', target:'下月目标 / Next Month Target',
-    fbTitle:'员工意见（机密）', fbNote:'你的意见只有HR可以看到',
-    fbText:'写下你的意见...', apTitle:'申诉', apNote:'不服分数可以在这里申诉，HR会处理',
-    apText:'说明申诉原因...',
-  },
-  'BM': {
-    evaluate:'Nilai',records:'Rekod',myscore:'Markah Saya',feedback:'Maklum Balas',appeal:'Rayuan',
-    empInfo:'Maklumat Pekerja', empName:'Nama Pekerja', empPos:'Jawatan',
-    empDept:'Bahagian', empWeek:'Minggu Penilaian',
-    criteria:'Kriteria Penilaian', c1:'Kehadiran & Masa', c2:'Sikap Kerja', c3:'Kebersihan',
-    c4:'Layanan Pelanggan', c5:'Kerjasama Pasukan', c6:'Kecekapan',
-    total:'Jumlah Markah', submit:'💾 Hantar Penilaian',
-    strengths:'Kekuatan', target:'Sasaran Bulan Depan',
-    fbTitle:'Maklum Balas Pekerja (Sulit)', fbNote:'Maklum balas anda hanya dapat dilihat oleh HR',
-    fbText:'Tulis maklum balas anda...', apTitle:'Rayuan', apNote:'Kemukakan rayuan jika tidak bersetuju dengan markah',
-    apText:'Jelaskan sebab rayuan anda...',
-  },
-  'EN': {
-    evaluate:'Evaluate',records:'Records',myscore:'My Score',feedback:'Feedback',appeal:'Appeal',
-    empInfo:'Employee Info', empName:'Employee Name', empPos:'Position',
-    empDept:'Department', empWeek:'Evaluation Week',
-    criteria:'Evaluation Criteria', c1:'Attendance & Punctuality', c2:'Work Attitude', c3:'Cleanliness',
-    c4:'Customer Service', c5:'Teamwork', c6:'Efficiency',
-    total:'Total Score', submit:'💾 Submit Evaluation',
-    strengths:'Strengths', target:'Next Month Target',
-    fbTitle:'Employee Feedback (Confidential)', fbNote:'Your feedback is only visible to HR',
-    fbText:'Write your feedback here...', apTitle:'Appeal', apNote:'Submit an appeal if you disagree with your score',
-    apText:'Explain your reason for appeal...',
-  }
-};
-
-function cycleLang() {
-  langIdx = (langIdx+1)%3;
-  const lang = LANGS[langIdx];
-  document.getElementById('lang-btn').textContent = lang;
-  const t = L[lang];
-  // Update nav labels
-  if(currentRole==='supervisor'){
-    const tabs = document.querySelectorAll('.nav-tab');
-    if(tabs[0]) tabs[0].lastChild.textContent = t.evaluate;
-    if(tabs[1]) tabs[1].lastChild.textContent = t.records;
-  } else if(currentRole==='employee'){
-    const tabs = document.querySelectorAll('.nav-tab');
-    if(tabs[0]) tabs[0].lastChild.textContent = t.myscore;
-    if(tabs[1]) tabs[1].lastChild.textContent = t.feedback;
-    if(tabs[2]) tabs[2].lastChild.textContent = t.appeal;
-  }
-  // Update form labels
-  const ids = {
-    'lbl-empinfo':t.empInfo,'lbl-empname':t.empName,'lbl-emppos':t.empPos,
-    'lbl-empdept':t.empDept,'lbl-empweek':t.empWeek,'lbl-criteria':t.criteria,
-    'lbl-c1':t.c1,'lbl-c2':t.c2,'lbl-c3':t.c3,'lbl-c4':t.c4,'lbl-c5':t.c5,'lbl-c6':t.c6,
-    'lbl-total':t.total,'lbl-strengths':t.strengths,'lbl-target':t.target,
-    'btn-submit':t.submit,'lbl-fbtitle':t.fbTitle,'lbl-fbnote':t.fbNote,
-    'lbl-aptitle':t.apTitle,'lbl-apnote':t.apNote,
-  };
-  Object.entries(ids).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.textContent=val;});
-  document.getElementById('emp_name').placeholder = t.empName;
-  document.getElementById('emp_pos').placeholder = t.empPos;
-  const st=document.getElementById('strength');if(st)st.placeholder=t.strengths;
-  const tg=document.getElementById('target');if(tg)tg.placeholder=t.target;
-  const fb=document.getElementById('fb-text');if(fb)fb.placeholder=t.fbText;
-  const ap=document.getElementById('ap-text');if(ap)ap.placeholder=t.apText;
-}
-// ===== AUTO RESTORE SESSION =====
-(function() {
-  try {
-    const savedRole = localStorage.getItem('sessionRole');
-    const savedUser = localStorage.getItem('sessionUser');
-    if(savedRole && savedUser && savedRole !== 'null' && savedUser !== 'null') {
-      currentRole = savedRole;
-      currentUser = JSON.parse(savedUser);
-      if(currentRole && currentUser && currentUser.name) {
-        // Hide login, show app
-        document.getElementById('login-screen').style.display='none';
-        document.getElementById('app').classList.add('show');
-        document.getElementById('app-user').textContent = currentUser.name;
-        buildNav();
-        if(currentRole==='supervisor') { showPage('evaluate'); setDefaultWeek(); }
-        else if(currentRole==='employee') { setDefaultWeek(); showPage('myscore'); }
-        else if(currentRole==='hr') { showPage('hrdash'); initHRMonthSel(); }
-        // Sync cloud in background
-        syncCloudBackground();
-      }
-    }
-  } catch(e) {
-    console.log('Session restore failed:', e);
-  }
-})();
 </script>
 
 
