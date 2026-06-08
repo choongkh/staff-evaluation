@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_35.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_37.html -->
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -550,7 +550,7 @@ function showPg(id){
   if(tab)tab.classList.add('active');
   if(id==='myrecords')renderMyRec();
   else if(id==='myscore')renderMyScore();
-  else if(id==='targetreport')updateTR();
+  else if(id==='targetreport'){initTRMonth();updateTR();}
   else if(id==='hrdash')renderHRDash();
   else if(id==='hrrecords')renderHRRec();
   else if(id==='hrmonthly')renderHRMonthly();
@@ -717,15 +717,19 @@ function initTRMonth(){
   updateTR();
 }
 function updateTR(){
-  const month=document.getElementById('tr-month')?document.getElementById('tr-month').value:'';
+  const monSel=document.getElementById('tr-month');
+  if(!monSel||!monSel.options.length){initTRMonth();return;}
+  const month=monSel.value;
   const empName=user.name.toUpperCase();
+  // Show ALL target reports for this employee (all months)
+  const allTR=targetReports.filter(t=>String(t.name).toUpperCase()===empName);
   const myTR=targetReports.filter(t=>String(t.name).toUpperCase()===empName&&t.month===month);
   const count=myTR.length;
   const countEl=document.getElementById('tr-count');
   if(countEl)countEl.innerHTML=`<span style="color:${count>=2?'#10b981':'#f59e0b'};font-weight:700">本月已提交 ${count}/4 次 ${count>=2?'✅':'⚠️ 需最少2次'}</span>`;
   const btn=document.getElementById('tr-btn');
   if(btn){btn.disabled=count>=4;btn.style.background=count>=4?'#6b7e94':'';}
-  // Show supervisor target
+  // Show supervisor target for this month
   if(month){
     const[yr,mo]=month.split('-').map(Number);
     const mWks=getMonthWeeks(yr,mo-1);
@@ -733,14 +737,26 @@ function updateTR(){
     const withTgt=mRecs.filter(r=>r.target&&r.target.trim()).sort((a,b)=>b.id-a.id)[0];
     const box=document.getElementById('tr-target-box');
     const txt=document.getElementById('tr-target-txt');
-    if(box&&txt){if(withTgt){box.style.display='block';txt.textContent=withTgt.target;}else box.style.display='none';}
+    if(box&&txt){if(withTgt){box.style.display='block';txt.textContent=withTgt.target;}else{box.style.display='block';txt.textContent='主管还未设定目标 / No target set yet';}}
   }
-  // History
+  // Show history - this month's reports
   const hEl=document.getElementById('tr-history');
   if(hEl){
-    if(!myTR.length){hEl.innerHTML='';return;}
-    hEl.innerHTML=`<div class="card"><div class="ctitle">本月回报记录</div>`+
-      myTR.map((t,i)=>`<div style="padding:9px 0;border-bottom:1px solid #f0f4f8"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:12px;font-weight:700;color:#0f2744">第${i+1}次</span><span style="font-size:11px;color:#6b7e94">${t.createdAt||''}</span></div><div style="font-size:13px">${t.report}</div></div>`).join('')+`</div>`;
+    // Show this month + all previous
+    const display=allTR.sort((a,b)=>b.id-a.id);
+    if(!display.length){
+      hEl.innerHTML=`<div class="empty"><div class="ei">🎯</div><p>暂无回报记录<br>No reports submitted yet</p></div>`;
+      return;
+    }
+    hEl.innerHTML=`<div class="card"><div class="ctitle">📋 所有回报记录 / All Reports</div>`+
+      display.map((t,i)=>`
+        <div style="padding:10px 0;border-bottom:1px solid #f0f4f8">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:12px;font-weight:700;color:#0f2744">${t.month} · 第${i+1}次</span>
+            <span style="font-size:11px;color:#6b7e94">${t.createdAt||''}</span>
+          </div>
+          <div style="font-size:13px;line-height:1.5">${t.report}</div>
+        </div>`).join('')+`</div>`;
   }
 }
 function submitTR(){
