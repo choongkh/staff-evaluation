@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_26.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_33.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -175,11 +175,11 @@ textarea{resize:vertical;min-height:65px}
 
 .week-tag{background:var(--primary);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:5px}
 </style>
-</head>
+<script id="cb_targetreports_1780922817113" src="https://script.google.com/macros/s/AKfycbywZWDkWtt3UPtSwPbU1nTr9iiOHhusFqnb1sNGc5k4lWlSYg51VUDBTTWsDfAg7cws1Q/exec?type=targetreports&amp;callback=cb_targetreports_1780922817113"></script></head>
 <body>
 
 <!-- ===== LOGIN ===== -->
-<div class="login-screen" id="login-screen">
+<div class="login-screen" id="login-screen" style="display: none;">
   <div class="login-box">
     <div class="login-logo">
       <div class="logo-icon">⭐</div>
@@ -252,12 +252,12 @@ textarea{resize:vertical;min-height:65px}
 </div>
 
 <!-- ===== APP ===== -->
-<div class="app" id="app">
+<div class="app show" id="app">
 
   <div class="header">
     <div class="header-left">
       <h2 id="app-title">CH CASH &amp; CARRY</h2>
-      <span id="app-user"></span>
+      <span id="app-user">CHONG CHING CHIEN</span>
     </div>
     <div class="header-right">
       <button class="logout-btn" onclick="cycleLang()" id="lang-btn">中文</button>
@@ -265,11 +265,17 @@ textarea{resize:vertical;min-height:65px}
     </div>
   </div>
 
-  <div class="nav-tabs" id="nav-tabs"></div>
+  <div class="nav-tabs" id="nav-tabs">
+    <div class="nav-tab active" onclick="showPage(&#39;evaluate&#39;)" id="tab-evaluate">
+      <span class="ti">✏️</span>评分 / Score
+    </div>
+    <div class="nav-tab" onclick="showPage(&#39;myrecords&#39;)" id="tab-myrecords">
+      <span class="ti">📋</span>记录 / Records
+    </div></div>
 
   <!-- SUPERVISOR PAGES -->
   <!-- Evaluate -->
-  <div class="page" id="page-evaluate">
+  <div class="page active" id="page-evaluate">
     <div class="card">
       <div class="card-title"><span id="lbl-empinfo">员工信息 / Maklumat Pekerja</span></div>
       <div class="form-group">
@@ -294,7 +300,7 @@ textarea{resize:vertical;min-height:65px}
       </div>
       <div class="form-group">
         <label class="form-label" id="lbl-empweek">评估周 / Minggu / Week</label>
-        <select id="emp_week"></select>
+        <select id="emp_week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
       </div>
     </div>
 
@@ -403,7 +409,7 @@ textarea{resize:vertical;min-height:65px}
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px" id="lbl-fbnote">Your feedback is confidential. Only HR can see this.</p>
       <div class="form-group">
         <label class="form-label">评估周 / Week</label>
-        <select id="fb-week"></select>
+        <select id="fb-week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
       </div>
       <div class="form-group">
         <label class="form-label">你的意见 / Your Feedback / Maklum Balas Anda</label>
@@ -420,7 +426,7 @@ textarea{resize:vertical;min-height:65px}
       <p style="font-size:12px;color:var(--muted);margin-bottom:12px" id="lbl-apnote">不服分数可以在这里申诉，HR会处理。</p>
       <div class="form-group">
         <label class="form-label">评估周 / Week</label>
-        <select id="ap-week"></select>
+        <select id="ap-week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select>
       </div>
       <div class="form-group">
         <label class="form-label">申诉原因 / Reason for Appeal</label>
@@ -592,15 +598,7 @@ try { feedbacks = JSON.parse(localStorage.getItem('evalFeedbacks')||'[]'); } cat
 try { appeals = JSON.parse(localStorage.getItem('evalAppeals')||'[]'); } catch(e){}
 try { targetReports = JSON.parse(localStorage.getItem('evalTargetReports')||'[]'); } catch(e){}
 
-// Restore session if page was refreshed
-try {
-  const savedRole = localStorage.getItem('sessionRole');
-  const savedUser = localStorage.getItem('sessionUser');
-  if(savedRole && savedUser) {
-    currentRole = savedRole;
-    currentUser = JSON.parse(savedUser);
-  }
-} catch(e){}
+
 
 function saveAll() {
   localStorage.setItem('evalRecords', JSON.stringify(records));
@@ -1502,13 +1500,6 @@ function showToast(msg,color){
   setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-// Auto-restore session on page load
-(function() {
-  if(currentRole && currentUser) {
-    startApp();
-  }
-})();
-
 // ===== LANGUAGE =====
 const LANGS = ['中文','BM','EN'];
 let langIdx = 0;
@@ -1584,6 +1575,31 @@ function cycleLang() {
   const fb=document.getElementById('fb-text');if(fb)fb.placeholder=t.fbText;
   const ap=document.getElementById('ap-text');if(ap)ap.placeholder=t.apText;
 }
+// ===== AUTO RESTORE SESSION =====
+(function() {
+  try {
+    const savedRole = localStorage.getItem('sessionRole');
+    const savedUser = localStorage.getItem('sessionUser');
+    if(savedRole && savedUser && savedRole !== 'null' && savedUser !== 'null') {
+      currentRole = savedRole;
+      currentUser = JSON.parse(savedUser);
+      if(currentRole && currentUser && currentUser.name) {
+        // Hide login, show app
+        document.getElementById('login-screen').style.display='none';
+        document.getElementById('app').classList.add('show');
+        document.getElementById('app-user').textContent = currentUser.name;
+        buildNav();
+        if(currentRole==='supervisor') { showPage('evaluate'); setDefaultWeek(); }
+        else if(currentRole==='employee') { setDefaultWeek(); showPage('myscore'); }
+        else if(currentRole==='hr') { showPage('hrdash'); initHRMonthSel(); }
+        // Sync cloud in background
+        syncCloudBackground();
+      }
+    }
+  } catch(e) {
+    console.log('Session restore failed:', e);
+  }
+})();
 </script>
 
 
