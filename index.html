@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_40.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_41.html -->
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -191,27 +191,30 @@ textarea{resize:vertical;min-height:70px}
 <div class="app" id="app-wrap">
   <div class="hdr">
     <div class="hdr-l"><h2>CH CASH &amp; CARRY</h2><span id="app-user"></span></div>
-    <div class="hdr-r"><button class="hbtn" onclick="doLogout()">Logout</button></div>
+    <div class="hdr-r">
+      <button class="hbtn" onclick="cycleLang()" id="lang-btn">中文</button>
+      <button class="hbtn" onclick="doLogout()">Logout</button>
+    </div>
   </div>
   <div class="nav" id="app-nav"></div>
 
   <!-- SUPERVISOR PAGES -->
   <div class="pg" id="pg-evaluate">
     <div class="card">
-      <div class="ctitle">员工信息 / Employee Info</div>
-      <div class="fg"><label class="fl">员工全名 / Full Name</label><input type="text" id="e-name" placeholder="Enter employee full name..."></div>
-      <div class="fg"><label class="fl">职位 / Position</label><input type="text" id="e-pos" placeholder="Position..."></div>
-      <div class="fg"><label class="fl">部门 / Department</label>
+      <div class="ctitle"><span id="lbl-empinfo">员工信息 / Employee Info</span></div>
+      <div class="fg"><label class="fl" id="lbl-empname">员工全名 / Full Name</label><input type="text" id="e-name" placeholder="Enter employee full name..."></div>
+      <div class="fg"><label class="fl" id="lbl-emppos">职位 / Position</label><input type="text" id="e-pos" placeholder="Position..."></div>
+      <div class="fg"><label class="fl" id="lbl-empdept">部门 / Department</label>
         <select id="e-dept">
           <option value="">-- Select --</option>
           <option>Wet Market</option><option>Admin</option><option>Frozen</option>
           <option>Merchandiser</option><option>Security</option><option>Cashier</option>
         </select>
       </div>
-      <div class="fg"><label class="fl">评估周 / Week</label><select id="e-week"></select></div>
+      <div class="fg"><label class="fl" id="lbl-empweek">评估周 / Week</label><select id="e-week"></select></div>
     </div>
     <div class="card">
-      <div class="ctitle">评分 / Scoring (1-5)</div>
+      <div class="ctitle"><span id="lbl-scoring">评分 / Scoring (1-5)</span></div>
       <div id="score-items"></div>
     </div>
     <div class="tbar">
@@ -220,11 +223,11 @@ textarea{resize:vertical;min-height:70px}
       <div class="tgrade" id="t-grade">-</div>
     </div>
     <div class="card">
-      <div class="ctitle">总结 / Summary</div>
-      <div class="fg"><label class="fl">优点 / Strengths</label><textarea id="e-str" placeholder="Employee strengths..."></textarea></div>
-      <div class="fg"><label class="fl">下月目标 / Next Month Target</label><textarea id="e-tgt" placeholder="Target for next month..."></textarea></div>
+      <div class="ctitle"><span id="lbl-summary">总结 / Summary</span></div>
+      <div class="fg"><label class="fl" id="lbl-strengths">优点 / Strengths</label><textarea id="e-str" placeholder="Employee strengths..."></textarea></div>
+      <div class="fg"><label class="fl" id="lbl-target">下月目标 / Next Month Target</label><textarea id="e-tgt" placeholder="Target for next month..."></textarea></div>
     </div>
-    <button class="pbtn" onclick="submitEval()">💾 Submit Evaluation 提交评估</button>
+    <button class="pbtn" onclick="submitEval()" id="btn-submit">💾 Submit Evaluation 提交评估</button>
     <div style="height:20px"></div>
   </div>
 
@@ -237,38 +240,43 @@ textarea{resize:vertical;min-height:70px}
   </div>
 
   <!-- EMPLOYEE PAGES -->
-  <div class="pg" id="pg-myscore"><div id="myscore-content"></div></div>
+  <div class="pg" id="pg-myscore">
+    <div id="motiv-banner" style="background:linear-gradient(135deg,#e8612a,#f59e0b);color:white;border-radius:12px;padding:12px 15px;margin-bottom:12px;text-align:center;font-size:13px;font-weight:700;display:none">
+      <span id="motiv-msg"></span>
+    </div>
+    <div id="myscore-content"></div>
+  </div>
   <div class="pg" id="pg-targetreport">
     <div class="card">
-      <div class="ctitle">🎯 目标回报 / Target Report</div>
-      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px">每月最少2次，最多4次 / Min 2, max 4 per month</p>
-      <div class="fg"><label class="fl">月份 / Month</label><select id="tr-month" onchange="updateTR()"></select></div>
+      <div class="ctitle">🎯 <span id="lbl-trtitle">目标回报 / Target Report</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-trnote">每月最少2次，最多4次 / Min 2, max 4 per month</p>
+      <div class="fg"><label class="fl" id="lbl-trmonth">月份 / Month</label><select id="tr-month" onchange="updateTR()"></select></div>
       <div id="tr-target-box" style="display:none;background:#f0f4f9;border-radius:10px;padding:12px;margin-bottom:12px">
-        <div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:5px">🎯 主管设定目标 / Supervisor Target:</div>
+        <div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:5px" id="lbl-trtarget">🎯 主管设定目标 / Supervisor Target:</div>
         <div id="tr-target-txt" style="font-size:13px"></div>
       </div>
-      <div class="fg"><label class="fl">完成情况 / Achievement</label><textarea id="tr-text" placeholder="写下这个月完成了什么..." style="min-height:100px"></textarea></div>
+      <div class="fg"><label class="fl" id="lbl-trachieve">完成情况 / Achievement</label><textarea id="tr-text" placeholder="写下这个月完成了什么..." style="min-height:100px"></textarea></div>
       <div id="tr-count" style="font-size:12px;text-align:right;margin-bottom:8px"></div>
-      <button class="pbtn" onclick="submitTR()" id="tr-btn">📤 Submit Report 提交回报</button>
+      <button class="pbtn" onclick="submitTR()" id="tr-btn">📤 <span id="btn-trsubmit">Submit Report 提交回报</span></button>
     </div>
     <div id="tr-history"></div>
   </div>
   <div class="pg" id="pg-feedback">
     <div class="card">
-      <div class="ctitle">💬 意见 / Feedback (Confidential)</div>
-      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px">只有HR看到 / Only HR can see this</p>
-      <div class="fg"><label class="fl">评估周 / Week</label><select id="fb-week"></select></div>
+      <div class="ctitle">💬 <span id="lbl-fbtitle">意见 / Feedback (Confidential)</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-fbnote">只有HR看到 / Only HR can see this</p>
+      <div class="fg"><label class="fl" id="lbl-fbweek">评估周 / Week</label><select id="fb-week"></select></div>
       <div class="fg"><label class="fl">意见 / Feedback</label><textarea id="fb-text" placeholder="Write your feedback..." style="min-height:100px"></textarea></div>
-      <button class="pbtn" onclick="submitFB()">📤 Submit 提交</button>
+      <button class="pbtn" onclick="submitFB()" id="btn-fbsubmit">📤 Submit 提交</button>
     </div>
   </div>
   <div class="pg" id="pg-appeal">
     <div class="card">
-      <div class="ctitle">⚠️ 申诉 / Appeal</div>
-      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px">只有HR看到 / Only HR can see this</p>
-      <div class="fg"><label class="fl">评估周 / Week</label><select id="ap-week"></select></div>
+      <div class="ctitle">⚠️ <span id="lbl-aptitle">申诉 / Appeal</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-apnote">只有HR看到 / Only HR can see this</p>
+      <div class="fg"><label class="fl" id="lbl-apweek">评估周 / Week</label><select id="ap-week"></select></div>
       <div class="fg"><label class="fl">申诉原因 / Reason</label><textarea id="ap-text" placeholder="Explain your reason..." style="min-height:100px"></textarea></div>
-      <button class="pbtn" onclick="submitAP()">📤 Submit 提交</button>
+      <button class="pbtn" onclick="submitAP()" id="btn-apsubmit">📤 Submit 提交</button>
       <div id="ap-done" style="display:none;margin-top:12px;background:#d1fae5;border-radius:10px;padding:14px;text-align:center">
         <div style="font-size:20px;margin-bottom:6px">✅</div>
         <div style="font-size:13px;font-weight:700;color:#065f46">申诉已提交！HR会处理。</div>
@@ -551,7 +559,7 @@ function buildScoreItems(){
   const el=document.getElementById('score-items');
   el.innerHTML=CRITERIA.map(c=>`
     <div class="si">
-      <div class="sl">${c.zh}</div>
+      <div class="sl" id="lbl-${c.id}">${c.zh}</div>
       <div class="ss">${c.ms} / ${c.en}</div>
       <div class="sdots" id="dots-${c.id}">
         ${[1,2,3,4,5].map(n=>`<div class="sd" onclick="setScore('${c.id}',${n})">${n}</div>`).join('')}
@@ -687,6 +695,15 @@ function renderMyScore(){
   const myR=records.filter(r=>String(r.name).toUpperCase()===empName).sort((a,b)=>b.id-a.id);
   const el=document.getElementById('myscore-content');if(!el)return;
   if(!myR.length){el.innerHTML=`<div class="empty"><div class="ei">⭐</div><p>No evaluation records yet.<br>请等主管评分后再查看。</p></div>`;return;}
+  // Show motivational message
+  const banner=document.getElementById('motiv-banner');
+  if(banner){
+    const lang=LANG_LIST[langIdx];
+    const msgs=LANG[lang].motiv;
+    const msg=msgs[Math.floor(Math.random()*msgs.length)];
+    document.getElementById('motiv-msg').textContent=msg;
+    banner.style.display='block';
+  }
   const latest=myR[0];
   const now=new Date();
   const mWks=getMonthWeeks(now.getFullYear(),now.getMonth());
@@ -1034,6 +1051,181 @@ function showToast(msg,color){
   const t=document.getElementById('toast');
   t.textContent=msg;t.style.background=color||'#10b981';
   t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
+}
+// ===== LANGUAGE SYSTEM =====
+const LANG_LIST = ['中文','BM','EN','বাংলা'];
+let langIdx = 0;
+
+const LANG = {
+  '中文': {
+    // Nav
+    nav_evaluate:'评分', nav_myrecords:'记录', nav_myscore:'我的分数',
+    nav_targetreport:'目标回报', nav_feedback:'意见', nav_appeal:'申诉',
+    nav_hrdash:'报表', nav_hrrecords:'记录', nav_hrmonthly:'月报',
+    nav_hrfeedback:'意见', nav_hrappeals:'申诉',
+    // Evaluate form
+    emp_info:'员工信息', emp_name:'员工全名 / Full Name', emp_pos:'职位 / Position',
+    emp_dept:'部门 / Department', emp_week:'评估周 / Week',
+    scoring:'评分项目 (1-5)', summary:'总结',
+    strengths:'优点 / Strengths', target:'下月目标 / Next Month Target',
+    submit:'💾 提交评估',
+    // Score criteria
+    c1:'出勤与守时', c2:'工作态度', c3:'卫生与整洁',
+    c4:'服务态度', c5:'团队合作', c6:'效率与执行力',
+    // Employee
+    my_score:'我的分数', bonus_label:'本月奖金估算',
+    confirm_btn:'✅ 确认分数', confirmed:'✅ 已确认',
+    // Target report
+    tr_title:'目标回报', tr_note:'每月最少2次，最多4次',
+    tr_month:'月份', tr_target_lbl:'主管设定目标',
+    tr_achieve:'完成情况', tr_submit:'📤 提交回报',
+    tr_history:'所有回报记录',
+    // Feedback
+    fb_title:'意见（机密）', fb_note:'只有HR看到',
+    fb_week:'评估周', fb_text:'写下你的意见...',
+    fb_submit:'📤 提交',
+    // Appeal  
+    ap_title:'申诉', ap_note:'只有HR看到，HR会处理',
+    ap_week:'评估周', ap_text:'说明申诉原因...',
+    ap_submit:'📤 提交申诉',
+    // Motivational
+    motiv: ['继续努力！你做得很好！💪', '每一天都是新的开始！🌟', '你的努力大家都看到了！👏', '坚持就是胜利！🏆', '你是团队的骄傲！⭐'],
+  },
+  'BM': {
+    nav_evaluate:'Nilai', nav_myrecords:'Rekod', nav_myscore:'Markah Saya',
+    nav_targetreport:'Laporan', nav_feedback:'Maklum Balas', nav_appeal:'Rayuan',
+    nav_hrdash:'Laporan', nav_hrrecords:'Rekod', nav_hrmonthly:'Bulanan',
+    nav_hrfeedback:'Maklum Balas', nav_hrappeals:'Rayuan',
+    emp_info:'Maklumat Pekerja', emp_name:'Nama Penuh', emp_pos:'Jawatan',
+    emp_dept:'Bahagian', emp_week:'Minggu Penilaian',
+    scoring:'Kriteria Penilaian (1-5)', summary:'Rumusan',
+    strengths:'Kekuatan', target:'Sasaran Bulan Depan',
+    submit:'💾 Hantar Penilaian',
+    c1:'Kehadiran & Masa', c2:'Sikap Kerja', c3:'Kebersihan',
+    c4:'Layanan Pelanggan', c5:'Kerjasama', c6:'Kecekapan',
+    my_score:'Markah Saya', bonus_label:'Anggaran Bonus Bulan Ini',
+    confirm_btn:'✅ Sahkan Markah', confirmed:'✅ Disahkan',
+    tr_title:'Laporan Sasaran', tr_note:'Min 2 kali, max 4 kali sebulan',
+    tr_month:'Bulan', tr_target_lbl:'Sasaran Penyelia',
+    tr_achieve:'Pencapaian', tr_submit:'📤 Hantar Laporan',
+    tr_history:'Semua Laporan',
+    fb_title:'Maklum Balas (Sulit)', fb_note:'Hanya HR yang dapat melihat',
+    fb_week:'Minggu', fb_text:'Tulis maklum balas anda...',
+    fb_submit:'📤 Hantar',
+    ap_title:'Rayuan', ap_note:'Hanya HR yang dapat melihat',
+    ap_week:'Minggu', ap_text:'Jelaskan sebab rayuan...',
+    ap_submit:'📤 Hantar Rayuan',
+    motiv: ['Teruskan usaha! Anda hebat! 💪', 'Setiap hari adalah permulaan baru! 🌟', 'Kerja keras anda dihargai! 👏', 'Teruskan! Kejayaan menanti! 🏆', 'Anda kebanggaan pasukan! ⭐'],
+  },
+  'EN': {
+    nav_evaluate:'Evaluate', nav_myrecords:'Records', nav_myscore:'My Score',
+    nav_targetreport:'Target', nav_feedback:'Feedback', nav_appeal:'Appeal',
+    nav_hrdash:'Report', nav_hrrecords:'Records', nav_hrmonthly:'Monthly',
+    nav_hrfeedback:'Feedback', nav_hrappeals:'Appeals',
+    emp_info:'Employee Info', emp_name:'Full Name', emp_pos:'Position',
+    emp_dept:'Department', emp_week:'Evaluation Week',
+    scoring:'Evaluation Criteria (1-5)', summary:'Summary',
+    strengths:'Strengths', target:'Next Month Target',
+    submit:'💾 Submit Evaluation',
+    c1:'Attendance & Punctuality', c2:'Work Attitude', c3:'Cleanliness',
+    c4:'Customer Service', c5:'Teamwork', c6:'Efficiency',
+    my_score:'My Score', bonus_label:'This Month Bonus Estimate',
+    confirm_btn:'✅ Confirm Score', confirmed:'✅ Confirmed',
+    tr_title:'Target Report', tr_note:'Min 2, max 4 times per month',
+    tr_month:'Month', tr_target_lbl:"Supervisor's Target",
+    tr_achieve:'Achievement', tr_submit:'📤 Submit Report',
+    tr_history:'All Reports',
+    fb_title:'Feedback (Confidential)', fb_note:'Only HR can see this',
+    fb_week:'Week', fb_text:'Write your feedback...',
+    fb_submit:'📤 Submit',
+    ap_title:'Appeal', ap_note:'Only HR can see this',
+    ap_week:'Week', ap_text:'Explain your reason...',
+    ap_submit:'📤 Submit Appeal',
+    motiv: ['Keep it up! You are doing great! 💪', 'Every day is a fresh start! 🌟', 'Your hard work is noticed! 👏', 'Keep going! Success awaits! 🏆', 'You are the pride of the team! ⭐'],
+  },
+  'বাংলা': {
+    nav_evaluate:'মূল্যায়ন', nav_myrecords:'রেকর্ড', nav_myscore:'আমার স্কোর',
+    nav_targetreport:'লক্ষ্য রিপোর্ট', nav_feedback:'মতামত', nav_appeal:'আপিল',
+    nav_hrdash:'রিপোর্ট', nav_hrrecords:'রেকর্ড', nav_hrmonthly:'মাসিক',
+    nav_hrfeedback:'মতামত', nav_hrappeals:'আপিল',
+    emp_info:'কর্মচারীর তথ্য', emp_name:'পুরো নাম', emp_pos:'পদ',
+    emp_dept:'বিভাগ', emp_week:'মূল্যায়ন সপ্তাহ',
+    scoring:'মূল্যায়ন মানদণ্ড (১-৫)', summary:'সারসংক্ষেপ',
+    strengths:'শক্তি', target:'পরের মাসের লক্ষ্য',
+    submit:'💾 জমা দিন',
+    c1:'উপস্থিতি ও সময়মতো', c2:'কাজের মনোভাব', c3:'পরিচ্ছন্নতা',
+    c4:'গ্রাহক সেবা', c5:'দলগত কাজ', c6:'দক্ষতা',
+    my_score:'আমার স্কোর', bonus_label:'এই মাসের বোনাস অনুমান',
+    confirm_btn:'✅ স্কোর নিশ্চিত করুন', confirmed:'✅ নিশ্চিত',
+    tr_title:'লক্ষ্য রিপোর্ট', tr_note:'প্রতি মাসে কমপক্ষে ২ বার, সর্বোচ্চ ৪ বার',
+    tr_month:'মাস', tr_target_lbl:'সুপারভাইজারের লক্ষ্য',
+    tr_achieve:'অর্জন', tr_submit:'📤 রিপোর্ট জমা দিন',
+    tr_history:'সব রিপোর্ট',
+    fb_title:'মতামত (গোপনীয়)', fb_note:'শুধু HR দেখতে পাবে',
+    fb_week:'সপ্তাহ', fb_text:'আপনার মতামত লিখুন...',
+    fb_submit:'📤 জমা দিন',
+    ap_title:'আপিল', ap_note:'শুধু HR দেখতে পাবে',
+    ap_week:'সপ্তাহ', ap_text:'কারণ ব্যাখ্যা করুন...',
+    ap_submit:'📤 আপিল জমা দিন',
+    motiv: ['চালিয়ে যান! আপনি দুর্দান্ত! 💪', 'প্রতিটি দিন নতুন শুরু! 🌟', 'আপনার পরিশ্রম সবাই দেখছে! 👏', 'থামবেন না! সাফল্য অপেক্ষা করছে! 🏆', 'আপনি দলের গর্ব! ⭐'],
+  }
+};
+
+function cycleLang(){
+  langIdx=(langIdx+1)%LANG_LIST.length;
+  applyLang();
+}
+
+function applyLang(){
+  const lang=LANG_LIST[langIdx];
+  const t=LANG[lang];
+  document.getElementById('lang-btn').textContent=lang;
+  // Update nav tabs
+  if(role){
+    const navMap={
+      supervisor:['evaluate','myrecords'],
+      employee:['myscore','targetreport','feedback','appeal'],
+      hr:['hrdash','hrrecords','hrmonthly','hrfeedback','hrappeals']
+    };
+    navMap[role]&&navMap[role].forEach(id=>{
+      const tab=document.getElementById('nt-'+id);
+      if(tab)tab.lastChild.textContent=t['nav_'+id]||'';
+    });
+  }
+  // Update form labels
+  const labelMap={
+    'lbl-empinfo':'emp_info','lbl-empname':'emp_name','lbl-emppos':'emp_pos',
+    'lbl-empdept':'emp_dept','lbl-empweek':'emp_week','lbl-scoring':'scoring',
+    'lbl-summary':'summary','lbl-strengths':'strengths','lbl-target':'target',
+    'btn-submit':'submit','lbl-trtitle':'tr_title','lbl-trnote':'tr_note',
+    'lbl-trmonth':'tr_month','lbl-trtarget':'tr_target_lbl',
+    'lbl-trachieve':'tr_achieve','btn-trsubmit':'tr_submit',
+    'lbl-fbtitle':'fb_title','lbl-fbnote':'fb_note','lbl-fbweek':'fb_week',
+    'btn-fbsubmit':'fb_submit','lbl-aptitle':'ap_title','lbl-apnote':'ap_note',
+    'lbl-apweek':'ap_week','btn-apsubmit':'ap_submit',
+  };
+  Object.entries(labelMap).forEach(([id,key])=>{
+    const el=document.getElementById(id);if(el&&t[key])el.textContent=t[key];
+  });
+  // Update criteria labels
+  CRITERIA.forEach(c=>{
+    const el=document.getElementById('lbl-'+c.id);
+    if(el&&t[c.id])el.textContent=t[c.id];
+  });
+  // Update placeholders
+  const ph={
+    'e-name':t.emp_name,'e-pos':t.emp_pos,
+    'e-str':t.strengths,'e-tgt':t.target,
+    'fb-text':t.fb_text,'ap-text':t.ap_text,'tr-text':t.tr_achieve
+  };
+  Object.entries(ph).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.placeholder=val+'...';});
+  // Show motivational message for employee
+  if(role==='employee'){
+    const msgs=t.motiv;
+    const msg=msgs[Math.floor(Math.random()*msgs.length)];
+    const el=document.getElementById('motiv-msg');
+    if(el)el.textContent=msg;
+  }
 }
 </script>
 
