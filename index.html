@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_41.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_42.html -->
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -933,7 +933,7 @@ function renderHRMonthly(){
     const scoredArr=scored.map(e=>Number(e.rec.total));
     const trend=scoredArr.length>=2?(scoredArr[scoredArr.length-1]-scoredArr[scoredArr.length-2]>0?'📈':scoredArr[scoredArr.length-1]-scoredArr[scoredArr.length-2]<0?'📉':'➡️'):'';
     const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal);
-    const trStatus=empTR.length>=2?`<div style="font-size:11px;color:#10b981;font-weight:700">✅ 目标回报 ${empTR.length}/4次</div>`:empTR.length===1?`<div style="font-size:11px;color:#f59e0b;font-weight:700">⚠️ 目标回报 1/4次 (需2次)</div>`:`<div style="font-size:11px;color:#ef4444;font-weight:700">❌ 未提交目标回报</div>`;
+    const trStatus=empTR.length>=2?`<div style="font-size:11px;color:#10b981;font-weight:700">✅ Target Report ${empTR.length}/4</div>`:empTR.length===1?`<div style="font-size:11px;color:#f59e0b;font-weight:700">⚠️ Target Report 1/4 (need 2)</div>`:`<div style="font-size:11px;color:#ef4444;font-weight:700">❌ No target report submitted</div>`;
     return`<div class="mecard">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <div><div style="font-size:14px;font-weight:700">${emp.name} ${trend}</div><div style="font-size:11px;color:#6b7e94;margin-top:2px">${emp.dept} · ${wks}/4周 · ${emp.sup}</div>${trStatus}</div>
@@ -1039,8 +1039,8 @@ function showDetail(id){
     ${r.target?`<div style="margin-top:8px"><div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:4px">TARGET</div><div style="font-size:13px;background:#f7fafd;padding:9px;border-radius:8px">${r.target}</div></div>`:''}
     ${r.confirmed?'<div style="margin-top:10px"><span style="background:#10b981;color:white;border-radius:9px;padding:4px 12px;font-size:12px;font-weight:700">✅ Employee Confirmed</span></div>':''}
     <div style="margin-top:12px;background:${monthTR.length>=2?'#f0fdf4':'#fff7ed'};border-radius:10px;padding:10px">
-      <div style="font-size:12px;font-weight:700;color:${monthTR.length>=2?'#065f46':'#c2410c'};margin-bottom:6px">🎯 员工目标回报 (共${monthTR.length}次)</div>
-      ${monthTR.length?monthTR.sort((a,b)=>b.id-a.id).map((t,i)=>`<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.05)"><div style="display:flex;justify-content:space-between"><b style="color:#0f2744">${t.month}</b><span style="color:#6b7e94">${t.createdAt||''}</span></div><div style="margin-top:2px">${t.report}</div></div>`).join(''):'<div style="font-size:12px;color:#92400e">❌ 员工未提交目标回报</div>'}
+      <div style="font-size:12px;font-weight:700;color:${monthTR.length>=2?'#065f46':'#c2410c'};margin-bottom:6px">🎯 ${getTR('title')} (${getTR('count').replace('{n}', monthTR.length)})</div>
+      ${monthTR.length?monthTR.sort((a,b)=>b.id-a.id).map((t,i)=>`<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.05)"><div style="display:flex;justify-content:space-between"><b style="color:#0f2744">${t.month}</b><span style="color:#6b7e94">${t.createdAt||''}</span></div><div style="margin-top:2px">${t.report}</div></div>`).join(''):`<div style="font-size:12px;color:#92400e">❌ ${getTR('none')}</div>`}
     </div>`;
   document.getElementById('modal').classList.add('open');
 }
@@ -1170,6 +1170,26 @@ const LANG = {
     motiv: ['চালিয়ে যান! আপনি দুর্দান্ত! 💪', 'প্রতিটি দিন নতুন শুরু! 🌟', 'আপনার পরিশ্রম সবাই দেখছে! 👏', 'থামবেন না! সাফল্য অপেক্ষা করছে! 🏆', 'আপনি দলের গর্ব! ⭐'],
   }
 };
+
+function getTR(key){
+  const lang=LANG_LIST[langIdx];
+  const t=LANG[lang];
+  const map={
+    title:{
+      '中文':'员工目标回报','BM':'Laporan Sasaran Pekerja',
+      'EN':'Employee Target Report','বাংলা':'কর্মচারী লক্ষ্য রিপোর্ট'
+    },
+    count:{
+      '中文':'共{n}次','BM':'Jumlah {n} kali',
+      'EN':'{n} report(s)','বাংলা':'মোট {n} বার'
+    },
+    none:{
+      '中文':'员工未提交目标回报','BM':'Pekerja belum hantar laporan sasaran',
+      'EN':'Employee has not submitted target report','বাংলা':'কর্মচারী লক্ষ্য রিপোর্ট জমা দেননি'
+    }
+  };
+  return (map[key]&&map[key][lang])||map[key]['EN']||'';
+}
 
 function cycleLang(){
   langIdx=(langIdx+1)%LANG_LIST.length;
