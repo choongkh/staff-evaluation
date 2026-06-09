@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_37.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_38.html -->
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -359,34 +359,69 @@ function save(){
   localStorage.setItem('ev_tr',JSON.stringify(targetReports));
 }
 
-// Fetch using no-cors workaround via Google Apps Script URL redirect
-function jfetch(type, cb){
-  // Use fetch with mode no-cors won't work for reading data
-  // Instead use a proxy approach - load as script tag with callback
-  const name='_cb_'+type+'_'+Date.now();
-  let done=false;
-  const timeout=setTimeout(()=>{
-    if(!done){done=true;cb(null);delete window[name];const s=document.getElementById(name);if(s)s.remove();}
-  },8000);
-  window[name]=function(d){
-    if(!done){done=true;clearTimeout(timeout);cb(d);delete window[name];const s=document.getElementById(name);if(s)s.remove();}
+const SHEET_ID = '1yDhQZugxqlDb883fkbyOCZeuCClfzpk3_AnVuZ5or5g';
+const SHEETS = {
+  records: '评估记录',
+  feedbacks: '员工意见', 
+  appeals: '申诉记录',
+  targetreports: '目标回报'
+};
+
+// Read from Google Sheets CSV export - works without CORS issues
+async function jfetch(type, cb) {
+  const sheetNames = {
+    records: '评估记录',
+    feedbacks: '员工意见',
+    appeals: '申诉记录', 
+    targetreports: '目标回报'
   };
-  const s=document.createElement('script');
-  s.id=name;
-  s.src=SCRIPT_URL+'?type='+type+'&callback='+name+'&t='+Date.now();
-  s.onerror=function(){if(!done){done=true;clearTimeout(timeout);cb(null);delete window[name];s.remove();}};
-  document.head.appendChild(s);
+  const sheetName = sheetNames[type];
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+    // Parse Google Viz JSON (wrapped in callback)
+    const json = JSON.parse(text.replace(/^[^{]*/, '').replace(/[^}]*$/, ''));
+    const rows = json.table.rows;
+    const data = rows.map(r => r.c.map(c => c ? (c.v !== null && c.v !== undefined ? String(c.v) : '') : ''));
+    // Skip header row (index 0), parse based on type
+    const result = parseRows(type, data.slice(1));
+    cb(result);
+  } catch(e) {
+    console.log('Fetch error:', e);
+    cb(null);
+  }
+}
+
+function parseRows(type, rows) {
+  if (type === 'records') {
+    return rows.filter(r => r[2]).map(r => ({
+      id: r[0], createdAt: r[1], name: r[2], pos: r[3], dept: r[4],
+      sup: (r[5]||'').trim(), supName: r[6], week: r[7],
+      scores: { c1:Number(r[8])||0, c2:Number(r[9])||0, c3:Number(r[10])||0, c4:Number(r[11])||0, c5:Number(r[12])||0, c6:Number(r[13])||0 },
+      total: Number(r[14])||0, grade: r[15],
+      strength: r[16]||'', target: r[17]||'',
+      confirmed: r[18]==='true'||r[18]===true,
+      notes: { c1:r[19]||'', c2:r[20]||'', c3:r[21]||'', c4:r[22]||'', c5:r[23]||'', c6:r[24]||'' }
+    }));
+  } else if (type === 'feedbacks') {
+    return rows.filter(r=>r[2]).map(r => ({ id:r[0], createdAt:r[1], name:r[2], week:r[3], feedback:r[4]||'' }));
+  } else if (type === 'appeals') {
+    return rows.filter(r=>r[2]).map(r => ({ id:r[0], createdAt:r[1], name:r[2], week:r[3], appeal:r[4]||'', status:r[5]||'' }));
+  } else if (type === 'targetreports') {
+    return rows.filter(r=>r[1]).map(r => ({ id:r[0], name:r[1], month:r[2], report:r[3]||'', createdAt:r[4]||'' }));
+  }
+  return [];
 }
 
 function post(data){
-  // Use fetch with text/plain to avoid CORS preflight
-  try{
-    fetch(SCRIPT_URL,{
+  try {
+    fetch(SCRIPT_URL, {
       method:'POST',
       mode:'no-cors',
-      body:JSON.stringify(data)
+      body: JSON.stringify(data)
     });
-  }catch(e){}
+  } catch(e) {}
 }
 
 function showLoading(){
@@ -397,20 +432,14 @@ function showLoading(){
 }
 function hideLoading(){const d=document.getElementById('lov');if(d)d.remove();}
 
-function syncAll(cb){
-  jfetch('records',function(r){
-    if(Array.isArray(r)){records=r;localStorage.setItem('ev_records',JSON.stringify(r));}
-    jfetch('feedbacks',function(f){
-      if(Array.isArray(f)){feedbacks=f;localStorage.setItem('ev_feedbacks',JSON.stringify(f));}
-      jfetch('appeals',function(a){
-        if(Array.isArray(a)){appeals=a;localStorage.setItem('ev_appeals',JSON.stringify(a));}
-        jfetch('targetreports',function(t){
-          if(Array.isArray(t)){targetReports=t;localStorage.setItem('ev_tr',JSON.stringify(t));}
-          if(cb)cb();
-        });
-      });
-    });
-  });
+async function syncAll(cb){
+  try {
+    await new Promise(res => jfetch('records', r => { if(Array.isArray(r)){records=r;localStorage.setItem('ev_records',JSON.stringify(r));} res(); }));
+    await new Promise(res => jfetch('feedbacks', f => { if(Array.isArray(f)){feedbacks=f;localStorage.setItem('ev_feedbacks',JSON.stringify(f));} res(); }));
+    await new Promise(res => jfetch('appeals', a => { if(Array.isArray(a)){appeals=a;localStorage.setItem('ev_appeals',JSON.stringify(a));} res(); }));
+    await new Promise(res => jfetch('targetreports', t => { if(Array.isArray(t)){targetReports=t;localStorage.setItem('ev_tr',JSON.stringify(t));} res(); }));
+  } catch(e) { console.log('Sync error:', e); }
+  if(cb) cb();
 }
 
 // WEEK HELPERS
