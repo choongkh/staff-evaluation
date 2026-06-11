@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_43.html -->
+<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_48.html -->
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +48,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f9;color:#1a2533;mi
 .ctitle::before{content:'';width:4px;height:15px;background:#e8612a;border-radius:2px;display:inline-block}
 .fg{margin-bottom:11px}
 .fl{display:block;font-size:11px;font-weight:600;color:#6b7e94;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.4px}
-select,input,textarea{width:100%;padding:9px 12px;border:1.5px solid #dde4ee;border-radius:9px;font-family:inherit;font-size:14px;color:#1a2533;background:white;appearance:none;-webkit-appearance:none}
+select,input:not([type=radio]):not([type=checkbox]),textarea{width:100%;padding:9px 12px;border:1.5px solid #dde4ee;border-radius:9px;font-family:inherit;font-size:14px;color:#1a2533;background:white;appearance:none;-webkit-appearance:none}
+input[type=radio],input[type=checkbox]{width:18px!important;height:18px!important;padding:0!important;border:none!important;border-radius:3px!important;cursor:pointer;accent-color:#0f2744;flex-shrink:0}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7e94' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:35px}
 select:focus,input:focus,textarea:focus{outline:none;border-color:#0f2744}
 textarea{resize:vertical;min-height:70px}
@@ -284,6 +285,114 @@ textarea{resize:vertical;min-height:70px}
     </div>
   </div>
 
+  <!-- SELF ASSESSMENT PAGE -->
+  <div class="pg" id="pg-selfassess">
+    <div class="card">
+      <div class="ctitle">📝 自我评估 / Self Assessment</div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:14px">每月一次 · Once per month · HR和主管可看到</p>
+      <div class="fg"><label class="fl">月份 / Month</label><select id="sa-month"></select></div>
+    </div>
+
+    <!-- Section A -->
+    <div class="card">
+      <div class="ctitle">A. 对自己的评估 / Self Evaluation</div>
+
+      <div class="fg">
+        <label class="fl">1️⃣ 你觉得自己目前工作表现如何？/ How is your work performance?</label>
+        <textarea id="sa-q1" placeholder="做得好的地方、不足的地方 / Strengths and areas to improve..." style="min-height:80px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">2️⃣ 你觉得自己最强的地方是什么？/ Your greatest strength?</label>
+        <textarea id="sa-q2" placeholder="写下你的强项..." style="min-height:65px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">3️⃣ 你觉得自己最需要改善什么？/ What needs most improvement?</label>
+        <textarea id="sa-q3" placeholder="写下需要改善的地方..." style="min-height:65px"></textarea>
+      </div>
+
+      <div class="fg">
+        <label class="fl">4️⃣ 你对目前工作压力的感受？/ How is your work stress level?</label>
+        <div id="sa-q4" style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="很轻松" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😊 很轻松 / Very relaxed</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="正常" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😐 正常 / Normal</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="有点压力" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😟 有点压力 / Slightly stressed</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="压力很大" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😰 压力很大 / Very stressed</label>
+        </div>
+        <input type="text" id="sa-q4-reason" placeholder="原因 / Reason (optional)..." style="margin-top:8px">
+      </div>
+
+      <div class="fg">
+        <label class="fl">5️⃣ 你觉得自己有进步吗？/ Do you feel you have improved?</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="有明显进步" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📈 有明显进步 / Clear improvement</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="有一点进步" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📊 有一点进步 / Some improvement</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="没什么变化" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ➡️ 没什么变化 / No change</label>
+        </div>
+        <input type="text" id="sa-q5-reason" placeholder="原因 / Reason (optional)..." style="margin-top:8px">
+      </div>
+    </div>
+
+    <!-- Section B -->
+    <div class="card">
+      <div class="ctitle">B. 对公司的评估 / Company Evaluation</div>
+      <div class="fg">
+        <label class="fl">6️⃣ 你觉得公司目前哪里做得好？/ What does the company do well?</label>
+        <textarea id="sa-q6" placeholder="写下公司做得好的地方..." style="min-height:65px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">7️⃣ 你觉得公司哪里最需要改善？/ What needs improvement in the company?</label>
+        <textarea id="sa-q7" placeholder="写下需要改善的地方..." style="min-height:65px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">8️⃣ 你对主管有什么建议？/ Any suggestions for your supervisor?</label>
+        <textarea id="sa-q8" placeholder="写下你的建议..." style="min-height:65px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">9️⃣ 你觉得公司制度清楚吗？/ Are company rules clear?</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="很清楚" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ✅ 很清楚 / Very clear</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="还可以" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👍 还可以 / Acceptable</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="不太清楚" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ❓ 不太清楚 / Not very clear</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="很混乱" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ❌ 很混乱 / Very confusing</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section C -->
+    <div class="card">
+      <div class="ctitle">C. 对未来的期待 / Future Expectations</div>
+      <div class="fg">
+        <label class="fl">🔟 你希望公司未来增加什么？/ What would you like the company to add?</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f1" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🏆 奖励制度 / Reward system</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f2" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📈 晋升机会 / Promotion opportunities</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f3" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📚 培训 / Training</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f4" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🏢 工作环境 / Work environment</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f5" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🤝 团队沟通 / Team communication</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f6" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 其他 / Other</label>
+          <input type="text" id="sa-f6-text" placeholder="请说明 / Please specify..." style="padding:8px 12px;font-size:13px;border:1.5px solid #dde4ee;border-radius:8px;width:100%">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">1️⃣1️⃣ 你未来想在公司成长到什么职位？/ What position do you aspire to?</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;margin-bottom:8px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Team Leader / 组长 / Ketua Kumpulan" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👥 Team Leader / 组长 / Ketua Kumpulan</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Supervisor / 主管 / Penyelia" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👔 Supervisor / 主管 / Penyelia</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Assistant Manager / 副经理 / Penolong Pengurus" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📋 Assistant Manager / 副经理 / Penolong Pengurus</label>
+        </div>
+        <input type="text" id="sa-q11" placeholder="或写下其他职位 / Or write other position...">
+      </div>
+      <div class="fg">
+        <label class="fl">1️⃣2️⃣ 你对公司未来有什么期待？还有什么想说的？/ Any other expectations or comments?</label>
+        <textarea id="sa-q12" placeholder="写下你的期待和想法..." style="min-height:80px"></textarea>
+      </div>
+    </div>
+
+    <div id="sa-status" style="margin-bottom:10px"></div>
+    <button class="pbtn" onclick="submitSA()" id="sa-btn">📤 提交自我评估 / Submit Self Assessment</button>
+    <div style="height:20px"></div>
+  </div>
+
   <!-- HR PAGES -->
   <div class="pg" id="pg-hrdash">
     <button class="bbtn" onclick="refreshAll()">🔄 Refresh All Data 刷新</button>
@@ -321,6 +430,7 @@ textarea{resize:vertical;min-height:70px}
   </div>
 
   <div class="pg" id="pg-hrfeedback"><div id="hr-feedbacks"></div></div>
+  <div class="pg" id="pg-hrselfassess"><div id="hr-sa-list"></div></div>
   <div class="pg" id="pg-hrappeals"><div id="hr-appeals"></div></div>
 </div>
 
@@ -351,7 +461,7 @@ const CRITERIA = [
 ];
 
 let role=null, user=null;
-let records=[], feedbacks=[], appeals=[], targetReports=[];
+let records=[], feedbacks=[], appeals=[], targetReports=[], selfAssessments=[];
 let scores={c1:0,c2:0,c3:0,c4:0,c5:0,c6:0};
 
 // Load local cache
@@ -359,12 +469,14 @@ try{records=JSON.parse(localStorage.getItem('ev_records')||'[]')}catch(e){}
 try{feedbacks=JSON.parse(localStorage.getItem('ev_feedbacks')||'[]')}catch(e){}
 try{appeals=JSON.parse(localStorage.getItem('ev_appeals')||'[]')}catch(e){}
 try{targetReports=JSON.parse(localStorage.getItem('ev_tr')||'[]')}catch(e){}
+try{selfAssessments=JSON.parse(localStorage.getItem('ev_sa')||'[]')}catch(e){}
 
 function save(){
   localStorage.setItem('ev_records',JSON.stringify(records));
   localStorage.setItem('ev_feedbacks',JSON.stringify(feedbacks));
   localStorage.setItem('ev_appeals',JSON.stringify(appeals));
   localStorage.setItem('ev_tr',JSON.stringify(targetReports));
+  localStorage.setItem('ev_sa',JSON.stringify(selfAssessments));
 }
 
 const SHEET_ID = '1yDhQZugxqlDb883fkbyOCZeuCClfzpk3_AnVuZ5or5g';
@@ -446,6 +558,7 @@ async function syncAll(cb){
     await new Promise(res => jfetch('feedbacks', f => { if(Array.isArray(f)){feedbacks=f;localStorage.setItem('ev_feedbacks',JSON.stringify(f));} res(); }));
     await new Promise(res => jfetch('appeals', a => { if(Array.isArray(a)){appeals=a;localStorage.setItem('ev_appeals',JSON.stringify(a));} res(); }));
     await new Promise(res => jfetch('targetreports', t => { if(Array.isArray(t)){targetReports=t;localStorage.setItem('ev_tr',JSON.stringify(t));} res(); }));
+    await new Promise(res => jfetch('selfassess', s => { if(Array.isArray(s)){selfAssessments=s;localStorage.setItem('ev_sa',JSON.stringify(s));} res(); }));
   } catch(e) { console.log('Sync error:', e); }
   if(cb) cb();
 }
@@ -571,8 +684,8 @@ function buildScoreItems(){
 // NAV
 const NAVS={
   supervisor:[{id:'evaluate',ic:'✏️',lb:'评分'},{id:'myrecords',ic:'📋',lb:'记录'}],
-  employee:[{id:'myscore',ic:'⭐',lb:'我的分数'},{id:'targetreport',ic:'🎯',lb:'目标回报'},{id:'feedback',ic:'💬',lb:'意见'},{id:'appeal',ic:'⚠️',lb:'申诉'}],
-  hr:[{id:'hrdash',ic:'📊',lb:'报表'},{id:'hrrecords',ic:'📋',lb:'记录'},{id:'hrmonthly',ic:'📅',lb:'月报'},{id:'hrfeedback',ic:'💬',lb:'意见'},{id:'hrappeals',ic:'⚠️',lb:'申诉'}]
+  employee:[{id:'myscore',ic:'⭐',lb:'我的分数'},{id:'selfassess',ic:'📝',lb:'自我评估'},{id:'targetreport',ic:'🎯',lb:'目标回报'},{id:'appeal',ic:'⚠️',lb:'申诉'}],
+  hr:[{id:'hrdash',ic:'📊',lb:'报表'},{id:'hrrecords',ic:'📋',lb:'记录'},{id:'hrmonthly',ic:'📅',lb:'月报'},{id:'hrfeedback',ic:'💬',lb:'意见'},{id:'hrappeals',ic:'⚠️',lb:'申诉'},{id:'hrselfassess',ic:'📝',lb:'自评'}]
 };
 function buildNav(){
   document.getElementById('app-nav').innerHTML=NAVS[role].map(t=>`
@@ -588,6 +701,8 @@ function showPg(id){
   if(id==='myrecords')renderMyRec();
   else if(id==='myscore')renderMyScore();
   else if(id==='targetreport'){initTRMonth();updateTR();}
+  else if(id==='selfassess'){initSAMonth();checkSAStatus();}
+  else if(id==='hrselfassess')renderHRSA();
   else if(id==='hrdash')renderHRDash();
   else if(id==='hrrecords')renderHRRec();
   else if(id==='hrmonthly')renderHRMonthly();
@@ -1052,6 +1167,104 @@ function showToast(msg,color){
   t.textContent=msg;t.style.background=color||'#10b981';
   t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
 }
+// ===== SELF ASSESSMENT =====
+function initSAMonth(){
+  const sel=document.getElementById('sa-month');if(!sel)return;
+  const now=new Date();sel.innerHTML='';
+  for(let i=0;i<3;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    sel.innerHTML+=`<option value="${val}"${i===0?' selected':''}>${d.getFullYear()}年${d.getMonth()+1}月</option>`;
+  }
+  sel.onchange=checkSAStatus;
+  checkSAStatus();
+}
+
+function checkSAStatus(){
+  const month=document.getElementById('sa-month')?document.getElementById('sa-month').value:'';
+  const empName=user.name.toUpperCase();
+  const existing=selfAssessments.find(s=>String(s.name).toUpperCase()===empName&&s.month===month);
+  const statusEl=document.getElementById('sa-status');
+  const btn=document.getElementById('sa-btn');
+  if(existing){
+    if(statusEl)statusEl.innerHTML=`<div style="background:#d1fae5;border-radius:10px;padding:12px;text-align:center"><div style="font-size:13px;font-weight:700;color:#065f46">✅ 本月已提交自我评估！/ Already submitted this month!</div><div style="font-size:12px;color:#047857;margin-top:3px">${existing.createdAt}</div></div>`;
+    if(btn){btn.disabled=true;btn.style.background='#6b7e94';btn.textContent='✅ 本月已提交 / Already submitted';}
+  } else {
+    if(statusEl)statusEl.innerHTML='';
+    if(btn){btn.disabled=false;btn.style.background='';btn.textContent='📤 提交自我评估 / Submit Self Assessment';}
+  }
+}
+
+function submitSA(){
+  const month=document.getElementById('sa-month').value;
+  const empName=user.name.toUpperCase();
+  // Check duplicate
+  const existing=selfAssessments.find(s=>String(s.name).toUpperCase()===empName&&s.month===month);
+  if(existing){showToast('⚠️ 本月已提交过了！','#f59e0b');return;}
+  // Collect answers
+  const stress=document.querySelector('input[name="stress"]:checked');
+  const progress=document.querySelector('input[name="progress"]:checked');
+  const rules=document.querySelector('input[name="rules"]:checked');
+  const future=[];
+  ['sa-f1','sa-f2','sa-f3','sa-f4','sa-f5','sa-f6'].forEach((id,i)=>{
+    const cb=document.getElementById(id);
+    if(cb&&cb.checked){
+      const labels=['奖励制度','晋升机会','培训','工作环境','团队沟通','其他'];
+      const other=id==='sa-f6'?('：'+document.getElementById('sa-f6-text').value):'';
+      future.push(labels[i]+other);
+    }
+  });
+  const sa={
+    id:Date.now(), name:empName, month,
+    q1:document.getElementById('sa-q1').value,
+    q2:document.getElementById('sa-q2').value,
+    q3:document.getElementById('sa-q3').value,
+    q4:stress?stress.value:'', q4reason:document.getElementById('sa-q4-reason').value,
+    q5:progress?progress.value:'', q5reason:document.getElementById('sa-q5-reason').value,
+    q6:document.getElementById('sa-q6').value,
+    q7:document.getElementById('sa-q7').value,
+    q8:document.getElementById('sa-q8').value,
+    q9:rules?rules.value:'',
+    q10:future.join(', '),
+    q11:(()=>{const p=document.querySelector('input[name="position"]:checked');const custom=document.getElementById('sa-q11').value;return p?p.value+(custom?' — '+custom:''):custom;})(),
+    q12:document.getElementById('sa-q12').value,
+    createdAt:new Date().toLocaleString('ms-MY')
+  };
+  selfAssessments.unshift(sa);save();
+  post({type:'selfassess',...sa});
+  showToast('✅ 自我评估已提交！','#10b981');
+  checkSAStatus();
+  // Clear form
+  ['sa-q1','sa-q2','sa-q3','sa-q4-reason','sa-q5-reason','sa-q6','sa-q7','sa-q8','sa-q11','sa-q12'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.querySelectorAll('input[name="stress"],input[name="progress"],input[name="rules"],input[name="position"]').forEach(r=>r.checked=false);
+  ['sa-f1','sa-f2','sa-f3','sa-f4','sa-f5','sa-f6'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=false;});
+  document.getElementById('sa-f6-text').value='';
+}
+
+// HR Self Assessment View
+function renderHRSA(){
+  const el=document.getElementById('hr-sa-list');if(!el)return;
+  if(!selfAssessments.length){el.innerHTML=`<div class="empty"><div class="ei">📝</div><p>No self assessments yet</p></div>`;return;}
+  el.innerHTML=selfAssessments.map(s=>`
+    <div class="card" style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div><div style="font-size:14px;font-weight:700">${s.name}</div><div style="font-size:11px;color:#6b7e94">${s.month} · ${s.createdAt}</div></div>
+        <div style="background:#dbeafe;color:#1e3a8a;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700">📝 Self Assessment</div>
+      </div>
+      ${s.q4?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">压力：</span><span style="font-size:13px">${s.q4}${s.q4reason?' — '+s.q4reason:''}</span></div>`:''}
+      ${s.q5?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">进步：</span><span style="font-size:13px">${s.q5}${s.q5reason?' — '+s.q5reason:''}</span></div>`:''}
+      ${s.q9?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">制度清楚：</span><span style="font-size:13px">${s.q9}</span></div>`:''}
+      ${s.q1?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">工作表现：</span><span style="font-size:13px">${s.q1}</span></div>`:''}
+      ${s.q2?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">最强之处：</span><span style="font-size:13px">${s.q2}</span></div>`:''}
+      ${s.q3?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">需要改善：</span><span style="font-size:13px">${s.q3}</span></div>`:''}
+      ${s.q7?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">公司改善：</span><span style="font-size:13px">${s.q7}</span></div>`:''}
+      ${s.q8?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">对主管建议：</span><span style="font-size:13px">${s.q8}</span></div>`:''}
+      ${s.q10?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">期望增加：</span><span style="font-size:13px">${s.q10}</span></div>`:''}
+      ${s.q11?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">目标职位：</span><span style="font-size:13px">${s.q11}</span></div>`:''}
+      ${s.q12?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">其他期待：</span><span style="font-size:13px">${s.q12}</span></div>`:''}
+    </div>`).join('');
+}
+
 // ===== LANGUAGE SYSTEM =====
 const LANG_LIST = ['中文','BM','EN','বাংলা'];
 let langIdx = 0;
