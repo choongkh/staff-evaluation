@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0060)file:///C:/Users/USER1949/Downloads/employee-evaluation.html -->
+<!-- saved from url=(0062)file:///C:/Users/USER1949/Downloads/employee-evaluation_1.html -->
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1495,18 +1495,12 @@ function applyLang(){
   const lang=LANG_LIST[langIdx];
   const t=LANG[lang];
   document.getElementById('lang-btn').textContent=lang;
-  // Update nav tabs
-  if(role){
-    const navMap={
-      supervisor:['evaluate','myrecords'],
-      employee:['myscore','targetreport','feedback','appeal'],
-      hr:['hrdash','hrrecords','hrmonthly','hrfeedback','hrappeals']
-    };
-    navMap[role]&&navMap[role].forEach(id=>{
-      const tab=document.getElementById('nt-'+id);
-      if(tab)tab.lastChild.textContent=t['nav_'+id]||'';
-    });
-  }
+  // Update ALL nav tab labels using span ID
+  ['evaluate','myrecords','myscore','selfassess','targetreport','feedback','appeal',
+   'hrdash','hrrecords','hrmonthly','hrfeedback','hrappeals','hrselfassess'].forEach(id=>{
+    const lbl=document.getElementById('ntlbl-'+id);
+    if(lbl&&t['nav_'+id]) lbl.textContent=t['nav_'+id];
+  });
   // Update form labels
   const labelMap={
     'lbl-empinfo':'emp_info','lbl-empname':'emp_name','lbl-emppos':'emp_pos',
