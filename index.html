@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/USER1949/Downloads/employee-evaluation_56.html -->
+<!-- saved from url=(0060)file:///C:/Users/USER1949/Downloads/employee-evaluation.html -->
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -146,7 +146,7 @@ textarea{resize:vertical;min-height:70px}
 <body>
 
 <!-- LOGIN -->
-<div class="login-wrap" id="login-wrap" style="display: flex;">
+<div class="login-wrap" id="login-wrap">
 <div class="login-box">
   <div class="login-logo">
     <div style="font-size:36px;margin-bottom:8px">⭐</div>
@@ -191,35 +191,31 @@ textarea{resize:vertical;min-height:70px}
 <!-- APP -->
 <div class="app" id="app-wrap">
   <div class="hdr">
-    <div class="hdr-l"><h2>CH CASH &amp; CARRY</h2><span id="app-user">IS</span></div>
+    <div class="hdr-l"><h2>CH CASH &amp; CARRY</h2><span id="app-user"></span></div>
     <div class="hdr-r">
-      <button class="hbtn" onclick="cycleLang()" id="lang-btn">EN</button>
+      <button class="hbtn" onclick="cycleLang()" id="lang-btn">中文</button>
       <button class="hbtn" onclick="doLogout()">Logout</button>
     </div>
   </div>
-  <div class="nav" id="app-nav">
-    <div class="ntab" onclick="showPg(&#39;myscore&#39;)" id="nt-myscore"><span class="ni">⭐</span>My Score</div>
-    <div class="ntab active" onclick="showPg(&#39;selfassess&#39;)" id="nt-selfassess"><span class="ni">📝</span>自我评估</div>
-    <div class="ntab" onclick="showPg(&#39;targetreport&#39;)" id="nt-targetreport"><span class="ni">🎯</span>Target</div>
-    <div class="ntab" onclick="showPg(&#39;appeal&#39;)" id="nt-appeal"><span class="ni">⚠️</span>Appeal</div></div>
+  <div class="nav" id="app-nav"></div>
 
   <!-- SUPERVISOR PAGES -->
   <div class="pg" id="pg-evaluate">
     <div class="card">
-      <div class="ctitle"><span id="lbl-empinfo">Employee Info</span></div>
-      <div class="fg"><label class="fl" id="lbl-empname">Full Name</label><input type="text" id="e-name" placeholder="Full Name..."></div>
-      <div class="fg"><label class="fl" id="lbl-emppos">Position</label><input type="text" id="e-pos" placeholder="Position..."></div>
-      <div class="fg"><label class="fl" id="lbl-empdept">Department</label>
+      <div class="ctitle"><span id="lbl-empinfo">员工信息 / Employee Info</span></div>
+      <div class="fg"><label class="fl" id="lbl-empname">员工全名 / Full Name</label><input type="text" id="e-name" placeholder="Enter employee full name..."></div>
+      <div class="fg"><label class="fl" id="lbl-emppos">职位 / Position</label><input type="text" id="e-pos" placeholder="Position..."></div>
+      <div class="fg"><label class="fl" id="lbl-empdept">部门 / Department</label>
         <select id="e-dept">
           <option value="">-- Select --</option>
           <option>Wet Market</option><option>Admin</option><option>Frozen</option>
           <option>Merchandiser</option><option>Security</option><option>Cashier</option>
         </select>
       </div>
-      <div class="fg"><label class="fl" id="lbl-empweek">Evaluation Week</label><select id="e-week"></select></div>
+      <div class="fg"><label class="fl" id="lbl-empweek">评估周 / Week</label><select id="e-week"></select></div>
     </div>
     <div class="card">
-      <div class="ctitle"><span id="lbl-scoring">Evaluation Criteria (1-5)</span></div>
+      <div class="ctitle"><span id="lbl-scoring">评分 / Scoring (1-5)</span></div>
       <div id="score-items"></div>
     </div>
     <div class="tbar">
@@ -228,11 +224,11 @@ textarea{resize:vertical;min-height:70px}
       <div class="tgrade" id="t-grade">-</div>
     </div>
     <div class="card">
-      <div class="ctitle"><span id="lbl-summary">Summary</span></div>
-      <div class="fg"><label class="fl" id="lbl-strengths">Strengths</label><textarea id="e-str" placeholder="Strengths..."></textarea></div>
-      <div class="fg"><label class="fl" id="lbl-target">Next Month Target</label><textarea id="e-tgt" placeholder="Next Month Target..."></textarea></div>
+      <div class="ctitle"><span id="lbl-summary">总结 / Summary</span></div>
+      <div class="fg"><label class="fl" id="lbl-strengths">优点 / Strengths</label><textarea id="e-str" placeholder="Employee strengths..."></textarea></div>
+      <div class="fg"><label class="fl" id="lbl-target">下月目标 / Next Month Target</label><textarea id="e-tgt" placeholder="Target for next month..."></textarea></div>
     </div>
-    <button class="pbtn" onclick="submitEval()" id="btn-submit">💾 Submit Evaluation</button>
+    <button class="pbtn" onclick="submitEval()" id="btn-submit">💾 Submit Evaluation 提交评估</button>
     <div style="height:20px"></div>
   </div>
 
@@ -247,41 +243,41 @@ textarea{resize:vertical;min-height:70px}
   <!-- EMPLOYEE PAGES -->
   <div class="pg" id="pg-myscore">
     <div id="motiv-banner" style="background:linear-gradient(135deg,#e8612a,#f59e0b);color:white;border-radius:12px;padding:12px 15px;margin-bottom:12px;text-align:center;font-size:13px;font-weight:700;display:none">
-      <span id="motiv-msg">Keep going! Success awaits! 🏆</span>
+      <span id="motiv-msg"></span>
     </div>
-    <div id="myscore-content"><div class="empty"><div class="ei">⭐</div><p>No evaluation records yet.<br>请等主管评分后再查看。</p></div></div>
+    <div id="myscore-content"></div>
   </div>
   <div class="pg" id="pg-targetreport">
     <div class="card">
-      <div class="ctitle">🎯 <span id="lbl-trtitle">Target Report</span></div>
-      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-trnote">Min 2, max 4 times per month</p>
-      <div class="fg"><label class="fl" id="lbl-trmonth">Month</label><select id="tr-month" onchange="updateTR()"><option value="2026-06" selected="">2026年6月</option><option value="2026-05">2026年5月</option><option value="2026-04">2026年4月</option></select></div>
-      <div id="tr-target-box" style="display: block; background: rgb(240, 244, 249); border-radius: 10px; padding: 12px; margin-bottom: 12px;">
-        <div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:5px" id="lbl-trtarget">Supervisor's Target</div>
-        <div id="tr-target-txt" style="font-size:13px">主管还未设定目标 / No target set yet</div>
+      <div class="ctitle">🎯 <span id="lbl-trtitle">目标回报 / Target Report</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-trnote">每月最少2次，最多4次 / Min 2, max 4 per month</p>
+      <div class="fg"><label class="fl" id="lbl-trmonth">月份 / Month</label><select id="tr-month" onchange="updateTR()"></select></div>
+      <div id="tr-target-box" style="display:none;background:#f0f4f9;border-radius:10px;padding:12px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:5px" id="lbl-trtarget">🎯 主管设定目标 / Supervisor Target:</div>
+        <div id="tr-target-txt" style="font-size:13px"></div>
       </div>
-      <div class="fg"><label class="fl" id="lbl-trachieve">Achievement</label><textarea id="tr-text" placeholder="Achievement..." style="min-height:100px"></textarea></div>
-      <div id="tr-count" style="font-size:12px;text-align:right;margin-bottom:8px"><span style="color:#f59e0b;font-weight:700">本月已提交 0/4 次 ⚠️ 需最少2次</span></div>
-      <button class="pbtn" onclick="submitTR()" id="tr-btn">📤 <span id="btn-trsubmit">📤 Submit Report</span></button>
+      <div class="fg"><label class="fl" id="lbl-trachieve">完成情况 / Achievement</label><textarea id="tr-text" placeholder="写下这个月完成了什么..." style="min-height:100px"></textarea></div>
+      <div id="tr-count" style="font-size:12px;text-align:right;margin-bottom:8px"></div>
+      <button class="pbtn" onclick="submitTR()" id="tr-btn">📤 <span id="btn-trsubmit">Submit Report 提交回报</span></button>
     </div>
-    <div id="tr-history"><div class="empty"><div class="ei">🎯</div><p>暂无回报记录<br>No reports submitted yet</p></div></div>
+    <div id="tr-history"></div>
   </div>
   <div class="pg" id="pg-feedback">
     <div class="card">
-      <div class="ctitle">💬 <span id="lbl-fbtitle">Feedback (Confidential)</span></div>
-      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-fbnote">Only HR can see this</p>
-      <div class="fg"><label class="fl" id="lbl-fbweek">Week</label><select id="fb-week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select></div>
-      <div class="fg"><label class="fl">意见 / Feedback</label><textarea id="fb-text" placeholder="Write your feedback......" style="min-height:100px"></textarea></div>
-      <button class="pbtn" onclick="submitFB()" id="btn-fbsubmit">📤 Submit</button>
+      <div class="ctitle">💬 <span id="lbl-fbtitle">意见 / Feedback (Confidential)</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-fbnote">只有HR看到 / Only HR can see this</p>
+      <div class="fg"><label class="fl" id="lbl-fbweek">评估周 / Week</label><select id="fb-week"></select></div>
+      <div class="fg"><label class="fl">意见 / Feedback</label><textarea id="fb-text" placeholder="Write your feedback..." style="min-height:100px"></textarea></div>
+      <button class="pbtn" onclick="submitFB()" id="btn-fbsubmit">📤 Submit 提交</button>
     </div>
   </div>
   <div class="pg" id="pg-appeal">
     <div class="card">
-      <div class="ctitle">⚠️ <span id="lbl-aptitle">Appeal</span></div>
-      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-apnote">Only HR can see this</p>
-      <div class="fg"><label class="fl" id="lbl-apweek">Week</label><select id="ap-week"><option value="2026-W25">第3周 Jun (15/06-21/06)</option><option value="2026-W24" selected="">第2周 Jun (08/06-14/06)</option><option value="2026-W23">第1周 Jun (01/06-07/06)</option><option value="2026-W22">第4周 May (25/05-31/05)</option><option value="2026-W21">第3周 May (18/05-24/05)</option><option value="2026-W20">第2周 May (11/05-17/05)</option><option value="2026-W19">第1周 May (04/05-10/05)</option><option value="2026-W18">第4周 Apr (27/04-03/05)</option><option value="2026-W17">第3周 Apr (20/04-26/04)</option><option value="2026-W16">第2周 Apr (13/04-19/04)</option></select></div>
-      <div class="fg"><label class="fl">申诉原因 / Reason</label><textarea id="ap-text" placeholder="Explain your reason......" style="min-height:100px"></textarea></div>
-      <button class="pbtn" onclick="submitAP()" id="btn-apsubmit">📤 Submit Appeal</button>
+      <div class="ctitle">⚠️ <span id="lbl-aptitle">申诉 / Appeal</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-apnote">只有HR看到 / Only HR can see this</p>
+      <div class="fg"><label class="fl" id="lbl-apweek">评估周 / Week</label><select id="ap-week"></select></div>
+      <div class="fg"><label class="fl">申诉原因 / Reason</label><textarea id="ap-text" placeholder="Explain your reason..." style="min-height:100px"></textarea></div>
+      <button class="pbtn" onclick="submitAP()" id="btn-apsubmit">📤 Submit 提交</button>
       <div id="ap-done" style="display:none;margin-top:12px;background:#d1fae5;border-radius:10px;padding:14px;text-align:center">
         <div style="font-size:20px;margin-bottom:6px">✅</div>
         <div style="font-size:13px;font-weight:700;color:#065f46">申诉已提交！HR会处理。</div>
@@ -290,48 +286,48 @@ textarea{resize:vertical;min-height:70px}
   </div>
 
   <!-- SELF ASSESSMENT PAGE -->
-  <div class="pg active" id="pg-selfassess">
+  <div class="pg" id="pg-selfassess">
     <div class="card">
-      <div class="ctitle">📝 <span id="sa-title">Self Assessment</span></div>
-      <p style="font-size:12px;color:#6b7e94;margin-bottom:6px" id="sa-subtitle">Once per month · HR &amp; Supervisor can view</p>
-      <p style="font-size:12px;color:#f59e0b;background:#fef9c3;padding:8px 10px;border-radius:8px;margin-bottom:14px" id="sa-hint">The following questions are optional, e.g. stress level, reasons</p>
-      <div class="fg"><label class="fl">月份 / Month</label><select id="sa-month"><option value="2026-06" selected="">2026年6月</option><option value="2026-05">2026年5月</option><option value="2026-04">2026年4月</option></select></div>
+      <div class="ctitle">📝 <span id="sa-title">自我评估 / Self Assessment</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:6px" id="sa-subtitle">每月一次 · Once per month · HR和主管可看到</p>
+      <p style="font-size:12px;color:#f59e0b;background:#fef9c3;padding:8px 10px;border-radius:8px;margin-bottom:14px" id="sa-hint">💡 以下题目可以不填，如压力感受、原因等 / The following questions are optional, e.g. stress level, reasons</p>
+      <div class="fg"><label class="fl">月份 / Month</label><select id="sa-month"></select></div>
     </div>
 
     <!-- Section A -->
     <div class="card">
-      <div class="ctitle"><span id="sa-sec-a">A. Self Evaluation</span></div>
+      <div class="ctitle"><span id="sa-sec-a">A. 对自己的评估 / Self Evaluation</span></div>
 
       <div class="fg">
-        <label class="fl">1️⃣ <span id="sa-lbl-q1">How is your work performance?</span></label>
-        <textarea id="sa-q1" placeholder="Good points and areas to improve..." id-ph="sa-ph1" style="min-height:80px"></textarea>
+        <label class="fl">1️⃣ <span id="sa-lbl-q1">你觉得自己目前工作表现如何？</span></label>
+        <textarea id="sa-q1" placeholder="做得好的地方、不足的地方..." id-ph="sa-ph1" style="min-height:80px"></textarea>
       </div>
       <div class="fg">
-        <label class="fl">2️⃣ <span id="sa-lbl-q2">What is your greatest strength?</span></label>
-        <textarea id="sa-q2" placeholder="Write your strengths..." id-ph="sa-ph2" style="min-height:65px"></textarea>
+        <label class="fl">2️⃣ <span id="sa-lbl-q2">你觉得自己最强的地方是什么？</span></label>
+        <textarea id="sa-q2" placeholder="写下你的强项..." id-ph="sa-ph2" style="min-height:65px"></textarea>
       </div>
       <div class="fg">
-        <label class="fl">3️⃣ <span id="sa-lbl-q3">What needs most improvement?</span></label>
-        <textarea id="sa-q3" placeholder="Write what needs improvement..." id-ph="sa-ph3" style="min-height:65px"></textarea>
+        <label class="fl">3️⃣ <span id="sa-lbl-q3">你觉得自己最需要改善什么？</span></label>
+        <textarea id="sa-q3" placeholder="写下需要改善的地方..." id-ph="sa-ph3" style="min-height:65px"></textarea>
       </div>
 
       <div class="fg">
-        <label class="fl">4️⃣ <span id="sa-lbl-q4">How is your work stress level?</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt1">(可选/Optional)</span></label>
+        <label class="fl">4️⃣ <span id="sa-lbl-q4">你对目前工作压力的感受？</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt1">(可选/Optional)</span></label>
         <div id="sa-q4" style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="很轻松" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😊 <span id="sa-s1">Very relaxed</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="正常" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😐 <span id="sa-s2">Normal</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="有点压力" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😟 <span id="sa-s3">Slightly stressed</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="压力很大" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😰 <span id="sa-s4">Very stressed</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="很轻松" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😊 <span id="sa-s1">很轻松</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="正常" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😐 <span id="sa-s2">正常</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="有点压力" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😟 <span id="sa-s3">有点压力</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="压力很大" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😰 <span id="sa-s4">压力很大</span></label>
         </div>
         <input type="text" id="sa-q4-reason" placeholder="原因 / Reason — 可不填 / Can skip..." style="margin-top:8px">
       </div>
 
       <div class="fg">
-        <label class="fl">5️⃣ <span id="sa-lbl-q5">Do you feel you have improved?</span></label>
+        <label class="fl">5️⃣ <span id="sa-lbl-q5">你觉得自己有进步吗？</span></label>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="有明显进步" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📈 <span id="sa-p1">Clear improvement</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="有一点进步" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📊 <span id="sa-p2">Some improvement</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="没什么变化" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ➡️ <span id="sa-p3">No change</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="有明显进步" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📈 <span id="sa-p1">有明显进步</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="有一点进步" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📊 <span id="sa-p2">有一点进步</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="没什么变化" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ➡️ <span id="sa-p3">没什么变化</span></label>
         </div>
         <input type="text" id="sa-q5-reason" placeholder="原因 / Reason — 可不填 / Can skip..." style="margin-top:8px">
       </div>
@@ -339,62 +335,62 @@ textarea{resize:vertical;min-height:70px}
 
     <!-- Section B -->
     <div class="card">
-      <div class="ctitle"><span id="sa-sec-b">B. Company Evaluation</span></div>
+      <div class="ctitle"><span id="sa-sec-b">B. 对公司的评估 / Company Evaluation</span></div>
       <div class="fg">
-        <label class="fl">6️⃣ <span id="sa-lbl-q6">What does the company do well?</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt2">(可选/Optional)</span></label>
-        <textarea id="sa-q6" placeholder="Write what the company does well..." style="min-height:65px"></textarea>
+        <label class="fl">6️⃣ <span id="sa-lbl-q6">你觉得公司目前哪里做得好？</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt2">(可选/Optional)</span></label>
+        <textarea id="sa-q6" placeholder="写下公司做得好的地方..." style="min-height:65px"></textarea>
       </div>
       <div class="fg">
-        <label class="fl">7️⃣ <span id="sa-lbl-q7">What needs improvement in the company?</span></label>
-        <textarea id="sa-q7" placeholder="Write what needs improvement..." id-ph="sa-ph3" style="min-height:65px"></textarea>
+        <label class="fl">7️⃣ <span id="sa-lbl-q7">你觉得公司哪里最需要改善？</span></label>
+        <textarea id="sa-q7" placeholder="写下需要改善的地方..." id-ph="sa-ph3" style="min-height:65px"></textarea>
       </div>
       <div class="fg">
-        <label class="fl">8️⃣ <span id="sa-lbl-q8">Any suggestions for your supervisor?</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt3">(可选/Optional)</span></label>
-        <textarea id="sa-q8" placeholder="Write your suggestions..." style="min-height:65px"></textarea>
+        <label class="fl">8️⃣ <span id="sa-lbl-q8">你对主管有什么建议？</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt3">(可选/Optional)</span></label>
+        <textarea id="sa-q8" placeholder="写下你的建议..." style="min-height:65px"></textarea>
       </div>
       <div class="fg">
-        <label class="fl">9️⃣ <span id="sa-lbl-q9">Are company rules clear?</span></label>
+        <label class="fl">9️⃣ <span id="sa-lbl-q9">你觉得公司制度清楚吗？</span></label>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="很清楚" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ✅ <span id="sa-r1">Very clear</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="还可以" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👍 <span id="sa-r2">Acceptable</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="不太清楚" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ❓ <span id="sa-r3">Not very clear</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="很混乱" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ❌ <span id="sa-r4">Very confusing</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="很清楚" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ✅ <span id="sa-r1">很清楚</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="还可以" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👍 <span id="sa-r2">还可以</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="不太清楚" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ❓ <span id="sa-r3">不太清楚</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="很混乱" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ❌ <span id="sa-r4">很混乱</span></label>
         </div>
       </div>
     </div>
 
     <!-- Section C -->
     <div class="card">
-      <div class="ctitle"><span id="sa-sec-c">C. Future Expectations</span></div>
+      <div class="ctitle"><span id="sa-sec-c">C. 对未来的期待 / Future Expectations</span></div>
       <div class="fg">
-        <label class="fl">🔟 <span id="sa-lbl-q10">What would you like the company to add?</span></label>
+        <label class="fl">🔟 <span id="sa-lbl-q10">你希望公司未来增加什么？</span></label>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f1" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🏆 <span id="sa-f1t">Reward system</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f2" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📈 <span id="sa-f2t">Promotion opportunities</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f3" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📚 <span id="sa-f3t">Training</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f4" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🏢 <span id="sa-f4t">Work environment</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f5" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🤝 <span id="sa-f5t">Team communication</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f6" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> <span id="sa-f6t">Other</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f1" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🏆 <span id="sa-f1t">奖励制度</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f2" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📈 <span id="sa-f2t">晋升机会</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f3" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📚 <span id="sa-f3t">培训</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f4" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🏢 <span id="sa-f4t">工作环境</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f5" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🤝 <span id="sa-f5t">团队沟通</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f6" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> <span id="sa-f6t">其他</span></label>
           <input type="text" id="sa-f6-text" placeholder="请说明 / Please specify..." style="padding:8px 12px;font-size:13px;border:1.5px solid #dde4ee;border-radius:8px;width:100%">
         </div>
       </div>
       <div class="fg">
-        <label class="fl">1️⃣1️⃣ <span id="sa-lbl-q11">What position do you aspire to?</span></label>
+        <label class="fl">1️⃣1️⃣ <span id="sa-lbl-q11">你未来想在公司成长到什么职位？</span></label>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;margin-bottom:8px">
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Team Leader / 组长 / Ketua Kumpulan" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👥 <span id="sa-pos1">Team Leader</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Supervisor / 主管 / Penyelia" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👔 <span id="sa-pos2">Supervisor</span></label>
-          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Assistant Manager / 副经理 / Penolong Pengurus" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📋 <span id="sa-pos3">Assistant Manager</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Team Leader / 组长 / Ketua Kumpulan" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👥 <span id="sa-pos1">Team Leader / 组长</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Supervisor / 主管 / Penyelia" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👔 <span id="sa-pos2">Supervisor / 主管</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Assistant Manager / 副经理 / Penolong Pengurus" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📋 <span id="sa-pos3">Assistant Manager / 副经理</span></label>
         </div>
-        <input type="text" id="sa-q11" placeholder="Or write other position...">
+        <input type="text" id="sa-q11" placeholder="或写下其他职位 / Or write other position...">
       </div>
       <div class="fg">
-        <label class="fl">1️⃣2️⃣ <span id="sa-lbl-q12">Any other expectations or comments?</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt4">(可选/Optional)</span></label>
-        <textarea id="sa-q12" placeholder="Write your expectations and thoughts..." style="min-height:80px"></textarea>
+        <label class="fl">1️⃣2️⃣ <span id="sa-lbl-q12">你对公司未来有什么期待？还有什么想说的？</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt4">(可选/Optional)</span></label>
+        <textarea id="sa-q12" placeholder="写下你的期待和想法..." style="min-height:80px"></textarea>
       </div>
     </div>
 
     <div id="sa-status" style="margin-bottom:10px"></div>
-    <button class="pbtn" onclick="submitSA()" id="sa-btn">📤 Submit Self Assessment</button>
+    <button class="pbtn" onclick="submitSA()" id="sa-btn">📤 提交自我评估 / Submit Self Assessment</button>
     <div style="height:20px"></div>
   </div>
 
@@ -498,7 +494,8 @@ async function jfetch(type, cb) {
     records: '评估记录',
     feedbacks: '员工意见',
     appeals: '申诉记录', 
-    targetreports: '目标回报'
+    targetreports: '目标回报',
+    selfassess: '自我评估'
   };
   const sheetName = sheetNames[type];
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
@@ -533,6 +530,17 @@ function parseRows(type, rows) {
     return rows.filter(r=>r[2]).map(r => ({ id:r[0], createdAt:r[1], name:r[2], week:r[3], feedback:r[4]||'' }));
   } else if (type === 'appeals') {
     return rows.filter(r=>r[2]).map(r => ({ id:r[0], createdAt:r[1], name:r[2], week:r[3], appeal:r[4]||'', status:r[5]||'' }));
+  } else if (type === 'selfassess') {
+    return rows.filter(r=>r[1]).map(r => ({
+      id:r[0], name:r[1], month:r[2],
+      q1:r[3]||'', q2:r[4]||'', q3:r[5]||'',
+      q4:r[6]||'', q4reason:r[7]||'',
+      q5:r[8]||'', q5reason:r[9]||'',
+      q6:r[10]||'', q7:r[11]||'', q8:r[12]||'',
+      q9:r[13]||'', q10:r[14]||'',
+      q11:r[15]||'', q12:r[16]||'',
+      createdAt:r[17]||''
+    }));
   } else if (type === 'targetreports') {
     return rows.filter(r=>r[1]).map(r => ({ id:r[0], name:r[1], month:r[2], report:r[3]||'', createdAt:r[4]||'' }));
   }
@@ -694,8 +702,12 @@ const NAVS={
   hr:[{id:'hrdash',ic:'📊',lb:'报表'},{id:'hrrecords',ic:'📋',lb:'记录'},{id:'hrmonthly',ic:'📅',lb:'月报'},{id:'hrfeedback',ic:'💬',lb:'意见'},{id:'hrappeals',ic:'⚠️',lb:'申诉'},{id:'hrselfassess',ic:'📝',lb:'自评'}]
 };
 function buildNav(){
-  document.getElementById('app-nav').innerHTML=NAVS[role].map(t=>`
-    <div class="ntab" onclick="showPg('${t.id}')" id="nt-${t.id}"><span class="ni">${t.ic}</span>${t.lb}</div>`).join('');
+  const lang=LANG_LIST[langIdx];
+  const tr=LANG[lang];
+  document.getElementById('app-nav').innerHTML=NAVS[role].map(t=>{
+    const label=tr['nav_'+t.id]||t.lb;
+    return `<div class="ntab" onclick="showPg('${t.id}')" id="nt-${t.id}"><span class="ni">${t.ic}</span><span id="ntlbl-${t.id}">${label}</span></div>`;
+  }).join('');
 }
 function showPg(id){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
