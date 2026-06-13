@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CH Cash & Carry - Staff Evaluation</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CH Staff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f2744">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="manifest" href="manifest.json">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f9;color:#1a2533;min-height:100vh}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;background:linear-gradient(145deg,#0f2744,#1a4a7a,#e8612a);display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:white;border-radius:20px;padding:32px 24px;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.login-logo{text-align:center;margin-bottom:24px}
+.login-logo h1{font-size:20px;font-weight:800;color:#0f2744;margin-bottom:4px}
+.login-logo p{font-size:12px;color:#6b7e94}
+.role-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px}
+.role-btn{padding:14px 6px;border-radius:12px;border:2px solid #dde4ee;background:white;cursor:pointer;text-align:center;transition:all 0.2s}
+.role-btn.active{border-color:#0f2744;background:#f0f4f9}
+.role-btn .ri{font-size:22px;display:block;margin-bottom:4px}
+.role-btn .rn{font-size:12px;font-weight:700;color:#0f2744}
+.role-btn .rs{font-size:10px;color:#6b7e94}
+.lform{display:none}.lform.show{display:block}
+.lf{margin-bottom:12px}
+.lf label{display:block;font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:4px;text-transform:uppercase}
+.lf input,.lf select{width:100%;padding:10px 12px;border:1.5px solid #dde4ee;border-radius:9px;font-size:14px;font-family:inherit}
+.lf select{appearance:none;-webkit-appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7e94' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center white;padding-right:35px}
+.lbtn{width:100%;padding:12px;background:#0f2744;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px}
+.lerr{color:#ef4444;font-size:12px;text-align:center;margin-top:8px;display:none}
+.lerr.show{display:block}
+
+/* APP */
+.app{display:none}.app.show{display:block}
+.hdr{background:#0f2744;color:white;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.hdr-l h2{font-size:15px;font-weight:700}
+.hdr-l span{font-size:11px;opacity:0.7;display:block;margin-top:1px}
+.hdr-r{display:flex;gap:8px}
+.hbtn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer}
+.nav{display:flex;background:#0f2744;border-top:1px solid rgba(255,255,255,0.1)}
+.ntab{flex:1;padding:9px 2px;text-align:center;color:rgba(255,255,255,0.55);font-size:10px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent}
+.ntab.active{color:white;border-bottom-color:#e8612a}
+.ntab .ni{font-size:15px;display:block;margin-bottom:2px}
+.pg{display:none;padding:14px}.pg.active{display:block}
+
+/* CARDS */
+.card{background:white;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(15,39,68,0.08);border:1px solid #dde4ee}
+.ctitle{font-size:13px;font-weight:700;color:#0f2744;margin-bottom:11px;display:flex;align-items:center;gap:6px}
+.ctitle::before{content:'';width:4px;height:15px;background:#e8612a;border-radius:2px;display:inline-block}
+.fg{margin-bottom:11px}
+.fl{display:block;font-size:11px;font-weight:600;color:#6b7e94;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.4px}
+select,input:not([type=radio]):not([type=checkbox]),textarea{width:100%;padding:9px 12px;border:1.5px solid #dde4ee;border-radius:9px;font-family:inherit;font-size:14px;color:#1a2533;background:white;appearance:none;-webkit-appearance:none}
+input[type=radio],input[type=checkbox]{width:18px!important;height:18px!important;padding:0!important;border:none!important;border-radius:3px!important;cursor:pointer;accent-color:#0f2744;flex-shrink:0}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7e94' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:35px}
+select:focus,input:focus,textarea:focus{outline:none;border-color:#0f2744}
+textarea{resize:vertical;min-height:70px}
+
+/* SCORING */
+.si{background:#f7fafd;border-radius:10px;padding:11px;margin-bottom:9px;border:1px solid #dde4ee}
+.sl{font-size:13px;font-weight:700;margin-bottom:2px}
+.ss{font-size:11px;color:#6b7e94;margin-bottom:8px}
+.sdots{display:flex;gap:7px;margin-bottom:8px}
+.sd{flex:1;max-width:46px;aspect-ratio:1;border-radius:50%;border:2px solid #dde4ee;background:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;cursor:pointer;color:#6b7e94;transition:all 0.15s}
+.sd:hover{border-color:#e8612a;color:#e8612a;transform:scale(1.1)}
+.sd.s1{background:#fee2e2;border-color:#ef4444;color:#ef4444}
+.sd.s2{background:#fef3c7;border-color:#f59e0b;color:#f59e0b}
+.sd.s3{background:#fef9c3;border-color:#eab308;color:#eab308}
+.sd.s4{background:#dcfce7;border-color:#22c55e;color:#22c55e}
+.sd.s5{background:#d1fae5;border-color:#10b981;color:#10b981}
+.sni{font-size:12px;padding:7px 10px;border:1.5px solid #94a3b8;border-radius:8px;background:white;width:100%;margin-top:4px}
+.tbar{background:linear-gradient(135deg,#0f2744,#1e5a9c);color:white;border-radius:12px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tscore{font-size:30px;font-weight:800}
+.tgrade{font-size:12px;padding:4px 12px;border-radius:20px;font-weight:700;background:rgba(255,255,255,0.2)}
+.pbtn{width:100%;padding:13px;background:#e8612a;color:white;border:none;border-radius:11px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px}
+.pbtn:disabled{background:#6b7e94;cursor:not-allowed}
+
+/* RECORDS */
+.frow{display:flex;gap:8px;margin-bottom:11px}
+.frow select{flex:1;font-size:13px;padding:8px 10px}
+.rc{background:white;border-radius:12px;padding:12px 13px;margin-bottom:9px;box-shadow:0 2px 12px rgba(15,39,68,0.08);border:1px solid #dde4ee;cursor:pointer}
+.rh{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.rname{font-size:14px;font-weight:700}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.bA{background:#d1fae5;color:#065f46}.bB{background:#dbeafe;color:#1e3a8a}
+.bC{background:#fef9c3;color:#713f12}.bD{background:#fee2e2;color:#7f1d1d}
+.rmeta{font-size:11px;color:#6b7e94}
+.pills{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.pill{font-size:11px;padding:2px 8px;border-radius:20px;background:#eef2f8;font-weight:600}
+
+/* BONUS */
+.bbar{background:linear-gradient(135deg,#10b981,#059669);color:white;border-radius:12px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.bamt{font-size:26px;font-weight:800}
+
+/* MONTHLY */
+.mecard{background:white;border-radius:12px;padding:13px;margin-bottom:11px;box-shadow:0 2px 12px rgba(15,39,68,0.08);border:1px solid #dde4ee}
+.wrow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f0f4f8;font-size:12px}
+.wrow:last-child{border-bottom:none}
+.wnum{color:#6b7e94;min-width:55px;font-weight:600}
+.wtrack{flex:1;height:6px;background:#eef2f7;border-radius:3px;overflow:hidden}
+.wfill{height:100%;border-radius:3px}
+.wval{font-weight:700;color:#0f2744;min-width:28px;text-align:right}
+
+/* DASH */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.sbox{background:white;border-radius:12px;padding:13px;text-align:center;box-shadow:0 2px 12px rgba(15,39,68,0.08);border:1px solid #dde4ee}
+.snum{font-size:26px;font-weight:800;color:#0f2744}
+.slbl{font-size:11px;color:#6b7e94;margin-top:3px;font-weight:600}
+.dbar-r{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.dbar-l{font-size:12px;font-weight:600;min-width:90px}
+.dbar-t{flex:1;height:8px;background:#e8edf4;border-radius:4px;overflow:hidden}
+.dbar-f{height:100%;border-radius:4px;background:linear-gradient(90deg,#0f2744,#e8612a)}
+.dbar-v{font-size:12px;font-weight:700;color:#0f2744;min-width:28px;text-align:right}
+
+/* WARN */
+.wcard{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px;margin-bottom:10px}
+.wc-h{font-size:13px;font-weight:700;color:#c2410c;margin-bottom:3px}
+.wc-s{font-size:12px;color:#92400e}
+
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center}
+.mo.open{display:flex}
+.mb{background:white;border-radius:20px 20px 0 0;padding:18px 16px 32px;width:100%;max-height:88vh;overflow-y:auto;animation:su 0.3s ease}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{width:40px;height:4px;background:#dde4ee;border-radius:2px;margin:0 auto 14px}
+.mc{float:right;background:#f0f4f8;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;line-height:28px;text-align:center}
+.msr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #dde4ee;font-size:13px;flex-direction:column;gap:3px}
+.msr:last-of-type{border-bottom:none}
+.msr-top{display:flex;justify-content:space-between}
+.mnote{font-size:11px;color:#6b7e94;background:#f7fafd;padding:4px 8px;border-radius:6px}
+
+/* LOADING */
+.loading-ov{position:fixed;inset:0;background:rgba(15,39,68,0.85);z-index:500;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.loading-ov p{color:white;font-size:15px;font-weight:700}
+.loading-ov span{color:rgba(255,255,255,0.7);font-size:12px}
+
+/* MISC */
+.empty{text-align:center;padding:36px 20px;color:#6b7e94}
+.empty .ei{font-size:38px;margin-bottom:8px}
+.empty p{font-size:13px}
+.wtag{background:#0f2744;color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:5px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#10b981;color:white;padding:12px 20px;border-radius:50px;font-weight:700;font-size:14px;box-shadow:0 4px 20px rgba(0,0,0,0.2);z-index:999;transition:transform 0.3s;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.gbtn{width:100%;padding:11px;background:#10b981;color:white;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:12px}
+.bbtn{width:100%;padding:11px;background:#3b82f6;color:white;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap">
+<div class="login-box">
+  <div class="login-logo">
+    <img src="icon.png" style="width:90px;height:90px;border-radius:18px;margin-bottom:8px;object-fit:contain" alt="CH Logo"/>
+    <h1>CH CASH & CARRY</h1>
+    <p>SDN BHD · Staff Evaluation System · 员工评估系统</p>
+  </div>
+  <div class="role-grid">
+    <div class="role-btn" onclick="selRole('supervisor')" id="rb-supervisor"><span class="ri">👔</span><div class="rn">主管</div><div class="rs">Supervisor</div></div>
+    <div class="role-btn" onclick="selRole('employee')" id="rb-employee"><span class="ri">👤</span><div class="rn">员工</div><div class="rs">Staff</div></div>
+    <div class="role-btn" onclick="selRole('hr')" id="rb-hr"><span class="ri">👩‍💼</span><div class="rn">HR</div><div class="rs">Manager</div></div>
+  </div>
+  <div class="lform" id="lf-supervisor">
+    <div class="lf"><label>选择主管 / Select Supervisor</label>
+      <select id="ls-sup">
+        <option value="">-- Select --</option>
+        <option value="C0001|045571">CHONG CHING CHIEN (C0001)</option>
+        <option value="H0002|045094">HARLINA BINTI MOHD TAKIM (H0002)</option>
+        <option value="T0002|065126">TUAN NURFARAHANA (T0002)</option>
+        <option value="N0005|045352">NORSHILA BINTI MOHAMAD ZAIDI (N0005)</option>
+        <option value="S0003|085692">SITI NOORAYU BINTI HARIN (S0003)</option>
+        <option value="H0003|045103">HAIROL BIN ABU HASHIM (H0003)</option>
+        <option value="R0001|060244">RENUGGA A/P MANIMARAN (R0001)</option>
+        <option value="K0001|556903">KAMRUL HASAN (K0001)</option>
+      </select>
+    </div>
+    <div class="lf"><label>密码 IC后6位 / Password</label><input type="password" id="ls-pwd" placeholder="••••••" maxlength="6"/></div>
+    <button class="lbtn" onclick="doLogin('supervisor')">Login</button>
+    <div class="lerr" id="le-sup">❌ Wrong password / 密码错误</div>
+  </div>
+  <div class="lform" id="lf-employee">
+    <div class="lf"><label>全名 / Full Name</label><input type="text" id="ls-emp" placeholder="Enter your full name..."/></div>
+    <button class="lbtn" onclick="doLogin('employee')">Login</button>
+  </div>
+  <div class="lform" id="lf-hr">
+    <div class="lf"><label>HR Password</label><input type="password" id="ls-hr" placeholder="••••••"/></div>
+    <button class="lbtn" onclick="doLogin('hr')">Login</button>
+    <div class="lerr" id="le-hr">❌ Wrong password / 密码错误</div>
+  </div>
+</div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app-wrap">
+  <div class="hdr">
+    <div class="hdr-l"><h2>CH CASH & CARRY</h2><span id="app-user"></span></div>
+    <div class="hdr-r">
+      <button class="hbtn" onclick="cycleLang()" id="lang-btn">中文</button>
+      <button class="hbtn" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+  <div class="nav" id="app-nav"></div>
+
+  <!-- SUPERVISOR PAGES -->
+  <div class="pg" id="pg-evaluate">
+    <div class="card">
+      <div class="ctitle"><span id="lbl-empinfo">员工信息 / Employee Info</span></div>
+      <div class="fg"><label class="fl" id="lbl-empname">员工全名 / Full Name</label><input type="text" id="e-name" placeholder="Enter employee full name..."/></div>
+      <div class="fg"><label class="fl" id="lbl-emppos">职位 / Position</label><input type="text" id="e-pos" placeholder="Position..."/></div>
+      <div class="fg"><label class="fl" id="lbl-empdept">部门 / Department</label>
+        <select id="e-dept">
+          <option value="">-- Select --</option>
+          <option>Wet Market</option><option>Admin</option><option>Frozen</option>
+          <option>Merchandiser</option><option>Security</option><option>Cashier</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl" id="lbl-empweek">评估周 / Week</label><select id="e-week"></select></div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><span id="lbl-scoring">评分 / Scoring (1-5)</span></div>
+      <div id="score-items"></div>
+    </div>
+    <div class="tbar">
+      <div><div style="font-size:13px;font-weight:600">总分 / Total</div><div style="font-size:11px;opacity:0.7">Out of 30</div></div>
+      <div style="text-align:center"><div class="tscore" id="t-score">0</div><div style="font-size:10px;opacity:0.7">/30</div></div>
+      <div class="tgrade" id="t-grade">-</div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><span id="lbl-summary">总结 / Summary</span></div>
+      <div class="fg"><label class="fl" id="lbl-strengths">优点 / Strengths</label><textarea id="e-str" placeholder="Employee strengths..."></textarea></div>
+      <div class="fg"><label class="fl" id="lbl-target">下月目标 / Next Month Target</label><textarea id="e-tgt" placeholder="Target for next month..."></textarea></div>
+    </div>
+    <button class="pbtn" onclick="submitEval()" id="btn-submit">💾 Submit Evaluation 提交评估</button>
+    <div style="height:20px"></div>
+  </div>
+
+  <div class="pg" id="pg-myrecords">
+    <div class="frow">
+      <select id="fr-dept" onchange="renderMyRec()"><option value="">All Departments</option><option>Wet Market</option><option>Admin</option><option>Frozen</option><option>Merchandiser</option><option>Security</option><option>Cashier</option></select>
+      <select id="fr-week" onchange="renderMyRec()"><option value="">All Weeks</option></select>
+    </div>
+    <div id="myrecords"></div>
+  </div>
+
+  <!-- EMPLOYEE PAGES -->
+  <div class="pg" id="pg-myscore">
+    <div id="motiv-banner" style="background:linear-gradient(135deg,#e8612a,#f59e0b);color:white;border-radius:12px;padding:12px 15px;margin-bottom:12px;text-align:center;font-size:13px;font-weight:700;display:none">
+      <span id="motiv-msg"></span>
+    </div>
+    <div id="myscore-content"></div>
+  </div>
+  <div class="pg" id="pg-targetreport">
+    <div class="card">
+      <div class="ctitle">🎯 <span id="lbl-trtitle">目标回报 / Target Report</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-trnote">每月最少2次，最多4次 / Min 2, max 4 per month</p>
+      <div class="fg"><label class="fl" id="lbl-trmonth">月份 / Month</label><select id="tr-month" onchange="updateTR()"></select></div>
+      <div id="tr-target-box" style="display:none;background:#f0f4f9;border-radius:10px;padding:12px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:5px" id="lbl-trtarget">🎯 主管设定目标 / Supervisor Target:</div>
+        <div id="tr-target-txt" style="font-size:13px"></div>
+      </div>
+      <div class="fg"><label class="fl" id="lbl-trachieve">完成情况 / Achievement</label><textarea id="tr-text" placeholder="写下这个月完成了什么..." style="min-height:100px"></textarea></div>
+      <div id="tr-count" style="font-size:12px;text-align:right;margin-bottom:8px"></div>
+      <button class="pbtn" onclick="submitTR()" id="tr-btn">📤 <span id="btn-trsubmit">Submit Report 提交回报</span></button>
+    </div>
+    <div id="tr-history"></div>
+  </div>
+  <div class="pg" id="pg-feedback">
+    <div class="card">
+      <div class="ctitle">💬 <span id="lbl-fbtitle">意见 / Feedback (Confidential)</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-fbnote">只有HR看到 / Only HR can see this</p>
+      <div class="fg"><label class="fl" id="lbl-fbweek">评估周 / Week</label><select id="fb-week"></select></div>
+      <div class="fg"><label class="fl">意见 / Feedback</label><textarea id="fb-text" placeholder="Write your feedback..." style="min-height:100px"></textarea></div>
+      <button class="pbtn" onclick="submitFB()" id="btn-fbsubmit">📤 Submit 提交</button>
+    </div>
+  </div>
+  <div class="pg" id="pg-appeal">
+    <div class="card">
+      <div class="ctitle">⚠️ <span id="lbl-aptitle">申诉 / Appeal</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:12px" id="lbl-apnote">只有HR看到 / Only HR can see this</p>
+      <div class="fg"><label class="fl" id="lbl-apweek">评估周 / Week</label><select id="ap-week"></select></div>
+      <div class="fg"><label class="fl">申诉原因 / Reason</label><textarea id="ap-text" placeholder="Explain your reason..." style="min-height:100px"></textarea></div>
+      <button class="pbtn" onclick="submitAP()" id="btn-apsubmit">📤 Submit 提交</button>
+      <div id="ap-done" style="display:none;margin-top:12px;background:#d1fae5;border-radius:10px;padding:14px;text-align:center">
+        <div style="font-size:20px;margin-bottom:6px">✅</div>
+        <div style="font-size:13px;font-weight:700;color:#065f46">申诉已提交！HR会处理。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELF ASSESSMENT PAGE -->
+  <div class="pg" id="pg-selfassess">
+    <div class="card">
+      <div class="ctitle">📝 <span id="sa-title">自我评估 / Self Assessment</span></div>
+      <p style="font-size:12px;color:#6b7e94;margin-bottom:6px" id="sa-subtitle">每月一次 · Once per month · HR和主管可看到</p>
+      <p style="font-size:12px;color:#f59e0b;background:#fef9c3;padding:8px 10px;border-radius:8px;margin-bottom:14px" id="sa-hint">💡 以下题目可以不填，如压力感受、原因等 / The following questions are optional, e.g. stress level, reasons</p>
+      <div class="fg"><label class="fl">月份 / Month</label><select id="sa-month"></select></div>
+    </div>
+
+    <!-- Section A -->
+    <div class="card">
+      <div class="ctitle"><span id="sa-sec-a">A. 对自己的评估 / Self Evaluation</span></div>
+
+      <div class="fg">
+        <label class="fl">1️⃣ <span id="sa-lbl-q1">你觉得自己目前工作表现如何？</span></label>
+        <textarea id="sa-q1" placeholder="做得好的地方、不足的地方..." id-ph="sa-ph1" style="min-height:80px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">2️⃣ <span id="sa-lbl-q2">你觉得自己最强的地方是什么？</span></label>
+        <textarea id="sa-q2" placeholder="写下你的强项..." id-ph="sa-ph2" style="min-height:65px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">3️⃣ <span id="sa-lbl-q3">你觉得自己最需要改善什么？</span></label>
+        <textarea id="sa-q3" placeholder="写下需要改善的地方..." id-ph="sa-ph3" style="min-height:65px"></textarea>
+      </div>
+
+      <div class="fg">
+        <label class="fl">4️⃣ <span id="sa-lbl-q4">你对目前工作压力的感受？</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt1">(可选/Optional)</span></label>
+        <div id="sa-q4" style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="很轻松" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😊 <span id="sa-s1">很轻松</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="正常" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😐 <span id="sa-s2">正常</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="有点压力" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😟 <span id="sa-s3">有点压力</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="stress" value="压力很大" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 😰 <span id="sa-s4">压力很大</span></label>
+        </div>
+        <input type="text" id="sa-q4-reason" placeholder="原因 / Reason — 可不填 / Can skip..." style="margin-top:8px"/>
+      </div>
+
+      <div class="fg">
+        <label class="fl">5️⃣ <span id="sa-lbl-q5">你觉得自己有进步吗？</span></label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="有明显进步" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📈 <span id="sa-p1">有明显进步</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="有一点进步" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📊 <span id="sa-p2">有一点进步</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="progress" value="没什么变化" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ➡️ <span id="sa-p3">没什么变化</span></label>
+        </div>
+        <input type="text" id="sa-q5-reason" placeholder="原因 / Reason — 可不填 / Can skip..." style="margin-top:8px"/>
+      </div>
+    </div>
+
+    <!-- Section B -->
+    <div class="card">
+      <div class="ctitle"><span id="sa-sec-b">B. 对公司的评估 / Company Evaluation</span></div>
+      <div class="fg">
+        <label class="fl">6️⃣ <span id="sa-lbl-q6">你觉得公司目前哪里做得好？</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt2">(可选/Optional)</span></label>
+        <textarea id="sa-q6" placeholder="写下公司做得好的地方..." style="min-height:65px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">7️⃣ <span id="sa-lbl-q7">你觉得公司哪里最需要改善？</span></label>
+        <textarea id="sa-q7" placeholder="写下需要改善的地方..." id-ph="sa-ph3" style="min-height:65px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">8️⃣ <span id="sa-lbl-q8">你对主管有什么建议？</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt3">(可选/Optional)</span></label>
+        <textarea id="sa-q8" placeholder="写下你的建议..." style="min-height:65px"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">9️⃣ <span id="sa-lbl-q9">你觉得公司制度清楚吗？</span></label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="很清楚" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ✅ <span id="sa-r1">很清楚</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="还可以" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👍 <span id="sa-r2">还可以</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="不太清楚" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ❓ <span id="sa-r3">不太清楚</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="rules" value="很混乱" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> ❌ <span id="sa-r4">很混乱</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section C -->
+    <div class="card">
+      <div class="ctitle"><span id="sa-sec-c">C. 对未来的期待 / Future Expectations</span></div>
+      <div class="fg">
+        <label class="fl">🔟 <span id="sa-lbl-q10">你希望公司未来增加什么？</span></label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f1" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🏆 <span id="sa-f1t">奖励制度</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f2" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📈 <span id="sa-f2t">晋升机会</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f3" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📚 <span id="sa-f3t">培训</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f4" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🏢 <span id="sa-f4t">工作环境</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f5" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 🤝 <span id="sa-f5t">团队沟通</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="checkbox" id="sa-f6" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> <span id="sa-f6t">其他</span></label>
+          <input type="text" id="sa-f6-text" placeholder="请说明 / Please specify..." style="padding:8px 12px;font-size:13px;border:1.5px solid #dde4ee;border-radius:8px;width:100%"/>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">1️⃣1️⃣ <span id="sa-lbl-q11">你未来想在公司成长到什么职位？</span></label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;margin-bottom:8px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Team Leader / 组长 / Ketua Kumpulan" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👥 <span id="sa-pos1">Team Leader / 组长</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Supervisor / 主管 / Penyelia" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 👔 <span id="sa-pos2">Supervisor / 主管</span></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;background:#f7fafd;border-radius:8px;border:1.5px solid #dde4ee"><input type="radio" name="position" value="Assistant Manager / 副经理 / Penolong Pengurus" style="width:18px;height:18px;cursor:pointer;accent-color:#0f2744"> 📋 <span id="sa-pos3">Assistant Manager / 副经理</span></label>
+        </div>
+        <input type="text" id="sa-q11" placeholder="或写下其他职位 / Or write other position..."/>
+      </div>
+      <div class="fg">
+        <label class="fl">1️⃣2️⃣ <span id="sa-lbl-q12">你对公司未来有什么期待？还有什么想说的？</span> <span style="color:#f59e0b;font-size:10px" id="sa-opt4">(可选/Optional)</span></label>
+        <textarea id="sa-q12" placeholder="写下你的期待和想法..." style="min-height:80px"></textarea>
+      </div>
+    </div>
+
+    <div id="sa-status" style="margin-bottom:10px"></div>
+    <button class="pbtn" onclick="submitSA()" id="sa-btn">📤 提交自我评估 / Submit Self Assessment</button>
+    <div style="height:20px"></div>
+  </div>
+
+  <!-- HR PAGES -->
+  <div class="pg" id="pg-hrdash">
+    <button class="bbtn" onclick="refreshAll()">🔄 Refresh All Data 刷新</button>
+    <div class="sgrid">
+      <div class="sbox"><div class="snum" id="s-total">0</div><div class="slbl">Total Records</div></div>
+      <div class="sbox"><div class="snum" id="s-avg">-</div><div class="slbl">Overall Avg</div></div>
+      <div class="sbox"><div class="snum" id="s-week">0</div><div class="slbl">This Week</div></div>
+      <div class="sbox"><div class="snum" id="s-gradeA">0</div><div class="slbl">Grade A ⭐</div></div>
+    </div>
+    <div class="card"><div class="ctitle">⚠️ Supervisor Bias Warning</div><div id="bias-list"></div></div>
+    <div class="card"><div class="ctitle">📊 Department Average</div><div id="dept-bars"></div></div>
+  </div>
+
+  <div class="pg" id="pg-hrrecords">
+    <div class="frow">
+      <select id="hr-dept" onchange="renderHRRec()"><option value="">All Depts</option><option>Wet Market</option><option>Admin</option><option>Frozen</option><option>Merchandiser</option><option>Security</option><option>Cashier</option></select>
+      <select id="hr-sup" onchange="renderHRRec()">
+        <option value="">All Supervisors</option>
+        <option value="C0001">CHONG</option><option value="H0002">HARLINA</option>
+        <option value="T0002">TUAN NURFARAHANA</option><option value="N0005">NORSHILA</option>
+        <option value="S0003">SITI NOORAYU</option><option value="H0003">HAIROL</option>
+        <option value="R0001">RENUGGA</option><option value="K0001">KAMRUL</option>
+      </select>
+    </div>
+    <div id="hr-records"></div>
+  </div>
+
+  <div class="pg" id="pg-hrmonthly">
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <select id="hr-month" onchange="renderHRMonthly()" style="flex:1"></select>
+      <select id="hr-mdept" onchange="renderHRMonthly()" style="flex:1"><option value="">All Depts</option><option>Wet Market</option><option>Admin</option><option>Frozen</option><option>Merchandiser</option><option>Security</option><option>Cashier</option></select>
+    </div>
+    <button class="gbtn" onclick="exportBonus()">📥 Export Bonus CSV 导出奖金表</button>
+    <div id="hr-monthly"></div>
+  </div>
+
+  <div class="pg" id="pg-hrfeedback"><div id="hr-feedbacks"></div></div>
+  <div class="pg" id="pg-hrselfassess"><div id="hr-sa-list"></div></div>
+  <div class="pg" id="pg-hrappeals"><div id="hr-appeals"></div></div>
+</div>
+
+<!-- MODAL -->
+<div class="mo" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="mb"><div class="mh"></div><button class="mc" onclick="closeModal()">✕</button><div id="modal-body"></div></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywZWDkWtt3UPtSwPbU1nTr9iiOHhusFqnb1sNGc5k4lWlSYg51VUDBTTWsDfAg7cws1Q/exec';
+const HR_PWD = '1919';
+
+const SUPS = {
+  'C0001':'CHONG CHING CHIEN','H0002':'HARLINA BINTI MOHD TAKIM',
+  'T0002':'TUAN NURFARAHANA','N0005':'NORSHILA BINTI MOHAMAD ZAIDI',
+  'S0003':'SITI NOORAYU BINTI HARIN','H0003':'HAIROL BIN ABU HASHIM',
+  'R0001':'RENUGGA A/P MANIMARAN','K0001':'KAMRUL HASAN'
+};
+const BONUS = [{min:27,max:30,amt:180},{min:23,max:26,amt:140},{min:19,max:22,amt:100},{min:15,max:18,amt:60},{min:0,max:14,amt:0}];
+const CRITERIA = [
+  {id:'c1',zh:'出勤与守时',en:'Attendance & Punctuality',ms:'Kehadiran & Masa'},
+  {id:'c2',zh:'工作态度',en:'Work Attitude',ms:'Sikap Kerja'},
+  {id:'c3',zh:'卫生与整洁',en:'Cleanliness',ms:'Kebersihan'},
+  {id:'c4',zh:'服务态度',en:'Customer Service',ms:'Layanan Pelanggan'},
+  {id:'c5',zh:'团队合作',en:'Teamwork',ms:'Kerjasama'},
+  {id:'c6',zh:'效率与执行力',en:'Efficiency',ms:'Kecekapan'}
+];
+
+let role=null, user=null;
+let records=[], feedbacks=[], appeals=[], targetReports=[], selfAssessments=[];
+let scores={c1:0,c2:0,c3:0,c4:0,c5:0,c6:0};
+
+// Load local cache
+try{records=JSON.parse(localStorage.getItem('ev_records')||'[]')}catch(e){}
+try{feedbacks=JSON.parse(localStorage.getItem('ev_feedbacks')||'[]')}catch(e){}
+try{appeals=JSON.parse(localStorage.getItem('ev_appeals')||'[]')}catch(e){}
+try{targetReports=JSON.parse(localStorage.getItem('ev_tr')||'[]')}catch(e){}
+try{selfAssessments=JSON.parse(localStorage.getItem('ev_sa')||'[]')}catch(e){}
+
+function save(){
+  localStorage.setItem('ev_records',JSON.stringify(records));
+  localStorage.setItem('ev_feedbacks',JSON.stringify(feedbacks));
+  localStorage.setItem('ev_appeals',JSON.stringify(appeals));
+  localStorage.setItem('ev_tr',JSON.stringify(targetReports));
+  localStorage.setItem('ev_sa',JSON.stringify(selfAssessments));
+}
+
+const SHEET_ID = '1yDhQZugxqlDb883fkbyOCZeuCClfzpk3_AnVuZ5or5g';
+const SHEETS = {
+  records: '评估记录',
+  feedbacks: '员工意见', 
+  appeals: '申诉记录',
+  targetreports: '目标回报'
+};
+
+// Read from Google Sheets CSV export - works without CORS issues
+async function jfetch(type, cb) {
+  const sheetNames = {
+    records: '评估记录',
+    feedbacks: '员工意见',
+    appeals: '申诉记录', 
+    targetreports: '目标回报',
+    selfassess: '自我评估'
+  };
+  const sheetName = sheetNames[type];
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+    // Parse Google Viz JSON (wrapped in callback)
+    const json = JSON.parse(text.replace(/^[^{]*/, '').replace(/[^}]*$/, ''));
+    const rows = json.table.rows;
+    const data = rows.map(r => r.c.map(c => c ? (c.v !== null && c.v !== undefined ? String(c.v) : '') : ''));
+    // Skip header row (index 0), parse based on type
+    const result = parseRows(type, data.slice(1));
+    cb(result);
+  } catch(e) {
+    console.log('Fetch error:', e);
+    cb(null);
+  }
+}
+
+function parseRows(type, rows) {
+  if (type === 'records') {
+    return rows.filter(r => r[2]).map(r => ({
+      id: r[0], createdAt: r[1], name: r[2], pos: r[3], dept: r[4],
+      sup: (r[5]||'').trim(), supName: r[6], week: r[7],
+      scores: { c1:Number(r[8])||0, c2:Number(r[9])||0, c3:Number(r[10])||0, c4:Number(r[11])||0, c5:Number(r[12])||0, c6:Number(r[13])||0 },
+      total: Number(r[14])||0, grade: r[15],
+      strength: r[16]||'', target: r[17]||'',
+      confirmed: r[18]==='true'||r[18]===true,
+      notes: { c1:r[19]||'', c2:r[20]||'', c3:r[21]||'', c4:r[22]||'', c5:r[23]||'', c6:r[24]||'' }
+    }));
+  } else if (type === 'feedbacks') {
+    return rows.filter(r=>r[2]).map(r => ({ id:r[0], createdAt:r[1], name:r[2], week:r[3], feedback:r[4]||'' }));
+  } else if (type === 'appeals') {
+    return rows.filter(r=>r[2]).map(r => ({ id:r[0], createdAt:r[1], name:r[2], week:r[3], appeal:r[4]||'', status:r[5]||'' }));
+  } else if (type === 'selfassess') {
+    return rows.filter(r=>r[1]).map(r => ({
+      id:r[0], name:r[1], month:r[2],
+      q1:r[3]||'', q2:r[4]||'', q3:r[5]||'',
+      q4:r[6]||'', q4reason:r[7]||'',
+      q5:r[8]||'', q5reason:r[9]||'',
+      q6:r[10]||'', q7:r[11]||'', q8:r[12]||'',
+      q9:r[13]||'', q10:r[14]||'',
+      q11:r[15]||'', q12:r[16]||'',
+      createdAt:r[17]||''
+    }));
+  } else if (type === 'targetreports') {
+    return rows.filter(r=>r[1]).map(r => ({ id:r[0], name:r[1], month:r[2], report:r[3]||'', createdAt:r[4]||'' }));
+  }
+  return [];
+}
+
+function post(data){
+  try {
+    fetch(SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      body: JSON.stringify(data)
+    });
+  } catch(e) {}
+}
+
+function showLoading(){
+  const d=document.createElement('div');
+  d.id='lov';d.className='loading-ov';
+  d.innerHTML='<p>🔄 Loading data... 加载中</p><span>Please wait / 请稍等</span>';
+  document.body.appendChild(d);
+}
+function hideLoading(){const d=document.getElementById('lov');if(d)d.remove();}
+
+async function syncAll(cb){
+  try {
+    await new Promise(res => jfetch('records', r => { if(Array.isArray(r)){records=r;localStorage.setItem('ev_records',JSON.stringify(r));} res(); }));
+    await new Promise(res => jfetch('feedbacks', f => { if(Array.isArray(f)){feedbacks=f;localStorage.setItem('ev_feedbacks',JSON.stringify(f));} res(); }));
+    await new Promise(res => jfetch('appeals', a => { if(Array.isArray(a)){appeals=a;localStorage.setItem('ev_appeals',JSON.stringify(a));} res(); }));
+    await new Promise(res => jfetch('targetreports', t => { if(Array.isArray(t)){targetReports=t;localStorage.setItem('ev_tr',JSON.stringify(t));} res(); }));
+    await new Promise(res => jfetch('selfassess', s => { if(Array.isArray(s)){selfAssessments=s;localStorage.setItem('ev_sa',JSON.stringify(s));} res(); }));
+  } catch(e) { console.log('Sync error:', e); }
+  if(cb) cb();
+}
+
+// WEEK HELPERS
+function getWeekStr(d){
+  const date=new Date(d);
+  const day=date.getDay();
+  const diff=date.getDate()-day+(day===0?-6:1);
+  const mon=new Date(date.setDate(diff));
+  const yr=mon.getFullYear();
+  const s=new Date(yr,0,1);
+  const wk=Math.ceil(((mon-s)/86400000+s.getDay()+1)/7);
+  return `${yr}-W${String(wk).padStart(2,'0')}`;
+}
+function curWeek(){return getWeekStr(new Date());}
+function weekLabel(ws){
+  if(!ws||!ws.includes('-W'))return ws;
+  const[yr,wp]=ws.split('-W');
+  const wn=parseInt(wp);
+  const j=new Date(parseInt(yr),0,1);
+  const dm=(wn-1)*7-j.getDay()+1;
+  const mon=new Date(parseInt(yr),0,1+dm);
+  const sun=new Date(mon);sun.setDate(mon.getDate()+6);
+  const fmt=d=>`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
+  const wom=Math.ceil(mon.getDate()/7);
+  const mns=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `第${wom}周 ${mns[mon.getMonth()]} (${fmt(mon)}-${fmt(sun)})`;
+}
+function getMonthWeeks(yr,mo){
+  const s=new Set();
+  const d=new Date(yr,mo,1);
+  while(d.getMonth()===mo){s.add(getWeekStr(new Date(d)));d.setDate(d.getDate()+7);}
+  const d2=new Date(yr,mo,1);d2.setDate(d2.getDate()-6);
+  while(d2<=new Date(yr,mo+1,0)){const w=getWeekStr(new Date(d2));if(!s.has(w))s.add(w);d2.setDate(d2.getDate()+7);}
+  return[...s].sort();
+}
+function weekOptions(){
+  const opts=[];const now=new Date();const cw=curWeek();
+  for(let i=-8;i<=1;i++){const d=new Date(now);d.setDate(now.getDate()+i*7);const ws=getWeekStr(d);if(!opts.find(o=>o.v===ws))opts.push({v:ws,l:weekLabel(ws)});}
+  return[...new Map(opts.map(o=>[o.v,o])).values()].sort((a,b)=>b.v.localeCompare(a.v));
+}
+function fillWeekSel(id){
+  const el=document.getElementById(id);if(!el)return;
+  const cw=curWeek();
+  el.innerHTML=weekOptions().map(o=>`<option value="${o.v}"${o.v===cw?' selected':''}>${o.l}</option>`).join('');
+}
+
+// BONUS CALC
+function calcBase(avg){for(const b of BONUS)if(avg>=b.min&&avg<=b.max)return b.amt;return 0;}
+function calcFinal(avg,wks){const b=calcBase(avg);const p=wks>=4?1:wks===3?0.75:wks===2?0.5:wks===1?0.25:0;return Math.round(b*p);}
+
+// LOGIN
+function selRole(r){
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('rb-'+r).classList.add('active');
+  document.querySelectorAll('.lform').forEach(f=>f.classList.remove('show'));
+  document.getElementById('lf-'+r).classList.add('show');
+}
+
+function doLogin(r){
+  if(r==='supervisor'){
+    const val=document.getElementById('ls-sup').value;
+    const pwd=document.getElementById('ls-pwd').value;
+    if(!val){showToast('Please select supervisor','#ef4444');return;}
+    const[code,expPwd]=val.split('|');
+    if(pwd!==expPwd){document.getElementById('le-sup').classList.add('show');return;}
+    document.getElementById('le-sup').classList.remove('show');
+    role='supervisor';user={code,name:SUPS[code]||code};
+  } else if(r==='employee'){
+    const name=document.getElementById('ls-emp').value.trim().toUpperCase();
+    if(!name){showToast('Please enter your full name','#ef4444');return;}
+    role='employee';user={name};
+  } else if(r==='hr'){
+    const pwd=document.getElementById('ls-hr').value;
+    if(pwd!==HR_PWD){document.getElementById('le-hr').classList.add('show');return;}
+    document.getElementById('le-hr').classList.remove('show');
+    role='hr';user={name:'HR Manager'};
+  }
+  startApp();
+}
+
+function startApp(){
+  document.getElementById('login-wrap').style.display='none';
+  document.getElementById('app-wrap').classList.add('show');
+  document.getElementById('app-user').textContent=user.name;
+  buildNav();
+  showLoading();
+  syncAll(function(){
+    hideLoading();
+    if(role==='supervisor'){buildScoreItems();fillWeekSel('e-week');showPg('evaluate');renderMyRec();}
+    else if(role==='employee'){fillWeekSel('fb-week');fillWeekSel('ap-week');initTRMonth();showPg('myscore');renderMyScore();}
+    else if(role==='hr'){initHRMonth();showPg('hrdash');renderHRDash();}
+    applyLang();
+  });
+}
+
+function doLogout(){
+  role=null;user=null;
+  document.getElementById('login-wrap').style.display='flex';
+  document.getElementById('app-wrap').classList.remove('show');
+  document.getElementById('ls-pwd').value='';
+  document.getElementById('ls-hr').value='';
+  document.getElementById('ls-emp').value='';
+  document.getElementById('ls-sup').value='';
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.lform').forEach(f=>f.classList.remove('show'));
+}
+
+// BUILD SCORE ITEMS
+function buildScoreItems(){
+  const el=document.getElementById('score-items');
+  el.innerHTML=CRITERIA.map(c=>`
+    <div class="si">
+      <div class="sl" id="lbl-${c.id}">${c.zh}</div>
+      <div class="ss">${c.ms} / ${c.en}</div>
+      <div class="sdots" id="dots-${c.id}">
+        ${[1,2,3,4,5].map(n=>`<div class="sd" onclick="setScore('${c.id}',${n})">${n}</div>`).join('')}
+      </div>
+      <input class="sni" type="text" id="note-${c.id}" placeholder="📝 Notes / 备注 (optional)"/>
+    </div>`).join('');
+}
+
+// NAV
+const NAVS={
+  supervisor:[{id:'evaluate',ic:'✏️',lb:'评分'},{id:'myrecords',ic:'📋',lb:'记录'}],
+  employee:[{id:'myscore',ic:'⭐',lb:'我的分数'},{id:'selfassess',ic:'📝',lb:'自我评估'},{id:'targetreport',ic:'🎯',lb:'目标回报'},{id:'appeal',ic:'⚠️',lb:'申诉'}],
+  hr:[{id:'hrdash',ic:'📊',lb:'报表'},{id:'hrrecords',ic:'📋',lb:'记录'},{id:'hrmonthly',ic:'📅',lb:'月报'},{id:'hrfeedback',ic:'💬',lb:'意见'},{id:'hrappeals',ic:'⚠️',lb:'申诉'},{id:'hrselfassess',ic:'📝',lb:'自评'}]
+};
+function buildNav(){
+  const lang=LANG_LIST[langIdx];
+  const tr=LANG[lang];
+  document.getElementById('app-nav').innerHTML=NAVS[role].map(t=>{
+    const label=tr['nav_'+t.id]||t.lb;
+    return `<div class="ntab" onclick="showPg('${t.id}')" id="nt-${t.id}"><span class="ni">${t.ic}</span><span id="ntlbl-${t.id}">${label}</span></div>`;
+  }).join('');
+}
+function showPg(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));
+  const pg=document.getElementById('pg-'+id);
+  const tab=document.getElementById('nt-'+id);
+  if(pg)pg.classList.add('active');
+  if(tab)tab.classList.add('active');
+  if(id==='myrecords')renderMyRec();
+  else if(id==='myscore')renderMyScore();
+  else if(id==='targetreport'){initTRMonth();updateTR();}
+  else if(id==='selfassess'){initSAMonth();checkSAStatus();applyLang();}
+  else if(id==='hrselfassess')renderHRSA();
+  else if(id==='hrdash')renderHRDash();
+  else if(id==='hrrecords')renderHRRec();
+  else if(id==='hrmonthly')renderHRMonthly();
+  else if(id==='hrfeedback')renderHRFB();
+  else if(id==='hrappeals')renderHRAppeals();
+}
+
+function refreshAll(){
+  showLoading();
+  syncAll(function(){
+    hideLoading();
+    const active=document.querySelector('.pg.active');
+    if(active){const id=active.id.replace('pg-','');showPg(id);}
+    showToast('✅ Data refreshed!','#10b981');
+  });
+}
+
+// SCORING
+function setScore(c,v){
+  scores[c]=v;
+  document.querySelectorAll(`#dots-${c} .sd`).forEach((d,i)=>{
+    d.className='sd';if(i+1===v)d.classList.add('s'+v);
+  });
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  document.getElementById('t-score').textContent=total;
+  const g=total>=27?'A':total>=21?'B':total>=15?'C':'D';
+  const gel=document.getElementById('t-grade');
+  gel.textContent=`Grade ${g}`;
+  gel.style.background=g==='A'?'#10b981':g==='B'?'#3b82f6':g==='C'?'#f59e0b':'#ef4444';
+}
+
+// SUBMIT EVAL
+function submitEval(){
+  const name=document.getElementById('e-name').value.trim().toUpperCase();
+  const pos=document.getElementById('e-pos').value.trim();
+  const dept=document.getElementById('e-dept').value;
+  const week=document.getElementById('e-week').value;
+  if(!name||!dept||!week||!Object.values(scores).every(s=>s>0)){
+    showToast('⚠️ Please fill all fields and score all items','#ef4444');return;
+  }
+  // Check duplicate - any supervisor, same employee same week
+  const dup=records.find(r=>String(r.name).toUpperCase()===name&&String(r.week)===week);
+  if(dup){showToast(`❌ ${name} already evaluated for ${weekLabel(week)}`,'#ef4444');return;}
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  const grade=total>=27?'A':total>=21?'B':total>=15?'C':'D';
+  const notes={};
+  CRITERIA.forEach(c=>{notes[c.id]=document.getElementById('note-'+c.id).value;});
+  const rec={
+    id:Date.now(),createdAt:new Date().toLocaleString('ms-MY'),
+    name,pos,dept,sup:user.code,supName:user.name,week,
+    scores:{...scores},notes,total,grade,
+    strength:document.getElementById('e-str').value,
+    target:document.getElementById('e-tgt').value,
+    confirmed:false
+  };
+  records.unshift(rec);save();
+  post({type:'evaluation',...rec});
+  // Reset form
+  document.getElementById('e-name').value='';
+  document.getElementById('e-pos').value='';
+  document.getElementById('e-dept').value='';
+  document.getElementById('e-str').value='';
+  document.getElementById('e-tgt').value='';
+  CRITERIA.forEach(c=>{
+    scores[c.id]=0;
+    document.querySelectorAll(`#dots-${c.id} .sd`).forEach(d=>d.className='sd');
+    document.getElementById('note-'+c.id).value='';
+  });
+  document.getElementById('t-score').textContent='0';
+  document.getElementById('t-grade').textContent='-';
+  document.getElementById('t-grade').style.background='rgba(255,255,255,0.2)';
+  fillWeekSel('e-week');
+  showToast('✅ Evaluation submitted!','#10b981');
+  setTimeout(()=>showPg('myrecords'),1200);
+}
+
+// MY RECORDS (Supervisor)
+function renderMyRec(){
+  const dF=document.getElementById('fr-dept')?document.getElementById('fr-dept').value:'';
+  const wF=document.getElementById('fr-week')?document.getElementById('fr-week').value:'';
+  const mine=records.filter(r=>String(r.sup).trim()===String(user.code).trim()&&(!dF||r.dept===dF)&&(!wF||r.week===wF));
+  // Populate week filter
+  const wSel=document.getElementById('fr-week');
+  if(wSel){
+    const weeks=[...new Set(records.filter(r=>String(r.sup).trim()===String(user.code).trim()).map(r=>r.week))].sort().reverse();
+    const curW=wSel.value;
+    wSel.innerHTML='<option value="">All Weeks</option>'+weeks.map(w=>`<option value="${w}"${w===curW?' selected':''}>${weekLabel(w)}</option>`).join('');
+  }
+  const el=document.getElementById('myrecords');if(!el)return;
+  if(!mine.length){
+    el.innerHTML=`<div class="empty"><div class="ei">📋</div><p>No records yet</p><p style="font-size:11px;color:#aaa;margin-top:6px">Total in DB: ${records.length} | Your code: ${user.code}</p></div>`;
+    return;
+  }
+  el.innerHTML=mine.map(r=>`
+    <div class="rc" onclick="showDetail(${r.id})">
+      <div class="rh"><div class="rname">${r.name}</div><div class="badge b${r.grade}">Grade ${r.grade} · ${r.total}/30</div></div>
+      <div class="rmeta">${r.dept} · ${weekLabel(r.week)} ${r.confirmed?'✅':''}</div>
+      <div class="pills">${CRITERIA.map(c=>`<span class="pill">${c.zh.slice(0,2)}: ${r.scores[c.id]}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+// MY SCORE (Employee)
+function renderMyScore(){
+  const empName=user.name.toUpperCase();
+  const myR=records.filter(r=>String(r.name).toUpperCase()===empName).sort((a,b)=>b.id-a.id);
+  const el=document.getElementById('myscore-content');if(!el)return;
+  if(!myR.length){el.innerHTML=`<div class="empty"><div class="ei">⭐</div><p>No evaluation records yet.<br>请等主管评分后再查看。</p></div>`;return;}
+  // Show motivational message
+  const banner=document.getElementById('motiv-banner');
+  if(banner){
+    const lang=LANG_LIST[langIdx];
+    const msgs=LANG[lang].motiv;
+    const msg=msgs[Math.floor(Math.random()*msgs.length)];
+    document.getElementById('motiv-msg').textContent=msg;
+    banner.style.display='block';
+  }
+  const latest=myR[0];
+  const now=new Date();
+  const mWks=getMonthWeeks(now.getFullYear(),now.getMonth());
+  const mRecs=myR.filter(r=>mWks.includes(r.week));
+  const mAvg=mRecs.length?mRecs.reduce((s,r)=>s+Number(r.total),0)/mRecs.length:Number(latest.total);
+  const wks=mRecs.length;
+  const bonus=calcFinal(Math.round(mAvg),wks);
+  const pct=wks>=4?100:wks===3?75:wks===2?50:wks===1?25:0;
+  el.innerHTML=`
+    <div style="background:linear-gradient(135deg,#0f2744,#1e5a9c);color:white;border-radius:16px;padding:18px;margin-bottom:12px">
+      <div style="font-size:12px;opacity:0.75;margin-bottom:4px">Latest · ${weekLabel(latest.week)}</div>
+      <div style="font-size:22px;font-weight:800">${latest.name}</div>
+      <div style="font-size:13px;opacity:0.8">${latest.dept}</div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:12px">
+        <div><div style="font-size:36px;font-weight:800">${latest.total}</div><div style="font-size:11px;opacity:0.7">/30 points</div></div>
+        <div style="background:rgba(255,255,255,0.2);border-radius:12px;padding:10px 16px;text-align:center"><div style="font-size:24px;font-weight:800">Grade ${latest.grade}</div></div>
+      </div>
+      ${latest.confirmed?'<div style="background:#10b981;color:white;border-radius:9px;padding:4px 12px;font-size:12px;font-weight:700;display:inline-block;margin-top:10px">✅ Confirmed</div>':
+      `<button onclick="confirmScore(${latest.id})" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;border-radius:9px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px">✅ Confirm Score 确认分数</button>`}
+    </div>
+    <div class="bbar">
+      <div><div style="font-size:12px;opacity:0.85">本月奖金估算 / This Month Bonus</div><div style="font-size:11px;opacity:0.75;margin-top:2px">本月${wks}/4周 · 月均${mAvg.toFixed(1)}/30 · 基本RM${calcBase(Math.round(mAvg))}×${pct}%</div></div>
+      <div class="bamt">RM ${bonus}</div>
+    </div>
+    <div class="card"><div class="ctitle">Score Breakdown</div>
+      ${CRITERIA.map(c=>`
+        <div class="msr">
+          <div class="msr-top"><div>${c.en} ${c.zh}</div><div style="font-weight:700">${latest.scores[c.id]}/5 ${['','⭕','🟡','🟡','🟢','🌟'][latest.scores[c.id]]}</div></div>
+          ${latest.notes&&latest.notes[c.id]?`<div class="mnote">📝 ${latest.notes[c.id]}</div>`:''}
+        </div>`).join('')}
+    </div>
+    ${latest.strength?`<div class="card"><div class="ctitle">💪 Strengths</div><p style="font-size:13px">${latest.strength}</p></div>`:''}
+    ${latest.target?`<div class="card"><div class="ctitle">🎯 Next Month Target</div><p style="font-size:13px">${latest.target}</p></div>`:''}
+    <div class="card"><div class="ctitle">📅 History</div>
+      ${myR.slice(0,8).map(r=>`
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f4f8">
+          <div><div style="font-size:13px;font-weight:600">${weekLabel(r.week)}</div><div style="font-size:11px;color:#6b7e94">${r.dept}</div></div>
+          <div class="badge b${r.grade}">Grade ${r.grade} · ${r.total}/30</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function confirmScore(id){
+  const r=records.find(x=>x.id===id||String(x.id)===String(id));
+  if(r){r.confirmed=true;save();post({type:'confirm',id});renderMyScore();showToast('✅ Score confirmed!','#10b981');}
+}
+
+// TARGET REPORT
+function initTRMonth(){
+  const sel=document.getElementById('tr-month');if(!sel)return;
+  const now=new Date();sel.innerHTML='';
+  for(let i=0;i<3;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    sel.innerHTML+=`<option value="${val}"${i===0?' selected':''}>${d.getFullYear()}年${d.getMonth()+1}月</option>`;
+  }
+  updateTR();
+}
+function updateTR(){
+  const monSel=document.getElementById('tr-month');
+  if(!monSel||!monSel.options.length){initTRMonth();return;}
+  const month=monSel.value;
+  const empName=user.name.toUpperCase();
+  // Show ALL target reports for this employee (all months)
+  const allTR=targetReports.filter(t=>String(t.name).toUpperCase()===empName);
+  const myTR=targetReports.filter(t=>String(t.name).toUpperCase()===empName&&t.month===month);
+  const count=myTR.length;
+  const countEl=document.getElementById('tr-count');
+  if(countEl)countEl.innerHTML=`<span style="color:${count>=2?'#10b981':'#f59e0b'};font-weight:700">本月已提交 ${count}/4 次 ${count>=2?'✅':'⚠️ 需最少2次'}</span>`;
+  const btn=document.getElementById('tr-btn');
+  if(btn){btn.disabled=count>=4;btn.style.background=count>=4?'#6b7e94':'';}
+  // Show supervisor target for this month
+  if(month){
+    const[yr,mo]=month.split('-').map(Number);
+    const mWks=getMonthWeeks(yr,mo-1);
+    const mRecs=records.filter(r=>String(r.name).toUpperCase()===empName&&mWks.includes(r.week));
+    const withTgt=mRecs.filter(r=>r.target&&r.target.trim()).sort((a,b)=>b.id-a.id)[0];
+    const box=document.getElementById('tr-target-box');
+    const txt=document.getElementById('tr-target-txt');
+    if(box&&txt){if(withTgt){box.style.display='block';txt.textContent=withTgt.target;}else{box.style.display='block';txt.textContent='主管还未设定目标 / No target set yet';}}
+  }
+  // Show history - this month's reports
+  const hEl=document.getElementById('tr-history');
+  if(hEl){
+    // Show this month + all previous
+    const display=allTR.sort((a,b)=>b.id-a.id);
+    if(!display.length){
+      hEl.innerHTML=`<div class="empty"><div class="ei">🎯</div><p>暂无回报记录<br>No reports submitted yet</p></div>`;
+      return;
+    }
+    hEl.innerHTML=`<div class="card"><div class="ctitle">📋 所有回报记录 / All Reports</div>`+
+      display.map((t,i)=>`
+        <div style="padding:10px 0;border-bottom:1px solid #f0f4f8">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:12px;font-weight:700;color:#0f2744">${t.month} · 第${i+1}次</span>
+            <span style="font-size:11px;color:#6b7e94">${t.createdAt||''}</span>
+          </div>
+          <div style="font-size:13px;line-height:1.5">${t.report}</div>
+        </div>`).join('')+`</div>`;
+  }
+}
+function submitTR(){
+  const text=document.getElementById('tr-text').value.trim();
+  const month=document.getElementById('tr-month').value;
+  if(!text){showToast('⚠️ Please write your report','#ef4444');return;}
+  const empName=user.name.toUpperCase();
+  const existing=targetReports.filter(t=>String(t.name).toUpperCase()===empName&&t.month===month);
+  if(existing.length>=4){showToast('⚠️ 本月已达最多4次','#ef4444');return;}
+  const tr={id:Date.now(),name:empName,month,report:text,createdAt:new Date().toLocaleDateString('ms-MY')};
+  targetReports.unshift(tr);save();
+  post({type:'targetreport',...tr});
+  document.getElementById('tr-text').value='';
+  showToast('✅ Report submitted!','#10b981');
+  updateTR();
+}
+
+// FEEDBACK
+function submitFB(){
+  const text=document.getElementById('fb-text').value.trim();
+  const week=document.getElementById('fb-week').value;
+  if(!text||!week){showToast('⚠️ Please fill all fields','#ef4444');return;}
+  const fb={id:Date.now(),name:user.name.toUpperCase(),week,feedback:text,createdAt:new Date().toISOString()};
+  feedbacks.unshift(fb);save();
+  post({type:'feedback',...fb});
+  document.getElementById('fb-text').value='';
+  showToast('✅ Feedback submitted confidentially!','#10b981');
+}
+
+// APPEAL
+function submitAP(){
+  const text=document.getElementById('ap-text').value.trim();
+  const week=document.getElementById('ap-week').value;
+  if(!text||!week){showToast('⚠️ Please fill all fields','#ef4444');return;}
+  const ap={id:Date.now(),name:user.name.toUpperCase(),week,appeal:text,status:'待处理 Pending',createdAt:new Date().toISOString()};
+  appeals.unshift(ap);save();
+  post({type:'appeal',...ap});
+  document.getElementById('ap-text').value='';
+  document.getElementById('ap-done').style.display='block';
+  showToast('✅ Appeal submitted!','#f59e0b');
+}
+
+// HR DASH
+function renderHRDash(){
+  const total=records.length;
+  const avg=total?(records.reduce((a,r)=>a+Number(r.total),0)/total).toFixed(1):'-';
+  const cw=curWeek();
+  document.getElementById('s-total').textContent=total;
+  document.getElementById('s-avg').textContent=avg;
+  document.getElementById('s-week').textContent=records.filter(r=>r.week===cw).length;
+  document.getElementById('s-gradeA').textContent=records.filter(r=>r.grade==='A').length;
+  // Bias
+  const bEl=document.getElementById('bias-list');
+  const oAvg=total?records.reduce((a,r)=>a+Number(r.total),0)/total:0;
+  const warns=[];
+  Object.entries(SUPS).forEach(([code,name])=>{
+    const sr=records.filter(r=>String(r.sup).trim()===code);
+    if(sr.length<3)return;
+    const sa=sr.reduce((a,r)=>a+Number(r.total),0)/sr.length;
+    const diff=sa-oAvg;
+    if(Math.abs(diff)>=5)warns.push({name,avg:sa.toFixed(1),diff,high:diff>0});
+  });
+  bEl.innerHTML=!warns.length?`<p style="font-size:13px;color:#10b981;font-weight:600">✅ No bias detected. All supervisors scoring fairly.</p>`:
+    warns.map(w=>`<div class="wcard"><div class="wc-h">⚠️ ${w.name}</div><div class="wc-s">${w.high?'Scoring HIGH':'Scoring LOW'} — Avg: ${w.avg}/30 (${w.diff>0?'+':''}${w.diff.toFixed(1)} vs overall)</div></div>`).join('');
+  // Dept bars
+  const dEl=document.getElementById('dept-bars');
+  const depts=['Wet Market','Admin','Frozen','Merchandiser','Security','Cashier'];
+  if(!total){dEl.innerHTML=`<div class="empty"><div class="ei">📊</div><p>No data yet</p></div>`;return;}
+  dEl.innerHTML=depts.map(d=>{
+    const dr=records.filter(r=>r.dept===d);if(!dr.length)return'';
+    const da=(dr.reduce((a,r)=>a+Number(r.total),0)/dr.length).toFixed(1);
+    return`<div class="dbar-r"><div class="dbar-l">${d}</div><div class="dbar-t"><div class="dbar-f" style="width:${(da/30*100).toFixed(0)}%"></div></div><div class="dbar-v">${da}</div></div>`;
+  }).join('');
+}
+
+// HR RECORDS
+function renderHRRec(){
+  const dF=document.getElementById('hr-dept').value;
+  const sF=document.getElementById('hr-sup').value;
+  const filtered=records.filter(r=>(!dF||r.dept===dF)&&(!sF||String(r.sup).trim()===sF));
+  const el=document.getElementById('hr-records');
+  if(!filtered.length){el.innerHTML=`<div class="empty"><div class="ei">📋</div><p>No records</p></div>`;return;}
+  el.innerHTML=filtered.map(r=>`
+    <div class="rc" onclick="showDetail(${r.id})">
+      <div class="rh"><div class="rname">${r.name}</div><div class="badge b${r.grade}">Grade ${r.grade} · ${r.total}/30</div></div>
+      <div class="rmeta">${r.dept} · ${r.supName||r.sup} · ${weekLabel(r.week)} ${r.confirmed?'✅':''}</div>
+      <div class="pills">${CRITERIA.map(c=>`<span class="pill">${c.zh.slice(0,2)}: ${r.scores[c.id]}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+// HR MONTHLY
+function initHRMonth(){
+  const sel=document.getElementById('hr-month');if(!sel)return;
+  const now=new Date();sel.innerHTML='';
+  for(let i=0;i<6;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    sel.innerHTML+=`<option value="${val}"${i===0?' selected':''}>${d.getFullYear()}年${d.getMonth()+1}月</option>`;
+  }
+}
+function renderHRMonthly(){
+  const monthVal=document.getElementById('hr-month').value;
+  const dF=document.getElementById('hr-mdept').value;
+  const[yr,mo]=monthVal.split('-').map(Number);
+  const weeks=getMonthWeeks(yr,mo-1);
+  const mRecs=records.filter(r=>weeks.includes(r.week));
+  const filtered=dF?mRecs.filter(r=>r.dept===dF):mRecs;
+  const el=document.getElementById('hr-monthly');
+  const empMap={};
+  filtered.forEach(r=>{
+    if(!empMap[r.name])empMap[r.name]={name:r.name,dept:r.dept,sup:r.supName||r.sup,weeks:{}};
+    if(!empMap[r.name].weeks[r.week]||r.id>empMap[r.name].weeks[r.week].id)empMap[r.name].weeks[r.week]=r;
+  });
+  const emps=Object.values(empMap).sort((a,b)=>{
+    const aA=Object.values(a.weeks).reduce((s,r)=>s+Number(r.total),0)/Object.values(a.weeks).length;
+    const bA=Object.values(b.weeks).reduce((s,r)=>s+Number(r.total),0)/Object.values(b.weeks).length;
+    return bA-aA;
+  });
+  if(!emps.length){el.innerHTML=`<div class="empty"><div class="ei">📅</div><p>No records this month</p></div>`;return;}
+  el.innerHTML=emps.map(emp=>{
+    const we=weeks.map(w=>({week:w,rec:emp.weeks[w]||null}));
+    const scored=we.filter(e=>e.rec);
+    const avg=scored.length?scored.reduce((s,e)=>s+Number(e.rec.total),0)/scored.length:0;
+    const wks=scored.length;
+    const bonus=calcFinal(Math.round(avg),wks);
+    const pct=wks>=4?100:wks===3?75:wks===2?50:wks===1?25:0;
+    const gc=avg>=27?'#10b981':avg>=21?'#3b82f6':avg>=15?'#f59e0b':'#ef4444';
+    const scoredArr=scored.map(e=>Number(e.rec.total));
+    const trend=scoredArr.length>=2?(scoredArr[scoredArr.length-1]-scoredArr[scoredArr.length-2]>0?'📈':scoredArr[scoredArr.length-1]-scoredArr[scoredArr.length-2]<0?'📉':'➡️'):'';
+    const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal);
+    const trStatus=empTR.length>=2?`<div style="font-size:11px;color:#10b981;font-weight:700">✅ Target Report ${empTR.length}/4</div>`:empTR.length===1?`<div style="font-size:11px;color:#f59e0b;font-weight:700">⚠️ Target Report 1/4 (need 2)</div>`:`<div style="font-size:11px;color:#ef4444;font-weight:700">❌ No target report submitted</div>`;
+    return`<div class="mecard">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div><div style="font-size:14px;font-weight:700">${emp.name} ${trend}</div><div style="font-size:11px;color:#6b7e94;margin-top:2px">${emp.dept} · ${wks}/4周 · ${emp.sup}</div>${trStatus}</div>
+        <div style="text-align:right"><div style="background:${gc};color:white;border-radius:10px;padding:4px 10px;font-size:12px;font-weight:800">avg ${scored.length?avg.toFixed(1):'-'}</div><div style="font-size:13px;font-weight:800;color:#10b981;margin-top:4px">RM ${bonus}</div><div style="font-size:10px;color:#6b7e94">${pct}%</div></div>
+      </div>
+      ${we.map((e,i)=>{
+        if(!e.rec)return`<div class="wrow"><span class="wnum">Week ${i+1}</span><span style="color:#6b7e94;font-style:italic">— Not evaluated</span></div>`;
+        const bc=e.rec.grade==='A'?'#10b981':e.rec.grade==='B'?'#3b82f6':e.rec.grade==='C'?'#f59e0b':'#ef4444';
+        return`<div class="wrow"><span class="wnum">Week ${i+1}</span><div class="wtrack"><div class="wfill" style="width:${(Number(e.rec.total)/30*100).toFixed(0)}%;background:${bc}"></div></div><span class="wval">${e.rec.total}</span></div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+}
+
+// EXPORT BONUS
+function exportBonus(){
+  const monthVal=document.getElementById('hr-month').value;
+  const dF=document.getElementById('hr-mdept').value;
+  const[yr,mo]=monthVal.split('-').map(Number);
+  const weeks=getMonthWeeks(yr,mo-1);
+  const mRecs=records.filter(r=>weeks.includes(r.week));
+  const filtered=dF?mRecs.filter(r=>r.dept===dF):mRecs;
+  const empMap={};
+  filtered.forEach(r=>{
+    if(!empMap[r.name])empMap[r.name]={name:r.name,dept:r.dept,sup:r.supName||r.sup,weeks:{}};
+    if(!empMap[r.name].weeks[r.week]||r.id>empMap[r.name].weeks[r.week].id)empMap[r.name].weeks[r.week]=r;
+  });
+  const emps=Object.values(empMap).sort((a,b)=>a.dept.localeCompare(b.dept)||a.name.localeCompare(b.name));
+  let csv='\uFEFF';
+  csv+=`CH CASH & CARRY SDN BHD - Bonus Report 奖金报告\nMonth 月份:,${monthVal}\n\n`;
+  csv+=`Employee,Department,Supervisor,Week1,Week2,Week3,Week4,Weeks,Avg,Grade,Base Bonus,Ratio,Final Bonus,Target Reports\n`;
+  let totalBonus=0;
+  emps.forEach(emp=>{
+    const we=weeks.map(w=>emp.weeks[w]||null);
+    const scored=we.filter(e=>e);
+    const avg=scored.length?scored.reduce((s,r)=>s+Number(r.total),0)/scored.length:0;
+    const wks=scored.length;
+    const base=calcBase(Math.round(avg));
+    const pct=wks>=4?100:wks===3?75:wks===2?50:wks===1?25:0;
+    const final=Math.round(base*pct/100);
+    const grade=avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
+    const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal).length;
+    totalBonus+=final;
+    csv+=`${emp.name},${emp.dept},${emp.sup},${we.map(e=>e?e.total:'-').join(',')},${wks}/4,${scored.length?avg.toFixed(1):'-'},${scored.length?grade:'-'},RM ${base},${pct}%,RM ${final},${empTR}/4\n`;
+  });
+  csv+=`\nTOTAL,,,,,,,,,,,,RM ${totalBonus}\n`;
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`CH_Bonus_${monthVal}.csv`;a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ Bonus CSV exported!','#10b981');
+}
+
+// HR FEEDBACK
+function renderHRFB(){
+  const el=document.getElementById('hr-feedbacks');
+  if(!feedbacks.length){el.innerHTML=`<div class="empty"><div class="ei">💬</div><p>No feedback yet</p></div>`;return;}
+  el.innerHTML=`<div class="card"><div class="ctitle">💬 Employee Feedback (Confidential)</div>`+
+    feedbacks.map(f=>`<div style="padding:10px 0;border-bottom:1px solid #f0f4f8"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><div style="font-size:13px;font-weight:700">${f.name}</div><div style="font-size:11px;color:#6b7e94">${weekLabel(f.week)||f.week}</div></div><div style="font-size:13px">${f.feedback}</div></div>`).join('')+`</div>`;
+}
+
+// HR APPEALS
+function renderHRAppeals(){
+  const el=document.getElementById('hr-appeals');
+  if(!appeals.length){el.innerHTML=`<div class="empty"><div class="ei">⚠️</div><p>No appeals</p></div>`;return;}
+  el.innerHTML=appeals.map(a=>`
+    <div class="card" style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div><div style="font-size:14px;font-weight:700">${a.name}</div><div style="font-size:11px;color:#6b7e94">${weekLabel(a.week)||a.week}</div></div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;${a.status&&a.status.includes('Resolved')?'background:#d1fae5;color:#065f46':'background:#fef9c3;color:#713f12'}">${a.status||'Pending'}</span>
+          ${!a.status||a.status.includes('Pending')?`<button onclick="resolveAP('${a.id}')" style="background:#10b981;color:white;border:none;border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer">Resolve</button>`:''}
+        </div>
+      </div>
+      <div style="font-size:13px">${a.appeal}</div>
+    </div>`).join('');
+}
+
+function resolveAP(id){
+  const a=appeals.find(x=>String(x.id)===String(id));
+  if(a){a.status='Resolved ✅';save();post({type:'resolve_appeal',id});renderHRAppeals();showToast('✅ Resolved','#10b981');}
+}
+
+// DETAIL MODAL
+function showDetail(id){
+  const r=records.find(x=>String(x.id)===String(id));if(!r)return;
+  // Get ALL target reports for this employee
+  const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===String(r.name).toUpperCase());
+  const monthTR=empTR; // Show all, not just this month
+  document.getElementById('modal-body').innerHTML=`
+    <div style="margin-bottom:12px">
+      <span class="wtag">${weekLabel(r.week)}</span>
+      <h3 style="font-size:17px;font-weight:800">${r.name}</h3>
+      <div style="font-size:12px;color:#6b7e94;margin-top:2px">${r.pos||''} · ${r.dept} · ${r.supName||r.sup}</div>
+    </div>
+    <div class="tbar" style="margin-bottom:12px">
+      <div><div style="font-size:13px;font-weight:600">Total Score</div></div>
+      <div style="text-align:center"><div class="tscore">${r.total}</div><div style="font-size:10px;opacity:0.7">/30</div></div>
+      <div class="tgrade" style="background:${r.grade==='A'?'#10b981':r.grade==='B'?'#3b82f6':r.grade==='C'?'#f59e0b':'#ef4444'}">Grade ${r.grade}</div>
+    </div>
+    ${CRITERIA.map(c=>`<div class="msr"><div class="msr-top"><div>${c.en} ${c.zh}</div><div style="font-weight:700">${r.scores[c.id]}/5 ${['','⭕','🟡','🟡','🟢','🌟'][r.scores[c.id]]}</div></div>${r.notes&&r.notes[c.id]?`<div class="mnote">📝 ${r.notes[c.id]}</div>`:''}</div>`).join('')}
+    ${r.strength?`<div style="margin-top:12px"><div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:4px">STRENGTHS</div><div style="font-size:13px;background:#f7fafd;padding:9px;border-radius:8px">${r.strength}</div></div>`:''}
+    ${r.target?`<div style="margin-top:8px"><div style="font-size:11px;font-weight:700;color:#6b7e94;margin-bottom:4px">TARGET</div><div style="font-size:13px;background:#f7fafd;padding:9px;border-radius:8px">${r.target}</div></div>`:''}
+    ${r.confirmed?'<div style="margin-top:10px"><span style="background:#10b981;color:white;border-radius:9px;padding:4px 12px;font-size:12px;font-weight:700">✅ Employee Confirmed</span></div>':''}
+    <div style="margin-top:12px;background:${monthTR.length>=2?'#f0fdf4':'#fff7ed'};border-radius:10px;padding:10px">
+      <div style="font-size:12px;font-weight:700;color:${monthTR.length>=2?'#065f46':'#c2410c'};margin-bottom:6px">🎯 ${getTR('title')} (${getTR('count').replace('{n}', monthTR.length)})</div>
+      ${monthTR.length?monthTR.sort((a,b)=>b.id-a.id).map((t,i)=>`<div style="font-size:12px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.05)"><div style="display:flex;justify-content:space-between"><b style="color:#0f2744">${t.month}</b><span style="color:#6b7e94">${t.createdAt||''}</span></div><div style="margin-top:2px">${t.report}</div></div>`).join(''):`<div style="font-size:12px;color:#92400e">❌ ${getTR('none')}</div>`}
+    </div>`;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+// TOAST
+function showToast(msg,color){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.background=color||'#10b981';
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
+}
+// ===== SELF ASSESSMENT =====
+function initSAMonth(){
+  const sel=document.getElementById('sa-month');if(!sel)return;
+  const now=new Date();sel.innerHTML='';
+  for(let i=0;i<3;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    sel.innerHTML+=`<option value="${val}"${i===0?' selected':''}>${d.getFullYear()}年${d.getMonth()+1}月</option>`;
+  }
+  sel.onchange=checkSAStatus;
+  checkSAStatus();
+}
+
+function checkSAStatus(){
+  const month=document.getElementById('sa-month')?document.getElementById('sa-month').value:'';
+  const empName=user.name.toUpperCase();
+  const existing=selfAssessments.find(s=>String(s.name).toUpperCase()===empName&&s.month===month);
+  const statusEl=document.getElementById('sa-status');
+  const btn=document.getElementById('sa-btn');
+  if(existing){
+    if(statusEl)statusEl.innerHTML=`<div style="background:#d1fae5;border-radius:10px;padding:12px;text-align:center"><div style="font-size:13px;font-weight:700;color:#065f46">✅ 本月已提交自我评估！/ Already submitted this month!</div><div style="font-size:12px;color:#047857;margin-top:3px">${existing.createdAt}</div></div>`;
+    if(btn){btn.disabled=true;btn.style.background='#6b7e94';btn.textContent='✅ 本月已提交 / Already submitted';}
+  } else {
+    if(statusEl)statusEl.innerHTML='';
+    if(btn){btn.disabled=false;btn.style.background='';btn.textContent='📤 提交自我评估 / Submit Self Assessment';}
+  }
+}
+
+function submitSA(){
+  const month=document.getElementById('sa-month').value;
+  const empName=user.name.toUpperCase();
+  // Check duplicate
+  const existing=selfAssessments.find(s=>String(s.name).toUpperCase()===empName&&s.month===month);
+  if(existing){showToast('⚠️ 本月已提交过了！','#f59e0b');return;}
+  // Collect answers
+  const stress=document.querySelector('input[name="stress"]:checked');
+  const progress=document.querySelector('input[name="progress"]:checked');
+  const rules=document.querySelector('input[name="rules"]:checked');
+  const future=[];
+  ['sa-f1','sa-f2','sa-f3','sa-f4','sa-f5','sa-f6'].forEach((id,i)=>{
+    const cb=document.getElementById(id);
+    if(cb&&cb.checked){
+      const labels=['奖励制度','晋升机会','培训','工作环境','团队沟通','其他'];
+      const other=id==='sa-f6'?('：'+document.getElementById('sa-f6-text').value):'';
+      future.push(labels[i]+other);
+    }
+  });
+  const sa={
+    id:Date.now(), name:empName, month,
+    q1:document.getElementById('sa-q1').value,
+    q2:document.getElementById('sa-q2').value,
+    q3:document.getElementById('sa-q3').value,
+    q4:stress?stress.value:'', q4reason:document.getElementById('sa-q4-reason').value,
+    q5:progress?progress.value:'', q5reason:document.getElementById('sa-q5-reason').value,
+    q6:document.getElementById('sa-q6').value,
+    q7:document.getElementById('sa-q7').value,
+    q8:document.getElementById('sa-q8').value,
+    q9:rules?rules.value:'',
+    q10:future.join(', '),
+    q11:(()=>{const p=document.querySelector('input[name="position"]:checked');const custom=document.getElementById('sa-q11').value;return p?p.value+(custom?' — '+custom:''):custom;})(),
+    q12:document.getElementById('sa-q12').value,
+    createdAt:new Date().toLocaleString('ms-MY')
+  };
+  selfAssessments.unshift(sa);save();
+  post({type:'selfassess',...sa});
+  showToast('✅ 自我评估已提交！','#10b981');
+  checkSAStatus();
+  // Clear form
+  ['sa-q1','sa-q2','sa-q3','sa-q4-reason','sa-q5-reason','sa-q6','sa-q7','sa-q8','sa-q11','sa-q12'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.querySelectorAll('input[name="stress"],input[name="progress"],input[name="rules"],input[name="position"]').forEach(r=>r.checked=false);
+  ['sa-f1','sa-f2','sa-f3','sa-f4','sa-f5','sa-f6'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=false;});
+  document.getElementById('sa-f6-text').value='';
+}
+
+// HR Self Assessment View
+function renderHRSA(){
+  const el=document.getElementById('hr-sa-list');if(!el)return;
+  if(!selfAssessments.length){el.innerHTML=`<div class="empty"><div class="ei">📝</div><p>No self assessments yet</p></div>`;return;}
+  el.innerHTML=selfAssessments.map(s=>`
+    <div class="card" style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div><div style="font-size:14px;font-weight:700">${s.name}</div><div style="font-size:11px;color:#6b7e94">${s.month} · ${s.createdAt}</div></div>
+        <div style="background:#dbeafe;color:#1e3a8a;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700">📝 Self Assessment</div>
+      </div>
+      ${s.q4?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">压力：</span><span style="font-size:13px">${s.q4}${s.q4reason?' — '+s.q4reason:''}</span></div>`:''}
+      ${s.q5?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">进步：</span><span style="font-size:13px">${s.q5}${s.q5reason?' — '+s.q5reason:''}</span></div>`:''}
+      ${s.q9?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">制度清楚：</span><span style="font-size:13px">${s.q9}</span></div>`:''}
+      ${s.q1?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">工作表现：</span><span style="font-size:13px">${s.q1}</span></div>`:''}
+      ${s.q2?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">最强之处：</span><span style="font-size:13px">${s.q2}</span></div>`:''}
+      ${s.q3?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">需要改善：</span><span style="font-size:13px">${s.q3}</span></div>`:''}
+      ${s.q7?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">公司改善：</span><span style="font-size:13px">${s.q7}</span></div>`:''}
+      ${s.q8?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">对主管建议：</span><span style="font-size:13px">${s.q8}</span></div>`:''}
+      ${s.q10?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">期望增加：</span><span style="font-size:13px">${s.q10}</span></div>`:''}
+      ${s.q11?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">目标职位：</span><span style="font-size:13px">${s.q11}</span></div>`:''}
+      ${s.q12?`<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#6b7e94">其他期待：</span><span style="font-size:13px">${s.q12}</span></div>`:''}
+    </div>`).join('');
+}
+
+// ===== LANGUAGE SYSTEM =====
+const LANG_LIST = ['中文','BM','EN','বাংলা'];
+let langIdx = 0;
+
+const LANG = {
+  '中文': {
+    // Nav
+    nav_evaluate:'评分', nav_myrecords:'记录', nav_myscore:'我的分数',
+    nav_selfassess:'自我评估', nav_targetreport:'目标回报', nav_feedback:'意见', nav_appeal:'申诉',
+    nav_hrdash:'报表', nav_hrrecords:'记录', nav_hrmonthly:'月报',
+    nav_hrfeedback:'意见', nav_hrappeals:'申诉',
+    // Evaluate form
+    emp_info:'员工信息', emp_name:'员工全名 / Full Name', emp_pos:'职位 / Position',
+    emp_dept:'部门 / Department', emp_week:'评估周 / Week',
+    scoring:'评分项目 (1-5)', summary:'总结',
+    strengths:'优点 / Strengths', target:'下月目标 / Next Month Target',
+    submit:'💾 提交评估',
+    sa_title:'自我评估', sa_subtitle:'每月一次 · HR和主管可看到',
+    sa_hint:'以下题目可以不填，如压力感受、原因等',
+    sa_sec_a:'A. 对自己的评估', sa_sec_b:'B. 对公司的评估', sa_sec_c:'C. 对未来的期待',
+    sa_submit:'📤 提交自我评估',
+    sa_q1:'你觉得自己目前工作表现如何？',
+    sa_q2:'你觉得自己最强的地方是什么？',
+    sa_q3:'你觉得自己最需要改善什么？',
+    sa_q4:'你对目前工作压力的感受？',
+    sa_q5:'你觉得自己有进步吗？',
+    sa_q6:'你觉得公司目前哪里做得好？',
+    sa_q7:'你觉得公司哪里最需要改善？',
+    sa_q8:'你对主管有什么建议？',
+    sa_q9:'你觉得公司制度清楚吗？',
+    sa_q10:'你希望公司未来增加什么？',
+    sa_q11:'你未来想在公司成长到什么职位？',
+    sa_q12:'你对公司未来有什么期待？还有什么想说的？',
+    // Score criteria
+    c1:'出勤与守时', c2:'工作态度', c3:'卫生与整洁',
+    c4:'服务态度', c5:'团队合作', c6:'效率与执行力',
+    // Employee
+    my_score:'我的分数', bonus_label:'本月奖金估算',
+    confirm_btn:'✅ 确认分数', confirmed:'✅ 已确认',
+    // Target report
+    tr_title:'目标回报', tr_note:'每月最少2次，最多4次',
+    tr_month:'月份', tr_target_lbl:'主管设定目标',
+    tr_achieve:'完成情况', tr_submit:'📤 提交回报',
+    tr_history:'所有回报记录',
+    // Feedback
+    fb_title:'意见（机密）', fb_note:'只有HR看到',
+    fb_week:'评估周', fb_text:'写下你的意见...',
+    fb_submit:'📤 提交',
+    // Appeal  
+    ap_title:'申诉', ap_note:'只有HR看到，HR会处理',
+    ap_week:'评估周', ap_text:'说明申诉原因...',
+    ap_submit:'📤 提交申诉',
+    // Motivational
+    motiv: ['继续努力！你做得很好！💪', '每一天都是新的开始！🌟', '你的努力大家都看到了！👏', '坚持就是胜利！🏆', '你是团队的骄傲！⭐'],
+  },
+  'BM': {
+    nav_evaluate:'Nilai', nav_myrecords:'Rekod', nav_myscore:'Markah Saya',
+    nav_selfassess:'Penilaian Diri', nav_targetreport:'Laporan', nav_feedback:'Maklum Balas', nav_appeal:'Rayuan',
+    nav_hrdash:'Laporan', nav_hrrecords:'Rekod', nav_hrmonthly:'Bulanan',
+    nav_hrfeedback:'Maklum Balas', nav_hrappeals:'Rayuan',
+    emp_info:'Maklumat Pekerja', emp_name:'Nama Penuh', emp_pos:'Jawatan',
+    emp_dept:'Bahagian', emp_week:'Minggu Penilaian',
+    scoring:'Kriteria Penilaian (1-5)', summary:'Rumusan',
+    strengths:'Kekuatan', target:'Sasaran Bulan Depan',
+    submit:'💾 Hantar Penilaian',
+    sa_title:'Penilaian Diri', sa_subtitle:'Sekali sebulan · HR & Penyelia boleh lihat',
+    sa_hint:'Soalan berikut adalah pilihan, contohnya tahap tekanan, sebab dll',
+    sa_sec_a:'A. Penilaian Diri Sendiri', sa_sec_b:'B. Penilaian Syarikat', sa_sec_c:'C. Harapan Masa Depan',
+    sa_submit:'📤 Hantar Penilaian Diri',
+    sa_q1:'Bagaimana prestasi kerja anda?',
+    sa_q2:'Apakah kekuatan terbesar anda?',
+    sa_q3:'Apakah yang paling perlu diperbaiki?',
+    sa_q4:'Bagaimana tahap tekanan kerja anda?',
+    sa_q5:'Adakah anda rasa ada kemajuan?',
+    sa_q6:'Apa yang syarikat lakukan dengan baik?',
+    sa_q7:'Apa yang perlu diperbaiki dalam syarikat?',
+    sa_q8:'Ada cadangan untuk penyelia anda?',
+    sa_q9:'Adakah peraturan syarikat jelas?',
+    sa_q10:'Apa yang anda harap syarikat tambah?',
+    sa_q11:'Jawatan apa yang anda impikan?',
+    sa_q12:'Ada harapan atau komen lain?',
+    c1:'Kehadiran & Masa', c2:'Sikap Kerja', c3:'Kebersihan',
+    c4:'Layanan Pelanggan', c5:'Kerjasama', c6:'Kecekapan',
+    my_score:'Markah Saya', bonus_label:'Anggaran Bonus Bulan Ini',
+    confirm_btn:'✅ Sahkan Markah', confirmed:'✅ Disahkan',
+    tr_title:'Laporan Sasaran', tr_note:'Min 2 kali, max 4 kali sebulan',
+    tr_month:'Bulan', tr_target_lbl:'Sasaran Penyelia',
+    tr_achieve:'Pencapaian', tr_submit:'📤 Hantar Laporan',
+    tr_history:'Semua Laporan',
+    fb_title:'Maklum Balas (Sulit)', fb_note:'Hanya HR yang dapat melihat',
+    fb_week:'Minggu', fb_text:'Tulis maklum balas anda...',
+    fb_submit:'📤 Hantar',
+    ap_title:'Rayuan', ap_note:'Hanya HR yang dapat melihat',
+    ap_week:'Minggu', ap_text:'Jelaskan sebab rayuan...',
+    ap_submit:'📤 Hantar Rayuan',
+    motiv: ['Teruskan usaha! Anda hebat! 💪', 'Setiap hari adalah permulaan baru! 🌟', 'Kerja keras anda dihargai! 👏', 'Teruskan! Kejayaan menanti! 🏆', 'Anda kebanggaan pasukan! ⭐'],
+  },
+  'EN': {
+    nav_evaluate:'Evaluate', nav_myrecords:'Records', nav_myscore:'My Score',
+    nav_selfassess:'Self Assess', nav_targetreport:'Target', nav_feedback:'Feedback', nav_appeal:'Appeal',
+    nav_hrdash:'Report', nav_hrrecords:'Records', nav_hrmonthly:'Monthly',
+    nav_hrfeedback:'Feedback', nav_hrappeals:'Appeals',
+    emp_info:'Employee Info', emp_name:'Full Name', emp_pos:'Position',
+    emp_dept:'Department', emp_week:'Evaluation Week',
+    scoring:'Evaluation Criteria (1-5)', summary:'Summary',
+    strengths:'Strengths', target:'Next Month Target',
+    submit:'💾 Submit Evaluation',
+    sa_title:'Self Assessment', sa_subtitle:'Once per month · HR & Supervisor can view',
+    sa_hint:'The following questions are optional, e.g. stress level, reasons',
+    sa_sec_a:'A. Self Evaluation', sa_sec_b:'B. Company Evaluation', sa_sec_c:'C. Future Expectations',
+    sa_submit:'📤 Submit Self Assessment',
+    sa_q1:'How is your work performance?',
+    sa_q2:'What is your greatest strength?',
+    sa_q3:'What needs most improvement?',
+    sa_q4:'How is your work stress level?',
+    sa_q5:'Do you feel you have improved?',
+    sa_q6:'What does the company do well?',
+    sa_q7:'What needs improvement in the company?',
+    sa_q8:'Any suggestions for your supervisor?',
+    sa_q9:'Are company rules clear?',
+    sa_q10:'What would you like the company to add?',
+    sa_q11:'What position do you aspire to?',
+    sa_q12:'Any other expectations or comments?',
+    c1:'Attendance & Punctuality', c2:'Work Attitude', c3:'Cleanliness',
+    c4:'Customer Service', c5:'Teamwork', c6:'Efficiency',
+    my_score:'My Score', bonus_label:'This Month Bonus Estimate',
+    confirm_btn:'✅ Confirm Score', confirmed:'✅ Confirmed',
+    tr_title:'Target Report', tr_note:'Min 2, max 4 times per month',
+    tr_month:'Month', tr_target_lbl:"Supervisor's Target",
+    tr_achieve:'Achievement', tr_submit:'📤 Submit Report',
+    tr_history:'All Reports',
+    fb_title:'Feedback (Confidential)', fb_note:'Only HR can see this',
+    fb_week:'Week', fb_text:'Write your feedback...',
+    fb_submit:'📤 Submit',
+    ap_title:'Appeal', ap_note:'Only HR can see this',
+    ap_week:'Week', ap_text:'Explain your reason...',
+    ap_submit:'📤 Submit Appeal',
+    motiv: ['Keep it up! You are doing great! 💪', 'Every day is a fresh start! 🌟', 'Your hard work is noticed! 👏', 'Keep going! Success awaits! 🏆', 'You are the pride of the team! ⭐'],
+  },
+  'বাংলা': {
+    nav_evaluate:'মূল্যায়ন', nav_myrecords:'রেকর্ড', nav_myscore:'আমার স্কোর',
+    nav_selfassess:'আত্ম-মূল্যায়ন', nav_targetreport:'লক্ষ্য রিপোর্ট', nav_feedback:'মতামত', nav_appeal:'আপিল',
+    nav_hrdash:'রিপোর্ট', nav_hrrecords:'রেকর্ড', nav_hrmonthly:'মাসিক',
+    nav_hrfeedback:'মতামত', nav_hrappeals:'আপিল',
+    emp_info:'কর্মচারীর তথ্য', emp_name:'পুরো নাম', emp_pos:'পদ',
+    emp_dept:'বিভাগ', emp_week:'মূল্যায়ন সপ্তাহ',
+    scoring:'মূল্যায়ন মানদণ্ড (১-৫)', summary:'সারসংক্ষেপ',
+    strengths:'শক্তি', target:'পরের মাসের লক্ষ্য',
+    submit:'💾 জমা দিন',
+    sa_title:'আত্ম-মূল্যায়ন', sa_subtitle:'মাসে একবার · HR এবং সুপারভাইজার দেখতে পাবেন',
+    sa_hint:'নিম্নলিখিত প্রশ্নগুলি ঐচ্ছিক, যেমন চাপের মাত্রা, কারণ ইত্যাদি',
+    sa_sec_a:'A. নিজের মূল্যায়ন', sa_sec_b:'B. কোম্পানির মূল্যায়ন', sa_sec_c:'C. ভবিষ্যতের প্রত্যাশা',
+    sa_submit:'📤 আত্ম-মূল্যায়ন জমা দিন',
+    sa_q1:'আপনার কাজের পারফরম্যান্স কেমন?',
+    sa_q2:'আপনার সবচেয়ে বড় শক্তি কী?',
+    sa_q3:'কোন বিষয়ে সবচেয়ে বেশি উন্নতি দরকার?',
+    sa_q4:'আপনার কাজের চাপ কেমন?',
+    sa_q5:'আপনি কি মনে করেন উন্নতি হয়েছে?',
+    sa_q6:'কোম্পানি কোন ক্ষেত্রে ভালো করছে?',
+    sa_q7:'কোম্পানিতে কী উন্নতি দরকার?',
+    sa_q8:'আপনার সুপারভাইজারের জন্য কোনো পরামর্শ?',
+    sa_q9:'কোম্পানির নিয়মকানুন কি স্পষ্ট?',
+    sa_q10:'আপনি কোম্পানিতে কী যোগ করতে চান?',
+    sa_q11:'আপনি কোন পদে উন্নীত হতে চান?',
+    sa_q12:'অন্য কোনো প্রত্যাশা বা মন্তব্য?',
+    c1:'উপস্থিতি ও সময়মতো', c2:'কাজের মনোভাব', c3:'পরিচ্ছন্নতা',
+    c4:'গ্রাহক সেবা', c5:'দলগত কাজ', c6:'দক্ষতা',
+    my_score:'আমার স্কোর', bonus_label:'এই মাসের বোনাস অনুমান',
+    confirm_btn:'✅ স্কোর নিশ্চিত করুন', confirmed:'✅ নিশ্চিত',
+    tr_title:'লক্ষ্য রিপোর্ট', tr_note:'প্রতি মাসে কমপক্ষে ২ বার, সর্বোচ্চ ৪ বার',
+    tr_month:'মাস', tr_target_lbl:'সুপারভাইজারের লক্ষ্য',
+    tr_achieve:'অর্জন', tr_submit:'📤 রিপোর্ট জমা দিন',
+    tr_history:'সব রিপোর্ট',
+    fb_title:'মতামত (গোপনীয়)', fb_note:'শুধু HR দেখতে পাবে',
+    fb_week:'সপ্তাহ', fb_text:'আপনার মতামত লিখুন...',
+    fb_submit:'📤 জমা দিন',
+    ap_title:'আপিল', ap_note:'শুধু HR দেখতে পাবে',
+    ap_week:'সপ্তাহ', ap_text:'কারণ ব্যাখ্যা করুন...',
+    ap_submit:'📤 আপিল জমা দিন',
+    motiv: ['চালিয়ে যান! আপনি দুর্দান্ত! 💪', 'প্রতিটি দিন নতুন শুরু! 🌟', 'আপনার পরিশ্রম সবাই দেখছে! 👏', 'থামবেন না! সাফল্য অপেক্ষা করছে! 🏆', 'আপনি দলের গর্ব! ⭐'],
+  }
+};
+
+function getTR(key){
+  const lang=LANG_LIST[langIdx];
+  const t=LANG[lang];
+  const map={
+    title:{
+      '中文':'员工目标回报','BM':'Laporan Sasaran Pekerja',
+      'EN':'Employee Target Report','বাংলা':'কর্মচারী লক্ষ্য রিপোর্ট'
+    },
+    count:{
+      '中文':'共{n}次','BM':'Jumlah {n} kali',
+      'EN':'{n} report(s)','বাংলা':'মোট {n} বার'
+    },
+    none:{
+      '中文':'员工未提交目标回报','BM':'Pekerja belum hantar laporan sasaran',
+      'EN':'Employee has not submitted target report','বাংলা':'কর্মচারী লক্ষ্য রিপোর্ট জমা দেননি'
+    }
+  };
+  return (map[key]&&map[key][lang])||map[key]['EN']||'';
+}
+
+function cycleLang(){
+  langIdx=(langIdx+1)%LANG_LIST.length;
+  applyLang();
+}
+
+function applyLang(){
+  const lang=LANG_LIST[langIdx];
+  const t=LANG[lang];
+  document.getElementById('lang-btn').textContent=lang;
+  // Update ALL nav tab labels using span ID
+  ['evaluate','myrecords','myscore','selfassess','targetreport','feedback','appeal',
+   'hrdash','hrrecords','hrmonthly','hrfeedback','hrappeals','hrselfassess'].forEach(id=>{
+    const lbl=document.getElementById('ntlbl-'+id);
+    if(lbl&&t['nav_'+id]) lbl.textContent=t['nav_'+id];
+  });
+  // Update form labels
+  const labelMap={
+    'lbl-empinfo':'emp_info','lbl-empname':'emp_name','lbl-emppos':'emp_pos',
+    'lbl-empdept':'emp_dept','lbl-empweek':'emp_week','lbl-scoring':'scoring',
+    'lbl-summary':'summary','lbl-strengths':'strengths','lbl-target':'target',
+    'btn-submit':'submit','lbl-trtitle':'tr_title','lbl-trnote':'tr_note',
+    'lbl-trmonth':'tr_month','lbl-trtarget':'tr_target_lbl',
+    'lbl-trachieve':'tr_achieve','btn-trsubmit':'tr_submit',
+    'lbl-fbtitle':'fb_title','lbl-fbnote':'fb_note','lbl-fbweek':'fb_week',
+    'btn-fbsubmit':'fb_submit','lbl-aptitle':'ap_title','lbl-apnote':'ap_note',
+    'lbl-apweek':'ap_week','btn-apsubmit':'ap_submit',
+    'sa-title':'sa_title','sa-subtitle':'sa_subtitle','sa-hint':'sa_hint',
+    'sa-sec-a':'sa_sec_a','sa-sec-b':'sa_sec_b','sa-sec-c':'sa_sec_c',
+    'sa-btn':'sa_submit',
+    'sa-lbl-q1':'sa_q1','sa-lbl-q2':'sa_q2','sa-lbl-q3':'sa_q3',
+    'sa-lbl-q4':'sa_q4','sa-lbl-q5':'sa_q5','sa-lbl-q6':'sa_q6',
+    'sa-lbl-q7':'sa_q7','sa-lbl-q8':'sa_q8','sa-lbl-q9':'sa_q9',
+    'sa-lbl-q10':'sa_q10','sa-lbl-q11':'sa_q11','sa-lbl-q12':'sa_q12',
+  };
+  // Update SA option texts directly
+  const saOpts = {"中文": {"sa-s1": "很轻松", "sa-s2": "正常", "sa-s3": "有点压力", "sa-s4": "压力很大", "sa-p1": "有明显进步", "sa-p2": "有一点进步", "sa-p3": "没什么变化", "sa-r1": "很清楚", "sa-r2": "还可以", "sa-r3": "不太清楚", "sa-r4": "很混乱", "sa-f1t": "奖励制度", "sa-f2t": "晋升机会", "sa-f3t": "培训", "sa-f4t": "工作环境", "sa-f5t": "团队沟通", "sa-f6t": "其他", "sa-pos1": "Team Leader / 组长", "sa-pos2": "Supervisor / 主管", "sa-pos3": "Assistant Manager / 副经理"}, "BM": {"sa-s1": "Sangat santai", "sa-s2": "Normal", "sa-s3": "Sedikit tertekan", "sa-s4": "Sangat tertekan", "sa-p1": "Kemajuan jelas", "sa-p2": "Ada sedikit kemajuan", "sa-p3": "Tiada perubahan", "sa-r1": "Sangat jelas", "sa-r2": "Boleh diterima", "sa-r3": "Kurang jelas", "sa-r4": "Sangat mengelirukan", "sa-f1t": "Sistem ganjaran", "sa-f2t": "Peluang kenaikan pangkat", "sa-f3t": "Latihan", "sa-f4t": "Persekitaran kerja", "sa-f5t": "Komunikasi pasukan", "sa-f6t": "Lain-lain", "sa-pos1": "Ketua Kumpulan", "sa-pos2": "Penyelia", "sa-pos3": "Penolong Pengurus"}, "EN": {"sa-s1": "Very relaxed", "sa-s2": "Normal", "sa-s3": "Slightly stressed", "sa-s4": "Very stressed", "sa-p1": "Clear improvement", "sa-p2": "Some improvement", "sa-p3": "No change", "sa-r1": "Very clear", "sa-r2": "Acceptable", "sa-r3": "Not very clear", "sa-r4": "Very confusing", "sa-f1t": "Reward system", "sa-f2t": "Promotion opportunities", "sa-f3t": "Training", "sa-f4t": "Work environment", "sa-f5t": "Team communication", "sa-f6t": "Other", "sa-pos1": "Team Leader", "sa-pos2": "Supervisor", "sa-pos3": "Assistant Manager"}, "বাংলা": {"sa-s1": "খুব স্বাচ্ছন্দ্যময়", "sa-s2": "স্বাভাবিক", "sa-s3": "কিছুটা চাপ", "sa-s4": "খুব বেশি চাপ", "sa-p1": "স্পষ্ট উন্নতি", "sa-p2": "কিছুটা উন্নতি", "sa-p3": "কোনো পরিবর্তন নেই", "sa-r1": "খুব স্পষ্ট", "sa-r2": "গ্রহণযোগ্য", "sa-r3": "খুব স্পষ্ট নয়", "sa-r4": "খুব বিভ্রান্তিকর", "sa-f1t": "পুরস্কার ব্যবস্থা", "sa-f2t": "পদোন্নতির সুযোগ", "sa-f3t": "প্রশিক্ষণ", "sa-f4t": "কর্মপরিবেশ", "sa-f5t": "দলীয় যোগাযোগ", "sa-f6t": "অন্যান্য", "sa-pos1": "টিম লিডার", "sa-pos2": "সুপারভাইজার", "sa-pos3": "সহকারী ম্যানেজার"}};
+  const curOpts = saOpts[lang] || saOpts['EN'];
+  Object.entries(curOpts).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.textContent=val;});
+  Object.entries(labelMap).forEach(([id,key])=>{
+    const el=document.getElementById(id);if(el&&t[key])el.textContent=t[key];
+  });
+  // Update criteria labels
+  CRITERIA.forEach(c=>{
+    const el=document.getElementById('lbl-'+c.id);
+    if(el&&t[c.id])el.textContent=t[c.id];
+  });
+  // Update placeholders
+  const phMap={
+    'e-name':t.emp_name,'e-pos':t.emp_pos,
+    'e-str':t.strengths,'e-tgt':t.target,
+    'fb-text':t.fb_text,'ap-text':t.ap_text,'tr-text':t.tr_achieve
+  };
+  Object.entries(phMap).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.placeholder=val+'...';});
+  // Update SA placeholders
+  const saPhMap={
+    'sa-q1':{'中文':'做得好的地方、不足的地方...','BM':'Perkara baik dan perlu diperbaiki...','EN':'Good points and areas to improve...','বাংলা':'ভালো দিক এবং উন্নতির ক্ষেত্র...'},
+    'sa-q2':{'中文':'写下你的强项...','BM':'Tulis kekuatan anda...','EN':'Write your strengths...','বাংলা':'আপনার শক্তি লিখুন...'},
+    'sa-q3':{'中文':'写下需要改善的地方...','BM':'Tulis perkara yang perlu diperbaiki...','EN':'Write what needs improvement...','বাংলা':'উন্নতির বিষয় লিখুন...'},
+    'sa-q6':{'中文':'写下公司做得好的地方...','BM':'Tulis perkara positif syarikat...','EN':'Write what the company does well...','বাংলা':'কোম্পানির ভালো দিক লিখুন...'},
+    'sa-q7':{'中文':'写下需要改善的地方...','BM':'Tulis perkara yang perlu diperbaiki...','EN':'Write what needs improvement...','বাংলা':'উন্নতির বিষয় লিখুন...'},
+    'sa-q8':{'中文':'写下你的建议...','BM':'Tulis cadangan anda...','EN':'Write your suggestions...','বাংলা':'আপনার পরামর্শ লিখুন...'},
+    'sa-q11':{'中文':'或写下其他职位...','BM':'Atau tulis jawatan lain...','EN':'Or write other position...','বাংলা':'বা অন্য পদ লিখুন...'},
+    'sa-q12':{'中文':'写下你的期待和想法...','BM':'Tulis harapan dan pendapat anda...','EN':'Write your expectations and thoughts...','বাংলা':'আপনার প্রত্যাশা লিখুন...'},
+  };
+  Object.entries(saPhMap).forEach(([id,vals])=>{const el=document.getElementById(id);if(el)el.placeholder=vals[lang]||vals['EN'];});
+  // Show motivational message for employee
+  if(role==='employee'){
+    const msgs=t.motiv;
+    const msg=msgs[Math.floor(Math.random()*msgs.length)];
+    const el=document.getElementById('motiv-msg');
+    if(el)el.textContent=msg;
+  }
+}
+</script>
+</body>
+</html>
