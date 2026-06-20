@@ -866,7 +866,7 @@ function renderMyScore(){
       `<button onclick="confirmScore(${latest.id})" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;border-radius:9px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px">✅ Confirm Score 确认分数</button>`}
     </div>
     <div class="bbar">
-      <div><div style="font-size:12px;opacity:0.85">本月奖金估算 / This Month Bonus</div><div style="font-size:11px;opacity:0.75;margin-top:2px">本月${wks}/4周 · 月均${mAvg.toFixed(1)}/30 · 基本RM${calcBase(Math.round(mAvg))}×${pct}%</div></div>
+      <div><div style="font-size:12px;opacity:0.85">本月奖金估算 / This Month Bonus</div><div style="font-size:11px;opacity:0.75;margin-top:2px">⚠️ 仅供参考，最终以HR核实为准<br>Estimate only · Final amount subject to HR review</div></div>
       <div class="bamt">RM ${bonus}</div>
     </div>
     <div class="card"><div class="ctitle">Score Breakdown</div>
