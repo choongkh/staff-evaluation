@@ -220,7 +220,7 @@ textarea{resize:vertical;min-height:70px}
           <option>Merchandiser</option><option>Security</option><option>Cashier</option>
         </select>
       </div>
-      <div class="fg"><label class="fl" id="lbl-empweek">评估周 / Week</label><select id="e-week"></select></div>
+      <div class="fg"><label class="fl" id="lbl-empweek">评估周 / Week (只能本周 / Current week only)</label><select id="e-week"></select></div>
     </div>
     <div class="card">
       <div class="ctitle"><span id="lbl-scoring">评分 / Scoring (1-5)</span></div>
@@ -627,6 +627,16 @@ function fillWeekSel(id){
   const cw=curWeek();
   el.innerHTML=weekOptions().map(o=>`<option value="${o.v}"${o.v===cw?' selected':''}>${o.l}</option>`).join('');
 }
+function fillCurrentWeekOnly(id){
+  // Supervisor can ONLY evaluate current week - no back-dating
+  const el=document.getElementById(id);if(!el)return;
+  const cw=curWeek();
+  el.innerHTML=`<option value="${cw}" selected>${weekLabel(cw)}</option>`;
+  el.disabled=true;
+  el.style.background='#f0f4f9';
+  el.style.color='#0f2744';
+  el.style.fontWeight='700';
+}
 
 // BONUS CALC
 function calcBase(avg){for(const b of BONUS)if(avg>=b.min&&avg<=b.max)return b.amt;return 0;}
@@ -670,7 +680,7 @@ function startApp(){
   showLoading();
   syncAll(function(){
     hideLoading();
-    if(role==='supervisor'){buildScoreItems();fillWeekSel('e-week');showPg('evaluate');renderMyRec();}
+    if(role==='supervisor'){buildScoreItems();fillCurrentWeekOnly('e-week');showPg('evaluate');renderMyRec();}
     else if(role==='employee'){fillWeekSel('fb-week');fillWeekSel('ap-week');initTRMonth();showPg('myscore');renderMyScore();}
     else if(role==='hr'){initHRMonth();showPg('hrdash');renderHRDash();}
     applyLang();
@@ -769,6 +779,10 @@ function submitEval(){
   if(!name||!dept||!week||!Object.values(scores).every(s=>s>0)){
     showToast('⚠️ Please fill all fields and score all items','#ef4444');return;
   }
+  // STRICT: only allow current week evaluation
+  if(week!==curWeek()){
+    showToast('❌ 只能评估本周！过期不能补 / Current week only, no back-dating','#ef4444');return;
+  }
   // Check duplicate - any supervisor, same employee same week
   const dup=records.find(r=>String(r.name).toUpperCase()===name&&String(r.week)===week);
   if(dup){showToast(`❌ ${name} already evaluated for ${weekLabel(week)}`,'#ef4444');return;}
@@ -800,7 +814,7 @@ function submitEval(){
   document.getElementById('t-score').textContent='0';
   document.getElementById('t-grade').textContent='-';
   document.getElementById('t-grade').style.background='rgba(255,255,255,0.2)';
-  fillWeekSel('e-week');
+  fillCurrentWeekOnly('e-week');
   showToast('✅ Evaluation submitted!','#10b981');
   setTimeout(()=>showPg('myrecords'),1200);
 }
@@ -1118,7 +1132,9 @@ function exportBonus(){
     const grade=avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
     const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal).length;
     totalBonus+=final;
-    csv+=`${emp.name},${emp.dept},${emp.sup},${we.map(e=>e?e.total:'-').join(',')},${wks}/4,${scored.length?avg.toFixed(1):'-'},${scored.length?grade:'-'},RM ${base},${pct}%,RM ${final},${empTR}/4\n`;
+    // Force exactly 4 week columns (first 4 weeks of the month)
+    const w4=[0,1,2,3].map(i=>we[i]?we[i].total:'-');
+    csv+=`${emp.name},${emp.dept},${emp.sup},${w4.join(',')},${wks}/4,${scored.length?avg.toFixed(1):'-'},"${scored.length?grade:'-'}",RM ${base},${pct}%,RM ${final},${empTR}/4\n`;
   });
   csv+=`\nTOTAL,,,,,,,,,,,,RM ${totalBonus}\n`;
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
