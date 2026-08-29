@@ -1177,8 +1177,10 @@ function exportBonus(){
   const monthVal=document.getElementById('hr-month').value;
   const dF=document.getElementById('hr-mdept').value;
   const[yr,mo]=monthVal.split('-').map(Number);
-  const weeks=[...getMonthWeeks(yr,mo-1),...getMonthWeeksNew(yr,mo-1)];
-  const mRecs=records.filter(r=>weeks.includes(r.week));
+  const allWeeks=[...getMonthWeeks(yr,mo-1),...getMonthWeeksNew(yr,mo-1)];
+  const displayWeeks=getMonthWeeksNew(yr,mo-1); // 4 date-based slots
+  const oldWeeks=getMonthWeeks(yr,mo-1);
+  const mRecs=records.filter(r=>allWeeks.includes(r.week));
   const filtered=dF?mRecs.filter(r=>r.dept===dF):mRecs;
   const empMap={};
   filtered.forEach(r=>{
@@ -1191,7 +1193,12 @@ function exportBonus(){
   csv+=`Employee,Department,Supervisor,Week1,Week2,Week3,Week4,Weeks,Avg,Grade,Base Bonus,Ratio,Final Bonus,Target Reports\n`;
   let totalBonus=0;
   emps.forEach(emp=>{
-    const we=weeks.map(w=>emp.weeks[w]||null);
+    // Map to 4 date slots, fallback to old format by position
+    const we=displayWeeks.map((w,idx)=>{
+      if(emp.weeks[w])return emp.weeks[w];
+      if(oldWeeks[idx]&&emp.weeks[oldWeeks[idx]])return emp.weeks[oldWeeks[idx]];
+      return null;
+    });
     const scored=we.filter(e=>e);
     const avg=scored.length?scored.reduce((s,r)=>s+Number(r.total),0)/scored.length:0;
     const wks=scored.length;
@@ -1201,8 +1208,7 @@ function exportBonus(){
     const grade=avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
     const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal).length;
     totalBonus+=final;
-    // Force exactly 4 week columns (first 4 weeks of the month)
-    const w4=[0,1,2,3].map(i=>we[i]?we[i].total:'-');
+    const w4=we.map(e=>e?e.total:'-');
     csv+=`${emp.name},${emp.dept},${emp.sup},${w4.join(',')},${wks}/4,${scored.length?avg.toFixed(1):'-'},"${scored.length?grade:'-'}",RM ${base},${pct}%,RM ${final},${empTR}/4\n`;
   });
   csv+=`\nTOTAL,,,,,,,,,,,,RM ${totalBonus}\n`;
