@@ -598,13 +598,13 @@ function getWeekStr(d){
 function curWeek(){return getWeekStr(new Date());}
 function weekLabel(ws){
   if(!ws)return ws;
+  const mns=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   // New date-based format: 2026-07-W2
   const parts=String(ws).split('-');
   if(parts.length===3&&parts[2].startsWith('W')){
-    const yr=parts[0], mo=parts[1], wk=parseInt(parts[2].substring(1));
-    const mns=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const mo=parts[1], wk=parseInt(parts[2].substring(1));
     const ranges={1:'01-07',2:'08-14',3:'15-21',4:'22-28'};
-    return `第${wk}周 ${mns[parseInt(mo)-1]} (${ranges[wk]||''})`;
+    return `${weekPrefix(wk)} ${mns[parseInt(mo)-1]} (${ranges[wk]||''})`;
   }
   // Old format: 2026-W24 (backward compatible)
   if(!ws.includes('-W'))return ws;
@@ -616,8 +616,7 @@ function weekLabel(ws){
   const sun=new Date(mon);sun.setDate(mon.getDate()+6);
   const fmt=d=>`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
   const wom=Math.ceil(mon.getDate()/7);
-  const mns=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `第${wom}周 ${mns[mon.getMonth()]} (${fmt(mon)}-${fmt(sun)})`;
+  return `${weekPrefix(wom)} ${mns[mon.getMonth()]} (${fmt(mon)}-${fmt(sun)})`;
 }
 function getMonthWeeksNew(yr,mo){
   // mo is 0-indexed. Returns date-based weeks: 2026-07-W1..W4
@@ -660,15 +659,20 @@ function isEvalOpen(){
   const day=new Date().getDate();
   return day<=28;
 }
+function weekPrefix(wk){
+  const lang=LANG_LIST[langIdx];
+  const p={'中文':`第${wk}周`,'BM':`Minggu ${wk}`,'EN':`Week ${wk}`,'বাংলা':`সপ্তাহ ${wk}`};
+  return p[lang]||p['EN'];
+}
 function dateWeekLabel(ws){
-  // Format: 2026-07-W2 -> 第2周 Jul (08-14)
+  // Format: 2026-07-W2 -> Week 2 Jul (08-14)
   if(!ws||!ws.includes('-W'))return ws;
   const parts=ws.split('-W');
   const [yr,mo]=parts[0].split('-');
   const wk=parseInt(parts[1]);
   const mns=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const ranges={1:'01-07',2:'08-14',3:'15-21',4:'22-28'};
-  return `第${wk}周 ${mns[parseInt(mo)-1]} (${ranges[wk]})`;
+  return `${weekPrefix(wk)} ${mns[parseInt(mo)-1]} (${ranges[wk]})`;
 }
 function fillCurrentWeekOnly(id){
   // Supervisor can ONLY evaluate current date-based week
@@ -1173,8 +1177,10 @@ function exportBonus(){
   const monthVal=document.getElementById('hr-month').value;
   const dF=document.getElementById('hr-mdept').value;
   const[yr,mo]=monthVal.split('-').map(Number);
-  const weeks=[...getMonthWeeks(yr,mo-1),...getMonthWeeksNew(yr,mo-1)];
-  const mRecs=records.filter(r=>weeks.includes(r.week));
+  const allWeeks=[...getMonthWeeks(yr,mo-1),...getMonthWeeksNew(yr,mo-1)];
+  const displayWeeks=getMonthWeeksNew(yr,mo-1); // 4 date-based slots
+  const oldWeeks=getMonthWeeks(yr,mo-1);
+  const mRecs=records.filter(r=>allWeeks.includes(r.week));
   const filtered=dF?mRecs.filter(r=>r.dept===dF):mRecs;
   const empMap={};
   filtered.forEach(r=>{
@@ -1187,7 +1193,12 @@ function exportBonus(){
   csv+=`Employee,Department,Supervisor,Week1,Week2,Week3,Week4,Weeks,Avg,Grade,Base Bonus,Ratio,Final Bonus,Target Reports\n`;
   let totalBonus=0;
   emps.forEach(emp=>{
-    const we=weeks.map(w=>emp.weeks[w]||null);
+    // Map to 4 date slots, fallback to old format by position
+    const we=displayWeeks.map((w,idx)=>{
+      if(emp.weeks[w])return emp.weeks[w];
+      if(oldWeeks[idx]&&emp.weeks[oldWeeks[idx]])return emp.weeks[oldWeeks[idx]];
+      return null;
+    });
     const scored=we.filter(e=>e);
     const avg=scored.length?scored.reduce((s,r)=>s+Number(r.total),0)/scored.length:0;
     const wks=scored.length;
@@ -1197,8 +1208,7 @@ function exportBonus(){
     const grade=avg>=27?'A':avg>=21?'B':avg>=15?'C':'D';
     const empTR=targetReports.filter(t=>String(t.name).toUpperCase()===emp.name.toUpperCase()&&t.month===monthVal).length;
     totalBonus+=final;
-    // Force exactly 4 week columns (first 4 weeks of the month)
-    const w4=[0,1,2,3].map(i=>we[i]?we[i].total:'-');
+    const w4=we.map(e=>e?e.total:'-');
     csv+=`${emp.name},${emp.dept},${emp.sup},${w4.join(',')},${wks}/4,${scored.length?avg.toFixed(1):'-'},"${scored.length?grade:'-'}",RM ${base},${pct}%,RM ${final},${empTR}/4\n`;
   });
   csv+=`\nTOTAL,,,,,,,,,,,,RM ${totalBonus}\n`;
@@ -1578,6 +1588,12 @@ function getTR(key){
 function cycleLang(){
   langIdx=(langIdx+1)%LANG_LIST.length;
   applyLang();
+  // Refresh current page so week labels update
+  const active=document.querySelector('.pg.active');
+  if(active){const id=active.id.replace('pg-','');
+    if(id==='evaluate')fillCurrentWeekOnly('e-week');
+    else showPg(id);
+  }
 }
 
 function applyLang(){
